@@ -44,7 +44,6 @@ public class MainActivity extends BaseActivity implements IMainActivity {
         presenter.getExample();
         initViewPager();
         initTabLayout();
-
     }
 
     private void initViewPager() {

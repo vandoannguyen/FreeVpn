@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.point.PointsDesActivity">
+    <RelativeLayout
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <ImageView
+            android:src="@drawable/ic_back"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:text="Points Description"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_margin="10dp"
+            android:textSize="15sp"
+            android:text="Points are free to get"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_margin="10dp"
+            android:textSize="15sp"
+            android:text="Different levels of servers consume different amount of points per day:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_margin="10dp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+        <TextView
+            android:layout_margin="10dp"
+            android:textSize="13sp"
+            android:textColor="@android:color/holo_red_light"
+            android:textStyle="italic"
+            android:text="Tips: Once higher level has been unlocked, lower levels can be used"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

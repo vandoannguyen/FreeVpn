@@ -20,7 +20,7 @@
                 android:id="@+id/cardConnect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:cardCornerRadius="5dp">
 
                 <LinearLayout
@@ -40,7 +40,7 @@
                             android:layout_width="200dp"
                             android:layout_height="200dp"
                             android:layout_gravity="center"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@drawable/connect" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -65,10 +65,10 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:layout_width="80dp"
-                                android:layout_height="50dp"
+                                android:layout_width="60dp"
+                                android:layout_height="40dp"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="10dp"
                                 android:src="@drawable/ic_flag" />
 
                             <TextView
@@ -76,7 +76,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="5dp"
-                                android:text="The United State" />
+                                android:text="Vietnam" />
                         </LinearLayout>
 
                         <View
@@ -107,6 +107,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:visibility="gone"
                 android:id="@+id/cardDisConnect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,12 +158,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Virtual IP:192.168.255.255" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
                                 android:text="Virtual IP:192.168.255.255" />
 
                             <TextView
@@ -248,9 +243,9 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
-                    android:padding="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -258,27 +253,30 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:text="Quick Launch"
-                            android:textSize="18sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
-                            android:layout_marginLeft="10dp" />
-                        <View
                             android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="5dp"
+                            android:text="Quick Launch"
+                            android:textSize="18sp" />
+
+                        <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
                             android:background="#838383" />
+
                         <LinearLayout
-                            android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
                             <LinearLayout
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
 
                             </LinearLayout>
                         </LinearLayout>

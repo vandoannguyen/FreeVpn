@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SwitchRegion"></activity>
+        <activity android:name=".ui.point.PointsDesActivity"></activity>
+        <activity android:name=".ui.proxy.ProxySettingActivity" />
+        <activity android:name=".SwitchRegion" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.load.LoadData">
             <intent-filter>

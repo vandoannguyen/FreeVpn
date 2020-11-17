@@ -52,5 +52,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     annotationProcessor 'androidx.room:room-compiler:2.2.2'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
-
+    //numberpicker
+    compile 'com.super_rabbit.wheel_picker:NumberPicker:1.0.1'
 }
