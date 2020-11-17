@@ -15,7 +15,6 @@ import android.util.Log;
 import androidx.multidex.MultiDexApplication;
 
 import com.example.init_app_vpn_native.R;
-import com.example.init_app_vpn_native.data.api.model.Country;
 import com.example.init_app_vpn_native.data.api.model.Server;
 
 import java.util.Calendar;

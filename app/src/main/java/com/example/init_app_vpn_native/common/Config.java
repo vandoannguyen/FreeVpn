@@ -9,5 +9,4 @@ public class Config {
     public static String StringCountDown;
     public static long LongDataUsage;
 
-
 }

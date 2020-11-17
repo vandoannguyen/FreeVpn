@@ -44,7 +44,6 @@ public class MainActivity extends BaseActivity implements IMainActivity {
         presenter.getExample();
         initViewPager();
         initTabLayout();
-
     }
 
     private void initViewPager() {
@@ -57,15 +56,6 @@ public class MainActivity extends BaseActivity implements IMainActivity {
     }
 
     private void initTabLayout() {
-//        tabView.addTab(tabView.newTab().setText("Songs").setIcon(R.drawable.ic_vpn));
-//        tabView.addTab(tabView.newTab().setText("Albums").setIcon(R.drawable.ic_vpn));
-//        tabView.addTab(tabView.newTab().setText("Artists").setIcon(R.drawable.ic_vpn));
-//        tabView.getTabAt(0).setIcon(R.drawable.ic_vpn);
-//        tabView.getTabAt(1).setIcon(R.drawable.ic_vpn);
-//        tabView.getTabAt(2).setIcon(R.drawable.ic_vpn);
-//        tabView.getTabAt(0).setText("VPN");
-//        tabView.getTabAt(1).setText("Points");
-//        tabView.getTabAt(2).setText("Mores");
         tabView.setupWithViewPager(viewPager);
     }
 

@@ -1,8 +1,10 @@
-package com.example.init_app_vpn_native;
+package com.example.init_app_vpn_native.ui.switchRegion;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.init_app_vpn_native.R;
 
 public class SwitchRegion extends AppCompatActivity {
 

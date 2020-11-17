@@ -1,6 +1,6 @@
 package com.example.init_app_vpn_native.base;
 
-public abstract class BasePresenter<V extends MVPView> implements MVPPresenter<V> {
+public abstract class   BasePresenter<V extends MVPView> implements MVPPresenter<V> {
     Boolean isActivityAlive = false;
     public V view;
     @Override

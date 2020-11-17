@@ -8,21 +8,27 @@ public class Country {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("countryCode")
+    @SerializedName("code")
     @Expose
-    private String countryCode;
+    private String code;
     @SerializedName("name")
     @Expose
     private String name;
-
-    public Country(String id, String countryCode, String name) {
-        this.id = id;
-        this.countryCode = countryCode;
-        this.name = name;
-    }
-
-    public Country() {
-    }
+    @SerializedName("flag")
+    @Expose
+    private String flag;
+    @SerializedName("price")
+    @Expose
+    private String price;
+    @SerializedName("speed")
+    @Expose
+    private String speed;
+    @SerializedName("createdAt")
+    @Expose
+    private String createdAt;
+    @SerializedName("updatedAt")
+    @Expose
+    private String updatedAt;
 
     public String getId() {
         return id;
@@ -32,15 +38,60 @@ public class Country {
         this.id = id;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
         return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(String speed) {
+        this.speed = speed;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 }
