@@ -7,15 +7,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import java.util.Calendar;
+
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+
 import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.base.BaseActivity;
 import com.example.init_app_vpn_native.ui.main.adapter.ViewPagerAdapter;
 import com.example.init_app_vpn_native.ui.main.fragment.more.MoreFragment;
 import com.example.init_app_vpn_native.ui.main.fragment.point.PointFragment;
 import com.example.init_app_vpn_native.ui.main.fragment.vpn.VpnFragment;
+import com.example.init_app_vpn_native.ui.point.PointsDesActivity;
+import com.example.init_app_vpn_native.utils.Common;
+import com.example.init_app_vpn_native.utils.SharedPrefsUtils;
 import com.example.init_app_vpn_native.utils.ads.Ads;
 import com.example.init_app_vpn_native.ui.point.PointsDesActivity;
 import com.example.init_app_vpn_native.utils.ads.Ads;

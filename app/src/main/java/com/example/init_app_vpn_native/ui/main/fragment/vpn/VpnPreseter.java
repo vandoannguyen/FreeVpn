@@ -27,7 +27,6 @@ import com.example.init_app_vpn_native.data.IAppDataHelper;
 import com.example.init_app_vpn_native.data.api.model.Country;
 import com.example.init_app_vpn_native.data.api.model.Server;
 import com.example.init_app_vpn_native.ui.load.LoadData;
-import com.example.init_app_vpn_native.ui.switchRegion.SwitchRegion;
 import com.example.init_app_vpn_native.utils.EncryptData;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;

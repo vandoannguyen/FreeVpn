@@ -26,7 +26,6 @@
         <activity android:name=".ui.proxy.ProxySettingActivity" />
         <activity android:name=".ui.invite.InviteFriendActivity" />
         <activity android:name=".ui.enterCode.EnterCodesActivity" />
-        <activity android:name=".ui.switchRegion.SwitchRegion" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.load.LoadData">
             <intent-filter>

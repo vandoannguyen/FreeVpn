@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -52,8 +51,6 @@ public class VpnFragment extends Fragment implements IVpnView {
     LinearLayout lineGetSpeedTest;
     @BindView(R.id.linearConnected)
     LinearLayout linearConnected;
-    @BindView(R.id.reclcyerQuickLaunch)
-    RecyclerView reclcyerQuickLaunch;
     @BindView(R.id.imgConnect)
     ImageView imgConnect;
     @BindView(R.id.imgFlag)
