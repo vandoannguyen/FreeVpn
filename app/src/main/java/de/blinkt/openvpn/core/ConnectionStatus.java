@@ -9,7 +9,7 @@ import android.os.Parcelable;
 /**
  * Created by arne on 08.11.16.
  */
-public enum ConnectionStatus         implements Parcelable {
+public enum ConnectionStatus implements Parcelable {
     LEVEL_CONNECTED,
     LEVEL_VPNPAUSED,
     LEVEL_CONNECTING_SERVER_REPLIED,

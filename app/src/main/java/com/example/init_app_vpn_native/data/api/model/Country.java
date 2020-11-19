@@ -3,7 +3,12 @@ package com.example.init_app_vpn_native.data.api.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Country {
+    public Country(String code) {
+        this.code = code;
+    }
 
     @SerializedName("id")
     @Expose
@@ -94,4 +99,16 @@ public class Country {
         this.updatedAt = updatedAt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Country)) return false;
+        Country country = (Country) o;
+        return Objects.equals(getCode(), country.getCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCode());
+    }
 }

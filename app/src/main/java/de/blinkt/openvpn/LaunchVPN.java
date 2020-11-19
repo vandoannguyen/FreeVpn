@@ -47,31 +47,6 @@ import de.blinkt.openvpn.core.VpnStatus;
 
 ;
 
-/**
- * This Activity actually handles two stages of a launcher shortcut's life cycle.
- * <p/>
- * 1. Your application offers to provide shortcuts to the launcher.  When
- * the user installs a shortcut, an activity within your application
- * generates the actual shortcut and returns it to the launcher, where it
- * is shown to the user as an icon.
- * <p/>
- * 2. Any time the user clicks on an installed shortcut, an intent is sent.
- * Typically this would then be handled as necessary by an activity within
- * your application.
- * <p/>
- * We handle stage 1 (creating a shortcut) by simply sending back the information (in the form
- * of an {@link android.content.Intent} that the launcher will use to create the shortcut.
- * <p/>
- * You can also implement this in an interactive way, by having your activity actually present
- * UI for the user to select the specific nature of the shortcut, such as a contact, picture, URL,
- * media item, or action.
- * <p/>
- * We handle stage 2 (responding to a shortcut) in this sample by simply displaying the contents
- * of the incoming {@link android.content.Intent}.
- * <p/>
- * In a real application, you would probably use the shortcut intent to display specific content
- * or start a particular operation.
- */
 public class LaunchVPN extends Activity {
     public static final String EXTRA_KEY = "de.blinkt.openvpn.shortcutProfileUUID";
     public static final String EXTRA_NAME = "de.blinkt.openvpn.shortcutProfileName";
@@ -88,8 +63,10 @@ public class LaunchVPN extends Activity {
         public void onServiceConnected(ComponentName componentName, IBinder binder) {
             IServiceStatus service = IServiceStatus.Stub.asInterface(binder);
             try {
-                if (mTransientAuthPW != null) service.setCachedPassword(mSelectedProfile.getUUIDString(), PasswordCache.AUTHPASSWORD, mTransientAuthPW);
-                if (mTransientCertOrPCKS12PW != null) service.setCachedPassword(mSelectedProfile.getUUIDString(), PasswordCache.PCKS12ORCERTPASSWORD, mTransientCertOrPCKS12PW);
+                if (mTransientAuthPW != null)
+                    service.setCachedPassword(mSelectedProfile.getUUIDString(), PasswordCache.AUTHPASSWORD, mTransientAuthPW);
+                if (mTransientCertOrPCKS12PW != null)
+                    service.setCachedPassword(mSelectedProfile.getUUIDString(), PasswordCache.PCKS12ORCERTPASSWORD, mTransientCertOrPCKS12PW);
                 onActivityResult(START_VPN_PROFILE, Activity.RESULT_OK, null);
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -117,13 +94,15 @@ public class LaunchVPN extends Activity {
         // If the intent is a request to create a shortcut, we'll do that and exit
         if (Intent.ACTION_MAIN.equals(action)) {
             // Check if we need to clear the log
-            if (Preferences.getDefaultSharedPreferences(this).getBoolean(CLEARLOG, true)) VpnStatus.clearLog();
+            if (Preferences.getDefaultSharedPreferences(this).getBoolean(CLEARLOG, true))
+                VpnStatus.clearLog();
             // we got called to be the starting point, most likely a shortcut
             String shortcutUUID = intent.getStringExtra(EXTRA_KEY);
             String shortcutName = intent.getStringExtra(EXTRA_NAME);
             mhideLog = intent.getBooleanExtra(EXTRA_HIDELOG, false);
             VpnProfile profileToConnect = ProfileManager.get(this, shortcutUUID);
-            if (shortcutName != null && profileToConnect == null) profileToConnect = ProfileManager.getInstance(this).getProfileByName(shortcutName);
+            if (shortcutName != null && profileToConnect == null)
+                profileToConnect = ProfileManager.getInstance(this).getProfileByName(shortcutName);
             if (profileToConnect == null) {
                 VpnStatus.logError(R.string.shortcut_profile_notfound);
                 // show Log window to display error
@@ -152,8 +131,10 @@ public class LaunchVPN extends Activity {
             ((CheckBox) userpwlayout.findViewById(R.id.show_password)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) ((EditText) userpwlayout.findViewById(R.id.password)).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    else ((EditText) userpwlayout.findViewById(R.id.password)).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    if (isChecked)
+                        ((EditText) userpwlayout.findViewById(R.id.password)).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    else
+                        ((EditText) userpwlayout.findViewById(R.id.password)).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 }
             });
             dialog.setView(userpwlayout);
@@ -199,21 +180,22 @@ public class LaunchVPN extends Activity {
                 if (needpw != 0) {
 //                    VpnStatus.updateStateString("USER_VPN_PASSWORD", "", R.string.state_user_vpn_password, ConnectionStatus.LEVEL_WAITING_FOR_USER_INPUT);
 //                    askForPW(needpw);
-                    mSelectedProfile.mUsername = new EncryptData().decrypt(getSelectedServer().getUserName());
-                    mSelectedProfile.mPassword = new EncryptData().decrypt(getSelectedServer().getPassword());
+                    mSelectedProfile.mUsername = new EncryptData().decrypt(getSelectedServer().getAuth().getUsername());
+                    mSelectedProfile.mPassword = new EncryptData().decrypt(getSelectedServer().getAuth().getPassword());
                 }
 //                else {
-                    SharedPreferences prefs = Preferences.getDefaultSharedPreferences(this);
-                    boolean showLogWindow = prefs.getBoolean("showlogwindow", true);
-                    if (!mhideLog && showLogWindow) showLogWindow();
-                    ProfileManager.updateLRU(this, mSelectedProfile);
-                    VPNLaunchHelper.startOpenVpn(mSelectedProfile, getBaseContext());
-                    finish();
+                SharedPreferences prefs = Preferences.getDefaultSharedPreferences(this);
+                boolean showLogWindow = prefs.getBoolean("showlogwindow", true);
+                if (!mhideLog && showLogWindow) showLogWindow();
+                ProfileManager.updateLRU(this, mSelectedProfile);
+                VPNLaunchHelper.startOpenVpn(mSelectedProfile, getBaseContext());
+                finish();
 //                }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 // User does not want us to start, so we just vanish
                 VpnStatus.updateStateString("USER_VPN_PERMISSION_CANCELLED", "", R.string.state_user_vpn_permission_cancelled, ConnectionStatus.LEVEL_NOTCONNECTED);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) VpnStatus.logError(R.string.nought_alwayson_warning);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    VpnStatus.logError(R.string.nought_alwayson_warning);
                 App.abortConnection = true;
                 finish();
             }

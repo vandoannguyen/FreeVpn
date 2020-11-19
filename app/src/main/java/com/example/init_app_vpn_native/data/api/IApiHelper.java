@@ -4,10 +4,12 @@ import com.example.init_app_vpn_native.data.CallBack;
 import com.example.init_app_vpn_native.data.api.model.Country;
 import com.example.init_app_vpn_native.data.api.model.Server;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 public interface IApiHelper {
-    void demoCallBack(String token,CallBack<String> callBack);
+    void getAdsConfig(CallBack<JSONObject> callBack);
 
     void getFastConnect(String token,CallBack<Server> callBack);
 

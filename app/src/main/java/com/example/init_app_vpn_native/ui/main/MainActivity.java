@@ -13,7 +13,7 @@ import com.example.init_app_vpn_native.ui.main.adapter.ViewPagerAdapter;
 import com.example.init_app_vpn_native.ui.main.fragment.more.MoreFragment;
 import com.example.init_app_vpn_native.ui.main.fragment.point.PointFragment;
 import com.example.init_app_vpn_native.ui.main.fragment.vpn.VpnFragment;
-import com.example.init_app_vpn_native.utils.Ads;
+import com.example.init_app_vpn_native.utils.ads.Ads;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -38,7 +38,6 @@ public class MainActivity extends BaseActivity implements IMainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Ads.getInstance(this).initAds();
         presenter = new MainPresenter<>(this);
         presenter.onAttact(this);
         presenter.getExample();

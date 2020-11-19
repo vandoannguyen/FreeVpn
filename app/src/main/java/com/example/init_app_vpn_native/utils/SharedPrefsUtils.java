@@ -70,6 +70,9 @@ public class SharedPrefsUtils {
         int defaultValue = 0;
         return pref.getInt(key, defaultValue);
     }
+    public int getInt(String key, int deff) {
+        return pref.getInt(key, deff);
+    }
 
     public void putLong(String key, long value) {
         editor.putLong(key, value);

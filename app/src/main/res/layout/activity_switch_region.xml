@@ -15,8 +15,7 @@
             android:id="@+id/icBackSwitchRegion"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:padding="10dp"
+            android:padding="15dp"
             android:src="@drawable/ic_back" />
 
         <TextView
@@ -26,7 +25,7 @@
             android:layout_weight="1"
             android:text="Switch Region"
             android:textColor="#202020"
-            android:textSize="23dp" />
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/icBackRefreshRegion"
@@ -34,7 +33,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:padding="10dp"
+            android:padding="15dp"
             android:src="@drawable/ic_refresh" />
     </LinearLayout>
 
@@ -54,7 +53,8 @@
             android:id="@+id/linearProgress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <ProgressBar
                 android:layout_width="50dp"

@@ -39,10 +39,9 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.example.init_app_vpn_native.BuildConfig;
 import com.example.init_app_vpn_native.R;
-import com.example.init_app_vpn_native.common.Config;
 import com.example.init_app_vpn_native.ui.main.MainActivity;
+import com.example.init_app_vpn_native.utils.Config;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -478,7 +477,8 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         // Start a new session by creating a new thread.
         SharedPreferences prefs = Preferences.getDefaultSharedPreferences(this);
         mOvpn3 = prefs.getBoolean("ovpn3", false);
-        if (!"ovpn3".equals(BuildConfig.FLAVOR)) mOvpn3 = false;
+//        if (!"ovpn3".equals(BuildConfig.FLAVOR))
+        mOvpn3 = false;
         // Open the Management Interface
         if (!mOvpn3) {
             // start a Thread that handles incoming messages of the managment socket

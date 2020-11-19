@@ -8,7 +8,7 @@ public class Geo {
 
     @SerializedName("range")
     @Expose
-    private List<Integer> range = null;
+    private List<Double> range = null;
     @SerializedName("country")
     @Expose
     private String country;
@@ -34,11 +34,11 @@ public class Geo {
     @Expose
     private Integer area;
 
-    public List<Integer> getRange() {
+    public List<Double> getRange() {
         return range;
     }
 
-    public void setRange(List<Integer> range) {
+    public void setRange(List<Double> range) {
         this.range = range;
     }
 

@@ -166,7 +166,7 @@ public class ConfigParser {
                 }
                 options.get(optionname).add(args);
             }
-        } catch (java.lang.OutOfMemoryError memoryError) {
+        } catch (OutOfMemoryError memoryError) {
             throw new ConfigParseError("File too large to parse: " + memoryError.getLocalizedMessage());
         }
     }

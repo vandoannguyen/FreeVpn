@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-
 import com.example.init_app_vpn_native.R;
 
 import java.io.BufferedInputStream;
@@ -124,7 +123,7 @@ class LogFileHandler extends Handler {
             if (!logfile.exists() || !logfile.canRead())
                 return;
             readCacheContents(new FileInputStream(logfile));
-        } catch (java.io.IOException | java.lang.RuntimeException e) {
+        } catch (IOException | RuntimeException e) {
             VpnStatus.logError("Reading cached logfile failed");
             VpnStatus.logException(e);
             e.printStackTrace();

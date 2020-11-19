@@ -1,17 +1,25 @@
 package com.example.init_app_vpn_native.ui.main.fragment.vpn;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.init_app_vpn_native.R;
+import com.example.init_app_vpn_native.common.Config;
+import com.example.init_app_vpn_native.data.api.model.Country;
+import com.example.init_app_vpn_native.ui.speedTest.SpeedTest;
+import com.example.init_app_vpn_native.ui.switchRegion.SwitchRegion;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +36,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "VpnFragment";
     @BindView(R.id.cardConnect)
     CardView cardConnect;
     @BindView(R.id.cardDisConnect)
@@ -42,7 +51,25 @@ public class VpnFragment extends Fragment implements IVpnView {
     LinearLayout linearConnected;
     @BindView(R.id.reclcyerQuickLaunch)
     RecyclerView reclcyerQuickLaunch;
-
+    @BindView(R.id.imgConnect)
+    ImageView imgConnect;
+    @BindView(R.id.imgFlag)
+    ImageView imgFlag;
+    @BindView(R.id.txtCountry)
+    TextView txtCountry;
+    @BindView(R.id.lineSwitchCountry)
+    LinearLayout lineSwitchCountry;
+    @BindView(R.id.lineDisconnect)
+    LinearLayout lineDisconnect;
+    IVpnPresenter<IVpnView> presenter;
+    @BindView(R.id.txtVirtualIp)
+    TextView txtVirtualIp;
+    @BindView(R.id.txtDownloadSpeed)
+    TextView txtDownloadSpeed;
+    @BindView(R.id.txtUpLoadSpeed)
+    TextView txtUpLoadSpeed;
+    @BindView(R.id.linearConnect)
+    LinearLayout linearConnect;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -73,7 +100,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preseter = new VpnPreseter<>();
+        preseter = new VpnPreseter<>(getActivity());
         preseter.onAttact(this);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -92,25 +119,28 @@ public class VpnFragment extends Fragment implements IVpnView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_vpn2, container, false);
-        ButterKnife.bind(view);
+        ButterKnife.bind(this, view);
+//        preseter.getConnectionStatus();
+        preseter.getSelectedServer();
+        String countryCode = Config.currentServer.getGeo().getCountry();
+        Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
+        if (country != null) {
+            txtCountry.setText(country.getName());
+            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
+        }
         return view;
     }
 
-    @OnClick({R.id.lineGetCoin, R.id.lineGetServer, R.id.lineGetSpeedTest, R.id.linearConnected})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.lineGetCoin:
-                Toast.makeText(getContext(), "getCoin", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.lineGetServer:
-                Toast.makeText(getContext(), "lineGetServer", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.lineGetSpeedTest:
-                Toast.makeText(getContext(), "lineGetSpeedTest", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.linearConnected:
-                Toast.makeText(getContext(), "linearConnected", Toast.LENGTH_SHORT).show();
-                break;
+    @Override
+    public void updateState(int i) {
+        if (i == 0) {
+//            imgConnect
+        } else {
+            if (i == 1) {
+
+            } else {
+
+            }
         }
     }
 
@@ -120,7 +150,113 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        preseter.onPause();
+    }
+
+    @Override
     public boolean isNetworkConnected() {
         return false;
+    }
+
+    @OnClick({R.id.imgConnect, R.id.lineSwitchCountry, R.id.lineDisconnect, R.id.lineGetCoin, R.id.lineGetServer, R.id.lineGetSpeedTest})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.imgConnect: {
+                connectToVpn();
+            }
+            break;
+            case R.id.lineSwitchCountry: {
+                intentToOther(SwitchRegion.class);
+            }
+            break;
+            case R.id.lineDisconnect:
+                break;
+            case R.id.lineGetCoin:
+                break;
+            case R.id.lineGetServer: {
+                intentToOther(SwitchRegion.class);
+            }
+            break;
+            case R.id.lineGetSpeedTest: {
+                intentToOther(SpeedTest.class);
+            }
+            break;
+        }
+    }
+
+    @Override
+    public void setConectionStatus(int i) {
+        switch (i) {
+            case 0: {
+                imgConnect.setImageResource(R.drawable.connect);
+                linearConnected.setVisibility(View.GONE);
+                linearConnect.setVisibility(View.VISIBLE);
+
+                break;
+            }
+            case 1: {
+                imgFlag.setImageResource(R.drawable.connecting);
+                break;
+            }
+            case 2: {
+                imgFlag.setImageResource(R.drawable.connect);
+                linearConnected.setVisibility(View.VISIBLE);
+                break;
+            }
+            default: {
+                linearConnect.setVisibility(View.GONE);
+                imgFlag.setImageResource(R.drawable.connect);
+                linearConnected.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
+    private void connectToVpn() {
+        preseter.pressLineConnect();
+    }
+
+    private void pressSwitchCountry() {
+        preseter.pressLineCountry();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        preseter.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        preseter.onResume();
+    }
+
+    @Override
+    public void updateCountry(Country selectedCountry) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    void intentToOther(Class clas) {
+        Intent intent = new Intent(getContext(), clas);
+        startActivity(intent);
+    }
+
+    @Override
+    public void updateSpeed(String finalDown, String finalUp) {
+        txtUpLoadSpeed.setText(finalUp);
+        txtDownloadSpeed.setText(finalDown);
     }
 }

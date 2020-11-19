@@ -15,6 +15,7 @@ import android.util.Log;
 import androidx.multidex.MultiDexApplication;
 
 import com.example.init_app_vpn_native.R;
+import com.example.init_app_vpn_native.data.api.model.Country;
 import com.example.init_app_vpn_native.data.api.model.Server;
 
 import java.util.Calendar;
@@ -31,20 +32,13 @@ public class App extends /*com.orm.SugarApp*/ MultiDexApplication {
 
     public static boolean isStart;
     public static int connection_status = 0;
-    public static boolean hasFile = false;
     public static boolean abortConnection = false;
-    public static long CountDown;
-    public static boolean ShowDailyUsage = true;
     public static String device_id;
-    public static long device_created;
     public static final String CHANNEL_ID = "com.example.vpn_master";
     public static final int NOTIFICATION_ID = new Random().nextInt(601) + 200;
     public static Server selectedServer = null;
     public static boolean isGetServerFailed = false;
-    public static boolean isRated = false;
-    public static String UUID = "";
     public static Country selectedCountry = null;
-    public static long currentTimeFree = -1;
     NotificationManager manager;
 
 

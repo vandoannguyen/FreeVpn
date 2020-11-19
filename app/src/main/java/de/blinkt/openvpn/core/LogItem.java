@@ -12,6 +12,7 @@ import android.content.pm.Signature;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+//import com.example.init_app_vpn_native.R;
 
 import com.example.init_app_vpn_native.R;
 
@@ -253,7 +254,7 @@ public class LogItem implements Parcelable {
         } catch (UnknownFormatConversionException e) {
             if (c != null) throw new UnknownFormatConversionException(e.getLocalizedMessage() + getString(null));
             else throw e;
-        } catch (java.util.FormatFlagsConversionMismatchException e) {
+        } catch (FormatFlagsConversionMismatchException e) {
             if (c != null) throw new FormatFlagsConversionMismatchException(e.getLocalizedMessage() + getString(null), e.getConversion());
             else throw e;
         }

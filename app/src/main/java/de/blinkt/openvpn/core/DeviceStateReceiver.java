@@ -13,7 +13,6 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.os.Handler;
 
-
 import com.example.init_app_vpn_native.R;
 
 import java.util.LinkedList;
@@ -31,7 +30,7 @@ public class DeviceStateReceiver extends BroadcastReceiver implements ByteCountL
     connectState userpause = connectState.SHOULDBECONNECTED;
     private OpenVPNManagement mManagement;
     private String lastStateMsg = null;
-    private java.lang.Runnable mDelayDisconnectRunnable = new Runnable() {
+    private Runnable mDelayDisconnectRunnable = new Runnable() {
         @Override
         public void run() {
             if (!(network == connectState.PENDINGDISCONNECT)) return;

@@ -25,6 +25,7 @@
                 app:cardCornerRadius="5dp">
 
                 <LinearLayout
+                    android:id="@+id/linearConnect"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -38,6 +39,7 @@
                         android:paddingBottom="10dp">
 
                         <ImageView
+                            android:id="@+id/imgConnect"
                             android:layout_width="200dp"
                             android:layout_height="200dp"
                             android:layout_gravity="center"
@@ -66,24 +68,28 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/imgFlag"
                                 android:layout_width="60dp"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="5dp"
                                 android:src="@drawable/ic_flag" />
 
                             <TextView
+                                android:id="@+id/txtCountry"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
                                 android:text="Vietnam" />
                         </LinearLayout>
 
                         <View
-                            android:layout_width="2dp"
+                            android:layout_width="0.5dp"
                             android:layout_height="match_parent"
-                            android:layout_margin="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
                             android:background="#5E5E5E" />
 
                         <LinearLayout
@@ -93,15 +99,24 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <LinearLayout
+                                android:id="@+id/lineSwitchCountry"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Download:150 byte/s" />
+                                android:layout_height="35dp"
+                                android:layout_marginTop="5dp"
+                                android:background="@drawable/custum_background_button"
+                                android:gravity="center"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Upload:150 byte/s" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Switch Country"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="13dp" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -111,7 +126,7 @@
                 android:id="@+id/cardDisConnect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:cardCornerRadius="5dp">
 
                 <LinearLayout
@@ -156,18 +171,69 @@
                             android:orientation="vertical"
                             android:padding="5dp">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Virtual IP:192.168.255.255" />
+                                android:layout_height="wrap_content">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="Virtual IP:192.168.255.255" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Virtual IP:" />
+
+                                <TextView
+                                    android:id="@+id/txtVirtualIp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="192.168.255.255" />
+                            </LinearLayout>
 
                             <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_down" />
+
+                                    <TextView
+                                        android:id="@+id/txtDownloadSpeed"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:text="@string/_150kps" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_up" />
+
+                                    <TextView
+                                        android:id="@+id/txtUpLoadSpeed"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="125 byte/s" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lineDisconnect"
                                 android:layout_width="match_parent"
                                 android:layout_height="35dp"
                                 android:layout_marginTop="5dp"
@@ -178,9 +244,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:text="Tab to Connect"
+                                    android:text="Tab to Disconnect"
                                     android:textColor="@android:color/white"
-                                    android:textSize="18sp"
+                                    android:textSize="13dp"
                                     android:textStyle="bold" />
                             </LinearLayout>
                         </LinearLayout>
@@ -216,7 +282,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
                         android:text="Get Free Coins"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <RelativeLayout
@@ -231,7 +297,8 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:text="+1000"
-                            android:textColor="@android:color/white" />
+                            android:textColor="@android:color/white"
+                            android:textSize="15dp" />
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -242,9 +309,11 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
+
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"/>
+                    android:layout_height="100dp" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -314,7 +383,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1"
                             android:text="Get Free Coins"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <RelativeLayout
@@ -360,8 +429,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1"
-                            android:text="Get Free Coins"
-                            android:textSize="18sp"
+                            android:text="Speed test"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <RelativeLayout

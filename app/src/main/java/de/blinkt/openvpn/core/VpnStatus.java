@@ -19,8 +19,10 @@ import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Vector;
 
+//import com.example.init_app_vpn_native.R;
+
 public class VpnStatus {
-    final static java.lang.Object readFileLock = new Object();
+    final static Object readFileLock = new Object();
     static final int MAXLOGENTRIES = 1000;
     // keytool -printcert -jarfile de.blinkt.openvpn_85.apk
     static final byte[] officalkey = {-58, -42, -44, -106, 90, -88, -87, -88, -52, -124, 84, 117, 66, 79, -112, -111, -46, 86, -37, 109};

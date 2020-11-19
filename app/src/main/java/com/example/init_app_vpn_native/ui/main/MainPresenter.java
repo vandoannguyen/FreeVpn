@@ -4,15 +4,12 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import com.example.init_app_vpn_native.base.BasePresenter;
-import com.example.init_app_vpn_native.utils.Ads;
 
 public class MainPresenter<V extends IMainActivity> extends BasePresenter<V> implements IMainPresenter<V> {
     Activity activity;
 
     public MainPresenter(Activity activity) {
         this.activity = activity;
-        Ads.getInstance(activity).inter(new Ads.CallBackAds() {
-        });
     }
 
     @Override

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="60dp"
     android:layout_margin="5dp"
     android:background="@drawable/custom_background_item_server">
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="50dp"
+        android:id="@+id/imgFlagItem"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:scaleType="fitCenter"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:src="@drawable/ic_flag" />
@@ -21,7 +23,7 @@
         android:layout_weight="1"
         android:text="Viet Nam"
         android:textColor="@android:color/holo_orange_dark"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -42,7 +44,7 @@
             android:layout_marginLeft="5dp"
             android:text="100"
             android:textColor="@android:color/holo_orange_dark"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
