@@ -3,14 +3,14 @@ package com.example.init_app_vpn_native.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import java.util.Calendar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.base.BaseActivity;
 import com.example.init_app_vpn_native.ui.main.adapter.ViewPagerAdapter;
@@ -64,6 +64,10 @@ public class MainActivity extends BaseActivity implements IMainActivity {
     }
     private void initView(){
         //add coin
+        Time today = new Time(Time.getCurrentTimezone());
+        today.setToNow();
+        Log.e(TAG, "initView: " + today.monthDay  );
+        SharedPrefsUtils.getInstance(this).putInt("days",today.monthDay);
         int coinAdd = SharedPrefsUtils.getInstance(this).getInt("points");
         coinAdd = Common.points + coinAdd;
         Common.points = 0;
