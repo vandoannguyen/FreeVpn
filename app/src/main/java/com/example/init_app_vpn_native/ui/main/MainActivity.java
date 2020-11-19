@@ -3,7 +3,6 @@ package com.example.init_app_vpn_native.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -60,11 +59,7 @@ public class MainActivity extends BaseActivity implements IMainActivity {
         initView();
     }
     private void initView(){
-        Time today = new Time(Time.getCurrentTimezone());
-        today.setToNow();
-        Log.e(TAG, "initView: " + today.monthDay  );
-        SharedPrefsUtils.getInstance(this).putInt("days",today.monthDay);
-        //
+        //add coin
         int coinAdd = SharedPrefsUtils.getInstance(this).getInt("points");
         coinAdd = Common.points + coinAdd;
         Common.points = 0;

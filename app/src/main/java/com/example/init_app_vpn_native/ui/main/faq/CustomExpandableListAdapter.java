@@ -1,4 +1,4 @@
-package com.example.init_app_vpn_native.ui.main.fragment.more;
+package com.example.init_app_vpn_native.ui.main.faq;
 
 import android.content.Context;
 import android.graphics.Typeface;

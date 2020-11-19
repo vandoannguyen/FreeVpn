@@ -8,8 +8,12 @@
     tools:context=".ui.faq.FAQActivity">
 =======
     android:orientation="vertical"
+<<<<<<< HEAD
     tools:context=".ui.main.fragment.more.FAQActivity">
 >>>>>>> fee38a3... push code 16h 1911
+=======
+    tools:context=".ui.main.faq.FAQActivity">
+>>>>>>> 26fbc38... push again 16h30 1911
     <RelativeLayout
         android:background="@android:color/white"
         android:layout_width="match_parent"

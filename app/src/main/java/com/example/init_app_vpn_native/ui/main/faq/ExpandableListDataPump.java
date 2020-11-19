@@ -1,4 +1,4 @@
-package com.example.init_app_vpn_native.ui.main.fragment.more;
+package com.example.init_app_vpn_native.ui.main.faq;
 
 import java.util.ArrayList;
 import java.util.HashMap;

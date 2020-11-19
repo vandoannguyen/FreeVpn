@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+<<<<<<< HEAD
     tools:context=".ui.feedBack.FeedbackActivity">
+=======
+    tools:context=".ui.main.feedback.FeedbackActivity">
+>>>>>>> 26fbc38... push again 16h30 1911
     <RelativeLayout
         android:background="@android:color/white"
         android:layout_width="match_parent"
