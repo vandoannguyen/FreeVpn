@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class ApiHepler implements IApiHelper  {
+public class ApiHepler implements IApiHelper {
 
     private static final String TAG = "ApiHepler";
 

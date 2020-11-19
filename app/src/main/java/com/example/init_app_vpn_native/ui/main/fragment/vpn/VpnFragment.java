@@ -2,6 +2,9 @@ package com.example.init_app_vpn_native.ui.main.fragment.vpn;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.init_app_vpn_native.R;
@@ -48,6 +52,8 @@ public class VpnFragment extends Fragment implements IVpnView {
     LinearLayout lineGetSpeedTest;
     @BindView(R.id.linearConnected)
     LinearLayout linearConnected;
+    @BindView(R.id.reclcyerQuickLaunch)
+    RecyclerView reclcyerQuickLaunch;
     @BindView(R.id.imgConnect)
     ImageView imgConnect;
     @BindView(R.id.imgFlag)
@@ -67,12 +73,6 @@ public class VpnFragment extends Fragment implements IVpnView {
     TextView txtUpLoadSpeed;
     @BindView(R.id.linearConnect)
     LinearLayout linearConnect;
-    @BindView(R.id.quickFacebook)
-    LinearLayout quickFacebook;
-    @BindView(R.id.quickGoogle)
-    LinearLayout quickGoogle;
-    @BindView(R.id.quickGmail)
-    LinearLayout quickGmail;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -163,15 +163,7 @@ public class VpnFragment extends Fragment implements IVpnView {
         return false;
     }
 
-    @OnClick({R.id.imgConnect,
-            R.id.lineSwitchCountry,
-            R.id.lineDisconnect,
-            R.id.lineGetCoin,
-            R.id.lineGetServer,
-            R.id.lineGetSpeedTest,
-            R.id.quickFacebook,
-            R.id.quickGoogle,
-            R.id.quickGmail})
+    @OnClick({R.id.imgConnect, R.id.lineSwitchCountry, R.id.lineDisconnect, R.id.lineGetCoin, R.id.lineGetServer, R.id.lineGetSpeedTest})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imgConnect: {
@@ -183,7 +175,6 @@ public class VpnFragment extends Fragment implements IVpnView {
             }
             break;
             case R.id.lineDisconnect:
-                preseter.pressDisConnect();
                 break;
             case R.id.lineGetCoin:
                 break;
@@ -193,20 +184,8 @@ public class VpnFragment extends Fragment implements IVpnView {
             break;
             case R.id.lineGetSpeedTest: {
                 intentToOther(SpeedTest.class);
-                break;
             }
-            case R.id.quickFacebook: {
-                preseter.intentToApp("com.facebook.katana");
-                break;
-            }
-            case R.id.quickGoogle: {
-                preseter.intentToApp("com.google.android.googlequicksearchbox");
-                break;
-            }
-            case R.id.quickGmail: {
-                preseter.intentToApp("com.google.android.gm");
-                break;
-            }
+            break;
         }
     }
 
@@ -216,28 +195,23 @@ public class VpnFragment extends Fragment implements IVpnView {
             case 0: {
                 imgConnect.setImageResource(R.drawable.connect);
                 linearConnected.setVisibility(View.GONE);
-                cardDisConnect.setVisibility(View.GONE);
                 linearConnect.setVisibility(View.VISIBLE);
 
                 break;
             }
             case 1: {
-                imgConnect.setImageResource(R.drawable.connecting);
-                linearConnect.setVisibility(View.GONE);
-                cardDisConnect.setVisibility(View.VISIBLE);
-                linearConnected.setVisibility(View.VISIBLE);
+                imgFlag.setImageResource(R.drawable.connecting);
                 break;
             }
             case 2: {
-                imgConnect.setImageResource(R.drawable.connect);
+                imgFlag.setImageResource(R.drawable.connect);
                 linearConnected.setVisibility(View.VISIBLE);
                 break;
             }
             default: {
-                imgConnect.setImageResource(R.drawable.connect);
+                linearConnect.setVisibility(View.GONE);
+                imgFlag.setImageResource(R.drawable.connect);
                 linearConnected.setVisibility(View.GONE);
-                cardDisConnect.setVisibility(View.GONE);
-                linearConnect.setVisibility(View.VISIBLE);
             }
 
         }
