@@ -329,13 +329,13 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
             } else
 //                view.setAnimationImage("android.resource://" + BuildConfig.APPLICATION_ID + "/raw/connectedun");
                 if (Config.currentServer == null) {
-                    try {
-                        Intent Welcome = new Intent(activity, LoadData.class);
-                        Welcome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        activity.startActivityForResult(Welcome, 10);
-                    } catch (Exception e) {
-                        Log.e(TAG, "onResume: " + e);
-                    }
+//                    try {
+//                        Intent Welcome = new Intent(activity, LoadData.class);
+//                        Welcome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        activity.startActivityForResult(Welcome, 10);
+//                    } catch (Exception e) {
+//                        Log.e(TAG, "onResume: " + e);
+//                    }
                 } else {
                     SharedPreferences ConnectionDetails = activity.getSharedPreferences(App.SHARE_CONNECTION_DATA, 0);
                     App.selectedCountry = new Gson().fromJson(ConnectionDetails.getString(App.SHARE_SELECTED_COUNTRY, ""), Country.class);

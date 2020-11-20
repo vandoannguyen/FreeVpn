@@ -6,33 +6,33 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.format.Time;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
 import com.example.init_app_vpn_native.R;
+import com.example.init_app_vpn_native.ui.enterCode.EnterCodesActivity;
+import com.example.init_app_vpn_native.ui.invite.InviteFriendActivity;
+import com.example.init_app_vpn_native.ui.main.fragment.FragmentCallback;
+import com.example.init_app_vpn_native.utils.Common;
+import com.example.init_app_vpn_native.utils.SharedPrefsUtils;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Random;
-
-import com.example.init_app_vpn_native.ui.enterCode.EnterCodesActivity;
-import com.example.init_app_vpn_native.ui.invite.InviteFriendActivity;
-import com.example.init_app_vpn_native.utils.Common;
-import com.example.init_app_vpn_native.utils.SharedPrefsUtils;
-import com.example.init_app_vpn_native.utils.ads.AdsUtils;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,44 +74,25 @@ public class PointFragment extends Fragment {
     ProgressDialog progressDialog;
     private Handler mHandler = new Handler();
     private int nCounter = 0;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    FragmentCallback callback;
 
     public PointFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PointFragment.
-     */
+    public PointFragment(FragmentCallback callback) {
+        this.callback = callback;
+    }
+
     // TODO: Rename and change types and number of parameters
-    public static PointFragment newInstance(String param1, String param2) {
-        PointFragment fragment = new PointFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+    public static PointFragment newInstance(FragmentCallback callback) {
+        PointFragment fragment = new PointFragment(callback);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -161,6 +142,7 @@ public class PointFragment extends Fragment {
             }
         });
     }
+
     //Tap to Get Points
     private void changeValueByOne(final NumberPicker higherPicker, final boolean increment) {
         Method method;
@@ -168,6 +150,7 @@ public class PointFragment extends Fragment {
             method = higherPicker.getClass().getDeclaredMethod("changeValueByOne", boolean.class);
             method.setAccessible(true);
             method.invoke(higherPicker, increment);
+
 
         } catch (final NoSuchMethodException e) {
             e.printStackTrace();
@@ -219,7 +202,9 @@ public class PointFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //SharedPrefsUtils.getInstance(getContext()).putInt("points",istr);
-                Common.points = istr;
+                //Common.points = istr;
+                Common.totalPoint += istr;
+                callback.setPoint(Common.totalPoint);
                 Toast.makeText(getContext(), "+" + aa + "Success", Toast.LENGTH_SHORT).show();
                 Common.checktap = 1;
                 dialog.dismiss();
@@ -236,6 +221,7 @@ public class PointFragment extends Fragment {
         });
         dialog.show();
     }
+
     //Check-in
     public void showDialogCheckin() {
         LayoutInflater inflater = getLayoutInflater();
@@ -248,6 +234,7 @@ public class PointFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
+
     private void initDialogCheckin(View view, Dialog dialog) {
         imgDay1 = view.findViewById(R.id.imgDay1);
         imgDay2 = view.findViewById(R.id.imgDay2);
@@ -267,22 +254,16 @@ public class PointFragment extends Fragment {
         int checkin = SharedPrefsUtils.getInstance(view.getContext()).getInt("checkin");
         Time today = new Time(Time.getCurrentTimezone());
         today.setToNow();
-        Log.e(TAG, "initView: " + today.monthDay  );
+        Log.e(TAG, "initView: " + today.monthDay);
         Common.days = SharedPrefsUtils.getInstance(getActivity()).getInt("days");
         //day1
-        if(checkin == 0){
+        if (checkin == 0) {
             check1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
         }
         imgDay1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkin == 0 || checkin == 7) {
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("days",today.monthDay);
-                    //
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 1);
-                    imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
-                    check1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
-                }
+
             }
         });
         if (checkin == 1) {
@@ -293,13 +274,7 @@ public class PointFragment extends Fragment {
         imgDay2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkin == 1 && Common.days != today.monthDay) {
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("days",today.monthDay);
-                    //
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 2);
-                    imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day22));
-                    check2.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
-                }
+
             }
         });
         if (checkin == 2) {
@@ -311,13 +286,7 @@ public class PointFragment extends Fragment {
         imgDay3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkin == 2 && Common.days != today.monthDay) {
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("days",today.monthDay);
-                    //
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 3);
-                    imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day33));
-                    check3.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
-                }
+
             }
         });
         if (checkin == 3) {
@@ -330,13 +299,7 @@ public class PointFragment extends Fragment {
         imgDay4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkin == 3 && Common.days != today.monthDay) {
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("days",today.monthDay);
-                    //
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 4);
-                    imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day44));
-                    check4.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
-                }
+
             }
         });
         if (checkin == 4) {
@@ -350,13 +313,7 @@ public class PointFragment extends Fragment {
         imgDay5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkin == 4 && Common.days != today.monthDay) {
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("days",today.monthDay);
-                    //
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 5);
-                    imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day55));
-                    check5.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
-                }
+
             }
         });
         if (checkin == 5) {
@@ -371,13 +328,7 @@ public class PointFragment extends Fragment {
         imgDay6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkin == 5 && Common.days != today.monthDay) {
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("days",today.monthDay);
-                    //
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 6);
-                    imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day66));
-                    check6.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
-                }
+
             }
         });
         if (checkin == 6) {
@@ -393,13 +344,7 @@ public class PointFragment extends Fragment {
         imgDay7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkin == 6 && Common.days != today.monthDay) {
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("days",today.monthDay);
-                    //
-                    SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 7);
-                    imgDay7.setImageDrawable(getResources().getDrawable(R.drawable.day77));
-                    check7.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
-                }
+
             }
         });
         if (checkin == 7) {
@@ -416,27 +361,68 @@ public class PointFragment extends Fragment {
         lineGotIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int checki = SharedPrefsUtils.getInstance(view.getContext()).getInt("checkin");
-                if (checki == 1) {
-                    Common.points = 200;
+                    if (checkin == 0 || checkin == 7) {
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
+                        //
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 1);
+                        imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
+                        check1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    Common.totalPoint += 200;
+                    callback.setPoint(Common.totalPoint);
                     Toast.makeText(getActivity(), "+200 Success", Toast.LENGTH_SHORT).show();
-                } else if (checki == 2) {
-                    Common.points = 300;
+                } else if (checkin == 1 && Common.days != today.monthDay) {
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
+                        //
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 2);
+                        imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day22));
+                        check2.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    Common.totalPoint += 300;
+                    callback.setPoint(Common.totalPoint);
                     Toast.makeText(getActivity(), "+300 Success", Toast.LENGTH_SHORT).show();
-                } else if (checki == 3) {
-                    Common.points = 400;
+                } else if (checkin == 2 && Common.days != today.monthDay) {
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
+                        //
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 3);
+                        imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day33));
+                        check3.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    Common.totalPoint += 400;
+                    callback.setPoint(Common.totalPoint);
                     Toast.makeText(getActivity(), "+400 Success", Toast.LENGTH_SHORT).show();
-                } else if (checki == 4) {
-                    Common.points = 500;
+                } else  if (checkin == 3 && Common.days != today.monthDay) {
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
+                        //
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 4);
+                        imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day44));
+                        check4.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    Common.totalPoint += 500;
+                    callback.setPoint(Common.totalPoint);
                     Toast.makeText(getActivity(), "+500 Success", Toast.LENGTH_SHORT).show();
-                } else if (checki == 5) {
-                    Common.points = 600;
+                } else if (checkin == 4 && Common.days != today.monthDay) {
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
+                        //
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 5);
+                        imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day55));
+                        check5.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    Common.totalPoint += 600;
+                    callback.setPoint(Common.totalPoint);
                     Toast.makeText(getActivity(), "+600 Success", Toast.LENGTH_SHORT).show();
-                } else if (checki == 6) {
-                    Common.points = 900;
+                } else  if (checkin == 5 && Common.days != today.monthDay) {
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
+                        //
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 6);
+                        imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day66));
+                        check6.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    Common.totalPoint += 900;
+                    callback.setPoint(Common.totalPoint);
                     Toast.makeText(getActivity(), "+900 Success", Toast.LENGTH_SHORT).show();
-                } else if (checki == 7) {
-                    Common.points = 1000;
+                } else if (checkin == 6 && Common.days != today.monthDay) {
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
+                        //
+                        SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 7);
+                        imgDay7.setImageDrawable(getResources().getDrawable(R.drawable.day77));
+                        check7.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    Common.totalPoint += 1000;
+                    callback.setPoint(Common.totalPoint);
                     Toast.makeText(getActivity(), "+1000 Success", Toast.LENGTH_SHORT).show();
                 }
                 initView();
@@ -445,6 +431,7 @@ public class PointFragment extends Fragment {
             }
         });
     }
+
     @OnClick({R.id.lineTapCoin, R.id.lineWatchVideo, R.id.lineCheckin, R.id.lineInvite, R.id.lineCodes})
     public void onViewClicked(View view) {
         switch (view.getId()) {

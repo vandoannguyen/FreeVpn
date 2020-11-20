@@ -3,9 +3,10 @@ package com.example.init_app_vpn_native.data.api.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Country {
+public class Country implements Serializable {
     public Country(String code) {
         this.code = code;
     }

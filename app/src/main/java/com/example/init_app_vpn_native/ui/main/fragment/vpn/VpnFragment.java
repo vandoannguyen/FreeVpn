@@ -128,13 +128,13 @@ public class VpnFragment extends Fragment implements IVpnView {
         ButterKnife.bind(this, view);
 //        preseter.getConnectionStatus();
         preseter.getSelectedServer();
-        String countryCode = Config.currentServer.getGeo().getCountry();
-        Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
-        if (country != null) {
-            txtCountry.setText(country.getName());
-            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
-            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
-        }
+//        String countryCode = Config.currentServer.getGeo().getCountry();
+        //Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
+//        if (country != null) {
+//            txtCountry.setText(country.getName());
+//            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
+//            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
+//        }
         return view;
     }
 
@@ -179,6 +179,7 @@ public class VpnFragment extends Fragment implements IVpnView {
             }
             break;
             case R.id.lineDisconnect:
+                preseter.pressDisConnect();
                 break;
             case R.id.lineGetCoin:
                 break;

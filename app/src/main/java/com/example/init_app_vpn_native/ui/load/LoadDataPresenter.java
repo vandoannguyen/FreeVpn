@@ -13,6 +13,7 @@ import com.example.init_app_vpn_native.data.CallBack;
 import com.example.init_app_vpn_native.data.api.model.Country;
 import com.example.init_app_vpn_native.data.api.model.Server;
 import com.example.init_app_vpn_native.ui.main.MainActivity;
+import com.example.init_app_vpn_native.utils.Common;
 import com.example.init_app_vpn_native.utils.SharedPrefsUtils;
 import com.example.init_app_vpn_native.utils.ads.Ads;
 
@@ -85,6 +86,8 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
 
     public void getFastConnect() {
         view.setStatus("Getting fast connect");
+        isLoadDataFastConnectSuccess = true;
+        intentToMain();
         AppDataHelper.getInstance().getFastConnect(Config.tokenApp, new CallBack<Server>() {
             @Override
             public void onSuccess(Server data) {
@@ -103,6 +106,11 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     }
 
     private void intentToMain() {
+        Log.e(TAG, "intentToMain: isGetCoinSuccess" + isGetCoinSuccess);
+        Log.e(TAG, "intentToMain: isLoadAdsSuccess" + isLoadAdsSuccess);
+        Log.e(TAG, "intentToMain: isLoadCountrySuccess" + isLoadCountrySuccess);
+        Log.e(TAG, "intentToMain: isLoadDataFastConnectSuccess" + isLoadDataFastConnectSuccess);
+        Log.e(TAG, "intentToMain: =================");
         if (isGetCoinSuccess && isLoadAdsSuccess && isLoadCountrySuccess && isLoadDataFastConnectSuccess) {
             context.startActivity(new Intent(context, MainActivity.class));
         }
@@ -140,9 +148,9 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
             public void onSuccess(Integer data) {
                 super.onSuccess(data);
                 if (data == -1) {
-                    Config.coin = 100;
+                    Common.totalPoint = 100;
                 } else {
-                    Config.coin = data;
+                    Common.totalPoint = data;
                 }
                 isGetCoinSuccess = true;
                 intentToMain();

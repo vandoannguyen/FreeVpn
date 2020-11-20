@@ -48,4 +48,8 @@
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textSize">30sp</item>
     </style>
+
+    <style name="CustomDialogTheme">
+        <item name="colorAccent">@android:color/holo_orange_light</item>
+    </style>
 </resources>

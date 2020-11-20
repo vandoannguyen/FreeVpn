@@ -1,13 +1,11 @@
 package com.example.init_app_vpn_native.ui.switchRegion;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +15,9 @@ import com.example.init_app_vpn_native.common.Config;
 import com.example.init_app_vpn_native.data.AppDataHelper;
 import com.example.init_app_vpn_native.data.CallBack;
 import com.example.init_app_vpn_native.data.api.model.Country;
+import com.example.init_app_vpn_native.ui.dialog.DialogConfirm;
 import com.example.init_app_vpn_native.ui.switchRegion.adapter.ItemAdapter;
+import com.example.init_app_vpn_native.utils.Common;
 
 import java.util.List;
 
@@ -60,40 +60,18 @@ public class SwitchRegion extends AppCompatActivity {
     }
 
     private void showDialogConfirm(Country index) {
-//        showDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Title").setMessage("This is a message");
-        builder.setCancelable(true);
-//        builder.setIcon(R.drawable.icon_title);
-        builder.setPositiveButton("Positive", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(SwitchRegion.this, "You choose positive button",
-                        Toast.LENGTH_SHORT).show();
+        DialogConfirm dialogConfirm = new DialogConfirm(this, index.getPrice());
+        dialogConfirm.setOnClickListener(new DialogConfirm.OnClickListener() {
+            @Override
+            public void clickYes() {
+                super.clickYes();
+                Common.points = Integer.parseInt(index.getPrice());
+                Intent intent = new Intent();
+                intent.putExtra("country", index);
+                setResult(0, intent);
+                finish();
             }
         });
-//        builder.setPositiveButtonIcon(positiveIcon);
-
-        // Create "Negative" button with OnClickListener.
-        builder.setNegativeButton("Negative", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(SwitchRegion.this, "You choose positive button",
-                        Toast.LENGTH_SHORT).show();
-                //  Cancel
-                dialog.cancel();
-            }
-        });
-//        builder.setNegativeButtonIcon(negativeIcon);
-
-        // Create "Neutral" button with OnClickListener.
-        builder.setNeutralButton("Neutral", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                //  Action for 'NO' Button
-                Toast.makeText(SwitchRegion.this, "You choose neutral button",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
     }
 
     @OnClick({R.id.icBackSwitchRegion, R.id.icRefreshRegion, R.id.linearProgress})
@@ -108,6 +86,11 @@ public class SwitchRegion extends AppCompatActivity {
             case R.id.linearProgress:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(0);
     }
 
     private void refreshServer() {
