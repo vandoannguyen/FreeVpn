@@ -1,17 +1,18 @@
 package com.example.init_app_vpn_native.ui.main;
 
-
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.base.BaseActivity;
 import com.example.init_app_vpn_native.data.AppDataHelper;
@@ -26,15 +27,14 @@ import com.example.init_app_vpn_native.utils.Common;
 import com.example.init_app_vpn_native.utils.SharedPrefsUtils;
 import com.example.init_app_vpn_native.utils.ads.Ads;
 import com.google.android.material.tabs.TabLayout;
-
+import com.example.ratedialog.RatingDialog;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements IMainActivity {
+public class MainActivity extends BaseActivity implements IMainActivity, RatingDialog.RatingDialogInterFace {
     private String TAG = "MainActivity";
     MainPresenter<IMainActivity> presenter;
     @BindView(R.id.lineCoinMain)
@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity implements IMainActivity {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     ViewPagerAdapter pagerAdapter;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +59,10 @@ public class MainActivity extends BaseActivity implements IMainActivity {
         presenter = new MainPresenter<>(this);
         presenter.onAttact(this);
         presenter.getExample();
-
         initViewPager();
         initTabLayout();
         initView();
+        rateAuto();
     }
 
     private void initView() {
@@ -76,11 +77,11 @@ public class MainActivity extends BaseActivity implements IMainActivity {
             public void onSuccess(Integer data) {
                 super.onSuccess(data);
                 int coinAdd = data;
-                coinAdd = Common.points + coinAdd;
-                Common.points = 0;
+//                coinAdd = Common.points + coinAdd;
+//                Common.points = 0;
                 AppDataHelper.getInstance().setCoin(MainActivity.this, coinAdd, null);
                 String strCoin = String.valueOf(coinAdd);
-//                txtCoin.setText(strCoin);
+//              txtCoin.setText(strCoin);
             }
         });
 //        SharedPrefsUtils.getInstance(this).getInt("points");
@@ -141,5 +142,63 @@ public class MainActivity extends BaseActivity implements IMainActivity {
         if (presenter != null) {
             presenter.onDetact();
         }
+    }
+
+    //Rate
+    public static void rateApp(Context context) {
+        Intent intent = new Intent(new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://play.google.com/store/apps/details?id=" + context.getPackageName())));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    private void rateAuto() {
+        int rate = SharedPrefsUtils.getInstance(this).getInt("rate");
+        if (rate < 1) {
+            RatingDialog ratingDialog = new RatingDialog(this);
+            ratingDialog.setRatingDialogListener(this);
+            ratingDialog.showDialog();
+        }
+    }
+
+    private void rateManual() {
+        RatingDialog ratingDialog = new RatingDialog(this);
+        ratingDialog.setRatingDialogListener(this);
+        ratingDialog.showDialog();
+    }
+
+    @Override
+    public void onDismiss() {
+
+    }
+
+    @Override
+    public void onSubmit(float rating) {
+        if (rating > 3) {
+            rateApp(this);
+            SharedPrefsUtils.getInstance(this).putInt("rate", 5);
+        }
+    }
+
+    @Override
+    public void onRatingChanged(float rating) {
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }

@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SwitchRegion extends AppCompatActivity {
-
+    private String TAG = "SwitchRegion";
     @BindView(R.id.icBackSwitchRegion)
     ImageView icBackSwitchRegion;
     @BindView(R.id.icRefreshRegion)
