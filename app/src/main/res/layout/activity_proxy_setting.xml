@@ -4,12 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-<<<<<<< HEAD
-    tools:context=".ui.proxy.ProxySettingActivity">
-=======
-    tools:context=".ui.main.proxy.ProxySettingActivity">
->>>>>>> 26fbc38... push again 16h30 1911
+    android:orientation="vertical">
     <RelativeLayout
         android:background="@android:color/white"
         android:layout_width="match_parent"

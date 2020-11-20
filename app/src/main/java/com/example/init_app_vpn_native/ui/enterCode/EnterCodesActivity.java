@@ -1,8 +1,4 @@
-<<<<<<< HEAD:app/src/main/java/com/example/init_app_vpn_native/ui/enterCode/EnterCodesActivity.java
 package com.example.init_app_vpn_native.ui.enterCode;
-=======
-package com.example.init_app_vpn_native.ui.main.entercode;
->>>>>>> 26fbc38... push again 16h30 1911:app/src/main/java/com/example/init_app_vpn_native/ui/main/entercode/EnterCodesActivity.java
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;

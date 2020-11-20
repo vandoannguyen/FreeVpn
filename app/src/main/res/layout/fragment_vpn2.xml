@@ -44,7 +44,7 @@
                             android:layout_width="200dp"
                             android:layout_height="200dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/connect" />
+                            android:src="@mipmap/ic_launcher" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -236,6 +236,12 @@
                                 </LinearLayout>
                             </LinearLayout>
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Virtual IP:192.168.255.255" />
+
                             <LinearLayout
                                 android:id="@+id/lineDisconnect"
                                 android:layout_width="match_parent"
@@ -318,14 +324,14 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" />
+                    android:layout_height="wrap_content" />
 
                 <androidx.cardview.widget.CardView
+                    android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:padding="5dp">
+                    android:layout_marginRight="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -333,26 +339,24 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:text="Quick Launch"
+                            android:textSize="18sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
-                            android:layout_marginLeft="10dp"
-                            android:text="Quick Launch"
-                            android:textSize="18sp" />
-
+                            android:layout_marginLeft="10dp" />
                         <View
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="10dp"
                             android:background="#838383" />
-
                         <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:orientation="horizontal">
+                            android:layout_margin="10dp">
 
                             <LinearLayout
                                 android:id="@+id/quickFacebook"

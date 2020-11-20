@@ -1,8 +1,4 @@
-<<<<<<< HEAD:app/src/main/java/com/example/init_app_vpn_native/ui/faq/FAQActivity.java
 package com.example.init_app_vpn_native.ui.faq;
-=======
-package com.example.init_app_vpn_native.ui.main.faq;
->>>>>>> 26fbc38... push again 16h30 1911:app/src/main/java/com/example/init_app_vpn_native/ui/main/faq/FAQActivity.java
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.init_app_vpn_native.R;

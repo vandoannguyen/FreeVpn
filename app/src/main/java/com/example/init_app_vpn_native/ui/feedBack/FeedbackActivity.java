@@ -1,8 +1,4 @@
-<<<<<<< HEAD:app/src/main/java/com/example/init_app_vpn_native/ui/feedBack/FeedbackActivity.java
 package com.example.init_app_vpn_native.ui.feedBack;
-=======
-package com.example.init_app_vpn_native.ui.main.feedback;
->>>>>>> 26fbc38... push again 16h30 1911:app/src/main/java/com/example/init_app_vpn_native/ui/main/feedback/FeedbackActivity.java
 
 import androidx.appcompat.app.AppCompatActivity;
 

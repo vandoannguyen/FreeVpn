@@ -7,17 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-<<<<<<< HEAD
 import com.example.init_app_vpn_native.ui.proxy.ProxySettingActivity;
 import com.example.init_app_vpn_native.ui.faq.FAQActivity;
 import com.example.init_app_vpn_native.ui.feedBack.FeedbackActivity;
-=======
-
-import com.example.init_app_vpn_native.ui.main.faq.FAQActivity;
->>>>>>> 26fbc38... push again 16h30 1911
 import com.example.init_app_vpn_native.R;
-import com.example.init_app_vpn_native.ui.main.feedback.FeedbackActivity;
-import com.example.init_app_vpn_native.ui.main.proxy.ProxySettingActivity;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;

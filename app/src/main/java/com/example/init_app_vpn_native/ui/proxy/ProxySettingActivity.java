@@ -1,8 +1,4 @@
-<<<<<<< HEAD:app/src/main/java/com/example/init_app_vpn_native/ui/proxy/ProxySettingActivity.java
 package com.example.init_app_vpn_native.ui.proxy;
-=======
-package com.example.init_app_vpn_native.ui.main.proxy;
->>>>>>> 26fbc38... push again 16h30 1911:app/src/main/java/com/example/init_app_vpn_native/ui/main/proxy/ProxySettingActivity.java
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;

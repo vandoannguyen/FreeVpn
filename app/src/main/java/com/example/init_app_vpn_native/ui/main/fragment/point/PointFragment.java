@@ -25,21 +25,12 @@ import com.example.init_app_vpn_native.R;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Random;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import com.example.init_app_vpn_native.ui.enterCode.EnterCodesActivity;
 import com.example.init_app_vpn_native.ui.invite.InviteFriendActivity;
-=======
-
-import com.example.init_app_vpn_native.ui.main.fragment.point.EnterCodesActivity;
-import com.example.init_app_vpn_native.ui.main.fragment.point.InviteFriendActivity;
-=======
-import com.example.init_app_vpn_native.ui.main.entercode.EnterCodesActivity;
->>>>>>> 26fbc38... push again 16h30 1911
-import com.example.init_app_vpn_native.utils.AdsUtils;
 import com.example.init_app_vpn_native.utils.Common;
->>>>>>> fee38a3... push code 16h 1911
 import com.example.init_app_vpn_native.utils.SharedPrefsUtils;
+import com.example.init_app_vpn_native.utils.ads.AdsUtils;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
@@ -473,48 +464,48 @@ public class PointFragment extends Fragment {
                 break;
             case R.id.lineWatchVideo:
                 progressDialog.show();
-                AdsUtils.getInstance(getActivity()).rewar_admob(new RewardedVideoAdListener() {
-                    @Override
-                    public void onRewardedVideoAdLoaded() {
-                        progressDialog.dismiss();
-                    }
-
-                    @Override
-                    public void onRewardedVideoAdOpened() {
-
-                    }
-
-                    @Override
-                    public void onRewardedVideoStarted() {
-
-                    }
-
-                    @Override
-                    public void onRewardedVideoAdClosed() {
-                        Common.points = 200;
-                        Toast.makeText(getActivity(), "+200 Success", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onRewarded(RewardItem rewardItem) {
-
-                    }
-
-                    @Override
-                    public void onRewardedVideoAdLeftApplication() {
-
-                    }
-
-                    @Override
-                    public void onRewardedVideoAdFailedToLoad(int i) {
-
-                    }
-
-                    @Override
-                    public void onRewardedVideoCompleted() {
-
-                    }
-                });
+//                AdsUtils.getInstance(getActivity()).rewar_admob(new RewardedVideoAdListener() {
+//                    @Override
+//                    public void onRewardedVideoAdLoaded() {
+//                        progressDialog.dismiss();
+//                    }
+//
+//                    @Override
+//                    public void onRewardedVideoAdOpened() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onRewardedVideoStarted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onRewardedVideoAdClosed() {
+//                        Common.points = 200;
+//                        Toast.makeText(getActivity(), "+200 Success", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onRewarded(RewardItem rewardItem) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onRewardedVideoAdLeftApplication() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onRewardedVideoAdFailedToLoad(int i) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onRewardedVideoCompleted() {
+//
+//                    }
+//                });
                 break;
             case R.id.lineCheckin:
                 showDialogCheckin();

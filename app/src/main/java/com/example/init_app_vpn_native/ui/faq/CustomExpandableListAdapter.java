@@ -1,17 +1,17 @@
-package com.example.init_app_vpn_native.ui.main.faq;
+package com.example.init_app_vpn_native.ui.faq;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.view.View;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.init_app_vpn_native.R;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 

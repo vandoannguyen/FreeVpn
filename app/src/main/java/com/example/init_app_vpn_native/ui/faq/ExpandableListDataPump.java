@@ -1,4 +1,4 @@
-package com.example.init_app_vpn_native.ui.main.faq;
+package com.example.init_app_vpn_native.ui.faq;
 
 import java.util.ArrayList;
 import java.util.HashMap;
