@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context=".ui.faq.FAQActivity">
+=======
+    android:orientation="vertical"
+    tools:context=".ui.main.fragment.more.FAQActivity">
+>>>>>>> fee38a3... push code 16h 1911
     <RelativeLayout
         android:background="@android:color/white"
         android:layout_width="match_parent"
@@ -30,6 +35,10 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <ExpandableListView
+            android:id="@+id/expandableListFAQ"
+            android:dividerHeight="0.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </LinearLayout>

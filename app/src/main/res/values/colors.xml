@@ -8,5 +8,9 @@
     <color name="tablayout">#f6c83d</color>
     <color name="colorRed">#FF0000</color>
     <color name="colorWhite">#FFFFFF</color>
+<<<<<<< HEAD
     <color name="text_main_color">#000000</color>
+=======
+    <color name="colorTapCoin">#ffffbb33</color>
+>>>>>>> fee38a3... push code 16h 1911
 </resources>
