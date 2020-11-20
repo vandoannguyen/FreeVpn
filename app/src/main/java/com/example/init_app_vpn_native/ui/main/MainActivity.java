@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity implements IMainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Ads.getInstance(this).initAds();
         ButterKnife.bind(this);
         Ads.getInstance(this).initAds();
         presenter = new MainPresenter<>(this);
@@ -98,7 +99,15 @@ public class MainActivity extends BaseActivity implements IMainActivity {
 
     private void initViewPager() {
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(VpnFragment.newInstance("", ""));
+        fragmentList.add(VpnFragment.newInstance(new FragmentCallback(){
+            @Override
+            public void callGetCoin() {
+                super.callGetCoin();
+                if(viewPager!= null){
+                    viewPager.setCurrentItem(1);
+                }
+            }
+        }));
         fragmentList.add(PointFragment.newInstance(new FragmentCallback() {
             @Override
             public void setPoint(int point) {

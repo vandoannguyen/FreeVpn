@@ -47,7 +47,7 @@ public class ApiHepler implements IApiHelper {
 
     public void getFastConnect(String token, CallBack<Server> callBack) {
         Log.e(TAG, "getFastConnect: ");
-        AndroidNetworking.get(Constance.ROOT_API + "/client/fastconnect/1000")
+        AndroidNetworking.get(Constance.ROOT_API + "/client/fastconnect/100000")
                 .setPriority(Priority.LOW)
                 .addHeaders("Authorization", "Bearer " + token)
                 .build()
@@ -80,16 +80,17 @@ public class ApiHepler implements IApiHelper {
                 .setPriority(Priority.LOW)
                 .addHeaders("Authorization", "Bearer " + token)
                 .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
+                .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            String data = response.getJSONObject(0).getString("data");
+                            Log.e(TAG, "onResponse: " + response.toString() );
+                            String data = response.getString("data");
                             Server sv = new Gson().fromJson(data, Server.class);
                             callBack.onSuccess(sv);
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.e(TAG, "onResponse: getConnect" + e.getMessage());
+                            Log.e(TAG, "onResponse error: getConnect" + e.getMessage());
                             callBack.onFailed(e.getMessage());
                         }
 
@@ -97,6 +98,7 @@ public class ApiHepler implements IApiHelper {
 
                     @Override
                     public void onError(ANError error) {
+                        Log.e(TAG, "onError: 11111" + error.getErrorCode() );
                         callBack.onFailed(error.toString());
                     }
                 });

@@ -101,6 +101,20 @@ public class Country implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Country{" +
+                "id='" + id + '\'' +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", flag='" + flag + '\'' +
+                ", price='" + price + '\'' +
+                ", speed='" + speed + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Country)) return false;

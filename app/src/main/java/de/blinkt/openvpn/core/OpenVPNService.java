@@ -951,7 +951,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
             // save data
             long_usage_now = Total;
-            Config.LongDataUsage = Total;
+//            Config.LongDataUsage = Total;
 
             String Stat = "Down: " + StringDown + " Up: " + StringUp;
             try {

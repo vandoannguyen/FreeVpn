@@ -2,9 +2,12 @@ package com.example.init_app_vpn_native.ui.main.fragment.vpn;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,12 +20,14 @@ import com.bumptech.glide.Glide;
 import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.common.Config;
 import com.example.init_app_vpn_native.data.api.model.Country;
+import com.example.init_app_vpn_native.ui.main.fragment.FragmentCallback;
 import com.example.init_app_vpn_native.ui.speedTest.SpeedTest;
 import com.example.init_app_vpn_native.ui.switchRegion.SwitchRegion;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.blinkt.openvpn.core.App;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,26 +85,20 @@ public class VpnFragment extends Fragment implements IVpnView {
     private String mParam1;
     private String mParam2;
     private IVpnPresenter<IVpnView> preseter;
+    FragmentCallback callback;
 
     public VpnFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment VpnFragment.
-     */
+    public VpnFragment(FragmentCallback callback) {
+        this.callback = callback;
+        // Required empty public constructor
+    }
+
     // TODO: Rename and change types and number of parameters
-    public static VpnFragment newInstance(String param1, String param2) {
-        VpnFragment fragment = new VpnFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+    public static VpnFragment newInstance(FragmentCallback callBackFragment) {
+        VpnFragment fragment = new VpnFragment(callBackFragment);
         return fragment;
     }
 
@@ -127,14 +126,16 @@ public class VpnFragment extends Fragment implements IVpnView {
         View view = inflater.inflate(R.layout.fragment_vpn2, container, false);
         ButterKnife.bind(this, view);
 //        preseter.getConnectionStatus();
-        preseter.getSelectedServer();
-//        String countryCode = Config.currentServer.getGeo().getCountry();
-        //Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
-//        if (country != null) {
-//            txtCountry.setText(country.getName());
-//            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
-//            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
-//        }
+        String countryCode = Config.currentServer.getGeo().getCountry();
+        App.selectedServer = Config.currentServer;
+        Log.e(TAG, "onCreateView: " + countryCode);
+        Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
+        App.selectedCountry = country;
+        if (country != null) {
+            txtCountry.setText(country.getName());
+            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
+            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
+        }
         return view;
     }
 
@@ -181,8 +182,10 @@ public class VpnFragment extends Fragment implements IVpnView {
             case R.id.lineDisconnect:
                 preseter.pressDisConnect();
                 break;
-            case R.id.lineGetCoin:
-                break;
+            case R.id.lineGetCoin: {
+                callback.callGetCoin();
+            }
+            break;
             case R.id.lineGetServer: {
                 intentToOther(SwitchRegion.class, SWITCH_REQUEST_CODE);
             }
@@ -194,33 +197,46 @@ public class VpnFragment extends Fragment implements IVpnView {
         }
     }
 
+    private void startAnimation(int view, int animation, boolean show) {
+        final View Element = getView().findViewById(view);
+        if (show) {
+            Element.setVisibility(View.VISIBLE);
+        } else {
+            Element.setVisibility(View.GONE);
+        }
+        Animation anim = AnimationUtils.loadAnimation(getContext(), animation);
+        Element.startAnimation(anim);
+    }
+
     @Override
     public void setConectionStatus(int i) {
+
         switch (i) {
             case 0: {
                 imgConnect.setImageResource(R.drawable.connect);
-                linearConnected.setVisibility(View.GONE);
-                cardDisConnect.setVisibility(View.GONE);
-                linearConnect.setVisibility(View.VISIBLE);
-
+                startAnimation(R.id.imgConnect, R.anim.fade_in_1000, true);
+                startAnimation(R.id.cardConnect, R.anim.fade_in_1000, true);
+                startAnimation(R.id.linearConnected, R.anim.fade_out_500, false);
+                startAnimation(R.id.cardDisConnect, R.anim.fade_out_500, false);
                 break;
             }
             case 1: {
+                startAnimation(R.id.imgConnect, R.anim.fade_in_1000, true);
                 imgConnect.setImageResource(R.drawable.connecting);
-                linearConnected.setVisibility(View.VISIBLE);
-                cardDisConnect.setVisibility(View.VISIBLE);
-                linearConnect.setVisibility(View.GONE);
                 break;
             }
             case 2: {
+                startAnimation(R.id.linearConnected, R.anim.fade_in_1000, true);
+                startAnimation(R.id.cardDisConnect, R.anim.fade_in_1000, true);
+                startAnimation(R.id.cardConnect, R.anim.fade_out_500, false);
                 imgConnect.setImageResource(R.drawable.connect);
-                linearConnected.setVisibility(View.VISIBLE);
                 break;
             }
             default: {
-                linearConnect.setVisibility(View.GONE);
+                linearConnect.setVisibility(View.VISIBLE);
                 imgConnect.setImageResource(R.drawable.connect);
                 linearConnected.setVisibility(View.GONE);
+                cardDisConnect.setVisibility(View.GONE);
             }
 
         }
@@ -237,15 +253,6 @@ public class VpnFragment extends Fragment implements IVpnView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SWITCH_REQUEST_CODE) {
-            if (data != null) {
-                String countryCode = data.getStringExtra("country_code");
-                if (!countryCode.isEmpty()) {
-                    Config.currentCountry = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
-                    Config.isFastConnect = false;
-                }
-            }
-        }
         preseter.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -256,8 +263,10 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     @Override
-    public void updateCountry(Country selectedCountry) {
-
+    public void updateCountry(Country country) {
+        txtCountry.setText(country.getName());
+        Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
+        Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
     }
 
     @Override
@@ -271,12 +280,12 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     void intentToOther(Class clas) {
-        Intent intent = new Intent(getContext(), clas);
+        Intent intent = new Intent(getActivity(), clas);
         startActivity(intent);
     }
 
     void intentToOther(Class clas, int requestCode) {
-        Intent intent = new Intent(getContext(), clas);
+        Intent intent = new Intent(getActivity(), clas);
         startActivityForResult(intent, requestCode);
     }
 

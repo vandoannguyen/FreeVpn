@@ -2,9 +2,11 @@ package com.example.init_app_vpn_native.ui.switchRegion;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.blinkt.openvpn.core.App;
 
 public class SwitchRegion extends AppCompatActivity {
 
@@ -53,25 +56,39 @@ public class SwitchRegion extends AppCompatActivity {
         adapter.setOnItemClick(new ItemAdapter.OnItemClick() {
             @Override
             public void onClick(Country index) {
-//                Config.currentCountry = index;
+                Config.currentCountry = index;
                 showDialogConfirm(index);
             }
         });
     }
 
     private void showDialogConfirm(Country index) {
-        DialogConfirm dialogConfirm = new DialogConfirm(this, index.getPrice());
-        dialogConfirm.setOnClickListener(new DialogConfirm.OnClickListener() {
-            @Override
-            public void clickYes() {
-                super.clickYes();
-                Common.points = Integer.parseInt(index.getPrice());
-                Intent intent = new Intent();
-                intent.putExtra("country", index);
-                setResult(0, intent);
-                finish();
+        if (index.getPrice().equals("free")) {
+            Intent intent = new Intent();
+            intent.putExtra("country", index);
+            setResult(0, intent);
+            finish();
+        } else {
+            int point = Integer.parseInt(index.getPrice());
+            if (point > Common.totalPoint) {
+                Toast.makeText(this, "Sorry you do not have enough point!", Toast.LENGTH_SHORT).show();
+            } else {
+                DialogConfirm dialogConfirm = new DialogConfirm(this, index.getPrice());
+                dialogConfirm.setOnClickListener(new DialogConfirm.OnClickListener() {
+                    @Override
+                    public void clickYes() {
+                        super.clickYes();
+                        Intent intent = new Intent();
+                        intent.putExtra("country", index);
+                        setResult(0, intent);
+                        Common.totalPoint -= point;
+                        AppDataHelper.getInstance().setCoin(SwitchRegion.this, Common.totalPoint, null);
+                        finish();
+                    }
+                });
+                dialogConfirm.show();
             }
-        });
+        }
     }
 
     @OnClick({R.id.icBackSwitchRegion, R.id.icRefreshRegion, R.id.linearProgress})
@@ -91,6 +108,7 @@ public class SwitchRegion extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         setResult(0);
+        finish();
     }
 
     private void refreshServer() {

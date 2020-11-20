@@ -4,4 +4,7 @@ public class FragmentCallback {
     public void setPoint(int point){
 
     }
+
+    public void callGetCoin() {
+    }
 }

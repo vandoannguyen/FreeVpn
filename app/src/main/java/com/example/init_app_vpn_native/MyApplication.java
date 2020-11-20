@@ -10,6 +10,5 @@ public class MyApplication extends App {
     public void onCreate() {
         super.onCreate();
         AndroidNetworking.initialize(getApplicationContext());
-        Ads.getInstance(this).initAds();
     }
 }

@@ -1,6 +1,6 @@
 package com.example.init_app_vpn_native.utils.ads;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,6 +14,8 @@ import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import static com.facebook.ads.AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CRASH_DEBUG_MODE;
 
@@ -22,7 +24,7 @@ public class Ads {
     public static boolean is_show_inter = true;
     public static boolean is_show_banner = true;
     public static String native_id_admob = "ca-app-pub-3940256099942544/1044960115";
-    Context activity;
+    Activity activity;
     private static Ads ads;
     public static String banner_id_admob = "ca-app-pub-3940256099942544/6300978111";
     public static String inter_id_admob = "ca-app-pub-3940256099942544/1033173712";
@@ -31,8 +33,7 @@ public class Ads {
     public static String native_id_fan = "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID";
     public static boolean is_show_admob = false;
     public static boolean is_load_failed = true;
-
-//    private String rewar_id_admob;
+    private String rewar_id_admob = "ca-app-pub-3940256099942544/5224354917";
 
     public void initAds() {
         MobileAds.initialize(activity, Config.isDebug ? activity.getString(R.string.app_ads_id_debug) : activity.getString(R.string.app_ads_id_release));
@@ -40,14 +41,14 @@ public class Ads {
         AdSettings.setIntegrationErrorMode(INTEGRATION_ERROR_CRASH_DEBUG_MODE);
     }
 
-    public static Ads getInstance(Context activity) {
+    public static Ads getInstance(Activity activity) {
         if (ads != null) {
             ads.activity = activity;
         } else ads = new Ads(activity);
         return ads;
     }
 
-    private Ads(Context activity) {
+    private Ads(Activity activity) {
         this.activity = activity;
     }
 
@@ -248,12 +249,147 @@ public class Ads {
         }
     }
 
+    public void rewared(CallBackRewared rewared) {
+//        if (is_show_admob) {
+            AdsUtils.getInstance(activity).rewar_admob(rewar_id_admob, new RewardedVideoAdListener() {
+
+                @Override
+                public void onRewardedVideoAdLoaded() {
+
+                }
+
+                @Override
+                public void onRewardedVideoAdOpened() {
+
+                }
+
+                @Override
+                public void onRewardedVideoStarted() {
+
+                }
+
+                @Override
+                public void onRewardedVideoAdClosed() {
+                    rewared.adClose();
+
+                }
+
+                @Override
+                public void onRewarded(RewardItem rewardItem) {
+                    rewared.adRewared();
+                }
+
+                @Override
+                public void onRewardedVideoAdLeftApplication() {
+
+                }
+
+                @Override
+                public void onRewardedVideoAdFailedToLoad(int i) {
+                    rewared.adLoadFailed(i);
+                }
+
+                @Override
+                public void onRewardedVideoCompleted() {
+
+                }
+            });
+//        } else {
+//            AdsUtils.getInstance(activity).rewar_fan(new com.facebook.ads.RewardedVideoAdListener() {
+//                @Override
+//                public void onRewardedVideoCompleted() {
+//                    rewared.adRewared();
+//                }
+//
+//                @Override
+//                public void onLoggingImpression(Ad ad) {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoClosed() {
+//                    rewared.adClose();
+//                }
+//
+//                @Override
+//                public void onError(Ad ad, AdError adError) {
+//                    Log.e("TAG", "onError: " + adError.getErrorMessage());
+////                    rewared.adLoadFailed(0);
+////                    if (is_load_failed)
+////                        AdsUtils.getInstance(activity).rewar_admob(new RewardedVideoAdListener() {
+////
+////                            @Override
+////                            public void onRewardedVideoAdLoaded() {
+////                            }
+////
+////                            @Override
+////                            public void onRewardedVideoAdOpened() {
+////
+////                            }
+////
+////                            @Override
+////                            public void onRewardedVideoStarted() {
+////
+////                            }
+////
+////                            @Override
+////                            public void onRewardedVideoAdClosed() {
+////                                rewared.adClose();
+////
+////                            }
+////
+////                            @Override
+////                            public void onRewarded(RewardItem rewardItem) {
+////                                rewared.adRewared();
+////                            }
+////
+////                            @Override
+////                            public void onRewardedVideoAdLeftApplication() {
+////
+////                            }
+////
+////                            @Override
+////                            public void onRewardedVideoAdFailedToLoad(int i) {
+////                                rewared.adLoadFailed(i);
+////                            }
+////
+////                            @Override
+////                            public void onRewardedVideoCompleted() {
+////
+////                            }
+////                        });
+////                    else {
+////                        rewared.adLoadFailed(-1);
+////                    }
+//
+//                }
+//
+//                @Override
+//                public void onAdLoaded(Ad ad) {
+//
+//                }
+//
+//                @Override
+//                public void onAdClicked(Ad ad) {
+//
+//                }
+//            });
+//        }
+    }
+
     public enum AdsSize {
         BANNER,
         MEDIUM,
         LARGE
     }
+    public interface CallBackRewared {
 
+        void adClose();
+
+        void adLoadFailed(int i);
+
+        void adRewared();
+    }
     public interface CallBackInter {
 
         void adClose();

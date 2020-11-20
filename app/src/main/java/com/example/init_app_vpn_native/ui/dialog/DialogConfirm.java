@@ -13,10 +13,8 @@ import androidx.annotation.NonNull;
 import com.example.init_app_vpn_native.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class DialogConfirm extends Dialog {
+public class DialogConfirm extends Dialog implements View.OnClickListener {
 
     @BindView(R.id.txtCoin)
     TextView txtCoin;
@@ -40,13 +38,18 @@ public class DialogConfirm extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_confirm, null, false);
-        ButterKnife.bind(getContext(), view);
-        txtCoin.setText(coin + " point");
         setContentView(view);
+        txtCoin = view.findViewById(R.id.txtCoinDialog);
+        btnCancel = view.findViewById(R.id.btnCancel);
+        btnYes = view.findViewById(R.id.btnYes);
+        btnCancel.setOnClickListener(this::onClick);
+        btnYes.setOnClickListener(this::onClick);
+        txtCoin.setText(coin + " point?");
+
     }
 
-    @OnClick({R.id.btnCancel, R.id.btnYes})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnCancel:
                 if (onClickListener != null) {

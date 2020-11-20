@@ -2,16 +2,22 @@ package com.example.init_app_vpn_native.ui.load;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.init_app_vpn_native.BuildConfig;
 import com.example.init_app_vpn_native.base.BasePresenter;
 import com.example.init_app_vpn_native.common.Config;
 import com.example.init_app_vpn_native.data.AppDataHelper;
 import com.example.init_app_vpn_native.data.CallBack;
 import com.example.init_app_vpn_native.data.api.model.Country;
 import com.example.init_app_vpn_native.data.api.model.Server;
+import com.example.init_app_vpn_native.ui.dialog.DialogCallBack;
+import com.example.init_app_vpn_native.ui.dialog.DialogRequireRemove;
+import com.example.init_app_vpn_native.ui.dialog.DialogUpdate;
 import com.example.init_app_vpn_native.ui.main.MainActivity;
 import com.example.init_app_vpn_native.utils.Common;
 import com.example.init_app_vpn_native.utils.SharedPrefsUtils;
@@ -29,7 +35,7 @@ import java.util.Random;
 
 public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V> implements ILoadPresenter<V> {
     private static final String TAG = "LoadDataPresenter";
-    Activity context;
+    Activity activity;
     boolean isLoadCountrySuccess = false,
             isLoadDataFastConnectSuccess = false,
             isGetCoinSuccess = false,
@@ -37,19 +43,19 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     String checkAppData = "";
 
 
-    public LoadDataPresenter(Activity context) {
-        this.context = context;
+    public LoadDataPresenter(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
     public void login() {
         view.setStatus("Login app ...");
-        String data = SharedPrefsUtils.getInstance(context).getString("login");
+        String data = SharedPrefsUtils.getInstance(activity).getString("login");
 //        Log.e(TAG, "login: " + data);
         if (data.isEmpty()) {
             String mail = getRanDomText() + "@mail.com";
             String pass = getRanDomText();
-            SharedPrefsUtils.getInstance(context).putString("login", mail + "-" + pass);
+            SharedPrefsUtils.getInstance(activity).putString("login", mail + "-" + pass);
             AppDataHelper.getInstance().postCreateAcc(mail, pass, new CallBack<String>() {
                 @Override
                 public void onSuccess(String data) {
@@ -86,8 +92,8 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
 
     public void getFastConnect() {
         view.setStatus("Getting fast connect");
-        isLoadDataFastConnectSuccess = true;
-        intentToMain();
+//        isLoadDataFastConnectSuccess = true;
+//        intentToMain();
         AppDataHelper.getInstance().getFastConnect(Config.tokenApp, new CallBack<Server>() {
             @Override
             public void onSuccess(Server data) {
@@ -105,6 +111,18 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
         });
     }
 
+    private boolean checkAppIsContain(String require_remove) {
+        PackageManager pm = activity.getPackageManager();
+        boolean app_installed = false;
+        try {
+            pm.getPackageInfo(require_remove, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
+
     private void intentToMain() {
         Log.e(TAG, "intentToMain: isGetCoinSuccess" + isGetCoinSuccess);
         Log.e(TAG, "intentToMain: isLoadAdsSuccess" + isLoadAdsSuccess);
@@ -112,8 +130,63 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
         Log.e(TAG, "intentToMain: isLoadDataFastConnectSuccess" + isLoadDataFastConnectSuccess);
         Log.e(TAG, "intentToMain: =================");
         if (isGetCoinSuccess && isLoadAdsSuccess && isLoadCountrySuccess && isLoadDataFastConnectSuccess) {
-            context.startActivity(new Intent(context, MainActivity.class));
+            if (checkAppData.isEmpty()) {
+                intentMain();
+            } else {
+                try {
+                    JSONObject object = new JSONObject(checkAppData);
+                    String next_app = object.getString("next_app");
+                    String require_remove = object.getString("require_remove");
+                    boolean isAlive = object.getBoolean("isAlive");
+                    int versionCode = object.getInt("version_code");
+                    if (isAlive && !require_remove.isEmpty()) {
+//                    String packageName = require_remove;
+                        if (checkAppIsContain(require_remove)) {
+                            DialogRequireRemove requireRemove = new DialogRequireRemove(activity, require_remove, new DialogCallBack() {
+                                @Override
+                                public void onClickOk() {
+                                    super.onClickOk();
+                                    activity.finish();
+                                }
+                            });
+                            requireRemove.show();
+                        } else {
+                            intentMain();
+                        }
+                        return;
+                    }
+                    if ((!isAlive && !next_app.isEmpty()) || (versionCode > BuildConfig.VERSION_CODE && isAlive)) {
+                        DialogUpdate update = new DialogUpdate(activity, new DialogCallBack() {
+                            @Override
+                            public void onClickOk() {
+                                super.onClickOk();
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + next_app));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                activity.startActivity(intent);
+                                activity.finish();
+                            }
+
+                            @Override
+                            public void onClickCancel() {
+                                super.onClickCancel();
+                                activity.finish();
+                            }
+                        });
+                        update.show();
+                        return;
+                    }
+                    intentMain();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    intentMain();
+                }
+            }
         }
+    }
+
+    private void intentMain() {
+        activity.startActivity(new Intent(activity, MainActivity.class));
+        activity.finish();
     }
 
     public void getCountryList() {
@@ -135,7 +208,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
 
                     @Override
                     public void run() {
-                        context.finish();
+                        activity.finish();
                     }
                 }, 3000);
             }
@@ -143,7 +216,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     }
 
     public void getCoin() {
-        AppDataHelper.getInstance().getCoin(context, new CallBack<Integer>() {
+        AppDataHelper.getInstance().getCoin(activity, new CallBack<Integer>() {
             @Override
             public void onSuccess(Integer data) {
                 super.onSuccess(data);
@@ -168,6 +241,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                     String banner = "";
                     String interstitial = "";
                     String nativeAds = "";
+                    String rewar_id_admob = "";
                     String bannerFan = "";
                     String interstitialFan = "";
                     String nativeAdsFan = "";
@@ -182,7 +256,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                     if (s != null) {
                         JSONObject adObject = s.getJSONObject("configs");
                         boolean isConstanceAdmob = adObject.getBoolean("isConstanceAdmob");
-                        String admobData = SharedPrefsUtils.getInstance(context).getString("constAdmob");
+                        String admobData = SharedPrefsUtils.getInstance(activity).getString("constAdmob");
                         if (isConstanceAdmob && !admobData.isEmpty()) {
                             AdsMordel model = AdsMordel.fromJson(admobData);
                             banner = model.banner;
@@ -216,7 +290,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                                 nativeAds = model.nativeAds;
                             }
                             if (isConstanceAdmob) {
-                                SharedPrefsUtils.getInstance(context).putString("constAdmob", AdsMordel.toJson(model));
+                                SharedPrefsUtils.getInstance(activity).putString("constAdmob", AdsMordel.toJson(model));
                             }
                         }
                         percents = adObject.getInt("percents_inter");
@@ -249,12 +323,11 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                         Exception e) {
                     Log.e("TAG", "onPostExecute: " + e);
                     isLoadAdsSuccess = false;
-                    Toast.makeText(context, "Load data failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Load data failed!", Toast.LENGTH_SHORT).show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            context.finish();
-
+                            activity.finish();
                         }
                     }, 3000);
                     e.printStackTrace();

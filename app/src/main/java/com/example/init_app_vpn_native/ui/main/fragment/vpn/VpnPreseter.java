@@ -248,6 +248,11 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                     AppDataHelper.getInstance().postStatus(Config.tokenApp, "connected", Config.currentServer.getId(), null);
                     startAnimationLoaded();
                 }
+                if(state.equals("AUTH_FAILED")){
+                    Toast.makeText(activity, "auth failed", Toast.LENGTH_SHORT).show();
+                    EnableConnectButton = true;
+                    stop_vpn();
+                }
                 if (state.equals("NOPROCESS") && App.connection_status == 2) {
                     EnableConnectButton = true;
                     stop_vpn();
@@ -261,7 +266,6 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
         handlerData.postDelayed(new Runnable() {
             @Override
             public void run() {
-//                view.startAnimation(R.id.la_animation_main, R.anim.fade_in_1000, true);
 //                view.setAnimationImage(R.raw.connected);
 //                view.setAnimationImage("android.resource://" + BuildConfig.APPLICATION_ID + "/raw/connectedun");
 //                view.startAnimation(R.id.lineSpeed, R.anim.fade_in_1000, true);
@@ -321,27 +325,20 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
             if (App.isStart) {
 //                view.startAnimation(R.id.la_animation_main, R.anim.fade_in_1000, true);
                 if (App.connection_status == 1) {
-//                    view.setAnimationImage("android.resource://"+BuildConfig.APPLICATION_ID+"/raw/loading");
-//                    view.setAnimationImage("android.resource://" + BuildConfig.APPLICATION_ID + "/raw/connectedun");
                 } else {
 //                    view.setAnimationImage("android.resource://" + BuildConfig.APPLICATION_ID + "/raw/connectedun");
                 }
-            } else
-//                view.setAnimationImage("android.resource://" + BuildConfig.APPLICATION_ID + "/raw/connectedun");
-                if (Config.currentServer == null) {
-//                    try {
-//                        Intent Welcome = new Intent(activity, LoadData.class);
-//                        Welcome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        activity.startActivityForResult(Welcome, 10);
-//                    } catch (Exception e) {
-//                        Log.e(TAG, "onResume: " + e);
-//                    }
-                } else {
-                    SharedPreferences ConnectionDetails = activity.getSharedPreferences(App.SHARE_CONNECTION_DATA, 0);
-                    App.selectedCountry = new Gson().fromJson(ConnectionDetails.getString(App.SHARE_SELECTED_COUNTRY, ""), Country.class);
-//                configDataServer();
-                    view.updateCountry(App.selectedCountry);
+            } else if (App.selectedCountry == null) {
+                try {
+                    Intent Welcome = new Intent(activity, LoadData.class);
+                    Welcome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    activity.startActivityForResult(Welcome, 10);
+                } catch (Exception e) {
+                    Log.e(TAG, "onResume: " + e);
                 }
+            } else {
+                configDataServer();
+            }
             try {
                 VpnStatus.addStateListener(this);
                 VpnStatus.addByteCountListener(this);
@@ -378,7 +375,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
     void connectToVpn() {
         App.connection_status = 1;
         if (!Config.isFastConnect)
-            appDataHelper.getConnect(Config.tokenApp, Config.currentCountry.getCode(),
+            AppDataHelper.getInstance().getConnect(Config.tokenApp, Config.currentCountry.getCode(),
                     new CallBack<Server>() {
                         @Override
                         public void onSuccess(Server data) {
@@ -389,6 +386,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                         @Override
                         public void onFailed(String mess) {
                             startAnimationLoading();
+                            Log.e(TAG, "onFailed: "  + mess );
                             App.connection_status = 0;
                             Toast.makeText(activity, "Failed to load server", Toast.LENGTH_SHORT).show();
                         }
@@ -483,17 +481,18 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
             connectToVpn();
         }
     }
+
     @Override
     public void pressDisConnect() {
 //        if (App.connection_status == 2) {
-            try {
-                stop_vpn();
-            } catch (Exception e) {
-                Bundle params = new Bundle();
-                params.putString("device_id", App.device_id);
-                params.putString("exception", "MA6" + e.toString());
-            }
-            App.isStart = false;
+        try {
+            stop_vpn();
+        } catch (Exception e) {
+            Bundle params = new Bundle();
+            params.putString("device_id", App.device_id);
+            params.putString("exception", "MA6" + e.toString());
+        }
+        App.isStart = false;
 //        }
     }
 //    private void setTextLineConnect(String s) {
@@ -506,7 +505,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 //        editor.putString(App.SHARE_SELECTED_COUNTRY, new Gson().toJson(App.selectedServer));
 //        editor.commit();
         EncryptData En = new EncryptData();
-        File = En.decrypt(App.selectedServer.getVpnConfig());
+        File = En.decrypt(Config.currentServer.getVpnConfig());
     }
 
     private void showLoadingAds(boolean b) {
@@ -550,22 +549,28 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(TAG, "onActivityResult: " + requestCode );
         if (requestCode == REQUEST_SERVER_CODE) {
-            if (data != null && data.getStringExtra("data").equals("ok")) {
-                Log.e(TAG, "onActivityResult: " + App.selectedCountry.getName());
+            if (data != null && data.getSerializableExtra("country") != null) {
+                Config.isFastConnect = false;
+                Config.currentCountry = (Country) data.getSerializableExtra("country");
+                Log.e(TAG, "onActivityResult: " );
+                Log.e(TAG, "onActivityResult: " + Config.currentCountry.toString() );
+                App.selectedCountry = Config.currentCountry;
+                connectToVpn();
                 view.updateCountry(App.selectedCountry);
             }
-            if (requestCode == 10 && resultCode == -1) {
-                Toast.makeText(activity, "Request timeout!", Toast.LENGTH_SHORT).show();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mService = null;
-                        activity.finish();
-                    }
-                }, 3000);
-            }
+        }
+        if (requestCode == 10 && resultCode == -1) {
+            Toast.makeText(activity, "Request timeout!", Toast.LENGTH_SHORT).show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mService = null;
+//                    activity.finish();
+                }
+            }, 3000);
         }
     }
 
