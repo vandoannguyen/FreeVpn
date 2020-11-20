@@ -295,6 +295,10 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
         }
     }
 
+    @Override
+    public void getQuickLaunch() {
+    }
+
     private String getRanDomText() {
         String text = "";
         for (int i = 0; i < 16; i++) {

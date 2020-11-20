@@ -1,14 +1,20 @@
 package com.example.init_app_vpn_native.ui.main.fragment.more;
 
+import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.LinearLayout;
+import com.example.init_app_vpn_native.ui.proxy.ProxySettingActivity;
+import com.example.init_app_vpn_native.ui.faq.FAQActivity;
+import com.example.init_app_vpn_native.ui.feedBack.FeedbackActivity;
 import com.example.init_app_vpn_native.R;
+import butterknife.ButterKnife;
+import butterknife.BindView;
+import butterknife.OnClick;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,7 +22,15 @@ import com.example.init_app_vpn_native.R;
  * create an instance of this fragment.
  */
 public class MoreFragment extends Fragment {
-
+    private String TAG = "MoreFragment";
+    @BindView(R.id.lineProxy)
+    LinearLayout lineProxy;
+    @BindView(R.id.lineLike)
+    LinearLayout lineLike;
+    @BindView(R.id.lineSuggestion)
+    LinearLayout lineSuggestion;
+    @BindView(R.id.lineUser)
+    LinearLayout lineUser;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,7 +74,28 @@ public class MoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more, container, false);
+        View view = inflater.inflate(R.layout.fragment_more, container, false);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+    @OnClick({R.id.lineProxy, R.id.lineLike, R.id.lineSuggestion, R.id.lineUser})
+    public void onViewClicked(View view){
+        switch (view.getId()){
+            case R.id.lineProxy:
+                Intent intentProxy = new Intent(getActivity(), ProxySettingActivity.class);
+                startActivity(intentProxy);
+                break;
+            case R.id.lineLike:
+                //Rate
+                break;
+            case R.id.lineSuggestion:
+                Intent intentFb = new Intent(getActivity(), FeedbackActivity.class);
+                startActivity(intentFb);
+                break;
+            case R.id.lineUser:
+                Intent intentFAQ = new Intent(getActivity(), FAQActivity.class);
+                startActivity(intentFAQ);
+                break;
+        }
     }
 }

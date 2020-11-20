@@ -20,6 +20,7 @@
                 app:cardCornerRadius="6dp"
                 android:layout_margin="15dp">
                 <LinearLayout
+                    android:id="@+id/lineTapCoin"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -31,18 +32,21 @@
                         android:background="@color/tablayout"
                         android:gravity="center">
                         <NumberPicker
-                            android:selectionDividerHeight="0dp"
+                            android:descendantFocusability="blocksDescendants"
+                            android:theme="@style/CustomNumberPicker"
                             android:id="@+id/numberPick1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <NumberPicker
+                            android:descendantFocusability="blocksDescendants"
+                            android:theme="@style/CustomNumberPicker"
                             android:id="@+id/numberPick2"
-                            android:selectionDividerHeight="0dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <NumberPicker
+                            android:descendantFocusability="blocksDescendants"
+                            android:theme="@style/CustomNumberPicker"
                             android:id="@+id/numberPick3"
-                            android:selectionDividerHeight="0dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
@@ -95,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <LinearLayout
+                    android:id="@+id/lineWatchVideo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -140,6 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <LinearLayout
+                    android:id="@+id/lineCheckin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -185,6 +191,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <LinearLayout
+                    android:id="@+id/lineInvite"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -230,6 +237,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <LinearLayout
+                    android:id="@+id/lineCodes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"

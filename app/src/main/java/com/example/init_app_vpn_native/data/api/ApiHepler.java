@@ -256,4 +256,30 @@ public class ApiHepler implements IApiHelper  {
                     }
                 });
     }
+
+    @Override
+    public void postStatus(String token, String status, String id, CallBack<String> callBack) {
+        JSONObject js = new JSONObject();
+        try {
+            js.put("status", status);
+            AndroidNetworking.post(Constance.ROOT_API+"/client/connectstatus/" + id)
+                    .addHeaders("Authorization", "Bearer " + Config.tokenApp)
+                    .addJSONObjectBody(js)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                        }
+
+                        @Override
+                        public void onError(ANError anError) {
+
+                        }
+                    });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

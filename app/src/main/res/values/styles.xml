@@ -41,4 +41,11 @@
         <item name="textColor">@android:color/holo_orange_light</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="CustomNumberPicker" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textSize">30sp</item>
+    </style>
 </resources>

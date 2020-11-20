@@ -1,7 +1,11 @@
 package com.example.init_app_vpn_native.ui.main;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +18,10 @@ import com.example.init_app_vpn_native.ui.main.fragment.more.MoreFragment;
 import com.example.init_app_vpn_native.ui.main.fragment.point.PointFragment;
 import com.example.init_app_vpn_native.ui.main.fragment.vpn.VpnFragment;
 import com.example.init_app_vpn_native.utils.ads.Ads;
+import com.example.init_app_vpn_native.ui.point.PointsDesActivity;
+import com.example.init_app_vpn_native.utils.ads.Ads;
+import com.example.init_app_vpn_native.utils.Common;
+import com.example.init_app_vpn_native.utils.SharedPrefsUtils;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -21,9 +29,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements IMainActivity {
+    private String TAG = "MainActivity";
     MainPresenter<IMainActivity> presenter;
+    @BindView(R.id.lineCoinMain)
+    LinearLayout lineCoinMain;
     @BindView(R.id.txtAppName)
     TextView txtAppName;
     @BindView(R.id.txtCoin)
@@ -38,11 +50,27 @@ public class MainActivity extends BaseActivity implements IMainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        Ads.getInstance(this).initAds();
         presenter = new MainPresenter<>(this);
         presenter.onAttact(this);
         presenter.getExample();
         initViewPager();
         initTabLayout();
+        initView();
+    }
+    private void initView(){
+//        SharedPrefsUtils.getInstance(getApplicationContext()).putBoolean("unlock", true);
+        int coinAdd = SharedPrefsUtils.getInstance(this).getInt("points");
+        Common.points = Common.points + coinAdd;
+        String strCoin = String.valueOf(Common.points);
+        txtCoin.setText(strCoin);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        Log.e(TAG, "onWindowFocusChanged: 123" );
+        initView();
     }
 
     private void initViewPager() {
@@ -53,7 +81,15 @@ public class MainActivity extends BaseActivity implements IMainActivity {
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(pagerAdapter);
     }
-
+    @OnClick({R.id.lineCoinMain})
+    public void onViewClicked(View view){
+        switch (view.getId()){
+            case R.id.lineCoinMain:
+                Intent intentCoin = new Intent(getApplicationContext(), PointsDesActivity.class);
+                startActivity(intentCoin);
+                break;
+        }
+    }
     private void initTabLayout() {
         tabView.setupWithViewPager(viewPager);
     }

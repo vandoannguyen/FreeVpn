@@ -28,6 +28,7 @@ public class LoadData extends AppCompatActivity implements ILoadDataView {
         presenter.login();
         presenter.getAds();
         presenter.getCoin();
+        presenter.getQuickLaunch();
     }
 
     @Override

@@ -8,4 +8,5 @@
     <color name="tablayout">#f6c83d</color>
     <color name="colorRed">#FF0000</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="text_main_color">#000000</color>
 </resources>

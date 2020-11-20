@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.enterCode.EnterCodesActivity">
+    <RelativeLayout
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <ImageView
+            android:id="@+id/btnBackEnterCodes"
+            android:src="@drawable/ic_back"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:padding="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:text="Enter Codes"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <EditText
+        android:layout_margin="10dp"
+        android:id="@+id/edtEnterCodes"
+        android:hint="Please enter....."
+        android:focusable="auto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:id="@+id/lineSubmit"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/custum_background_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+        <TextView
+            android:text="Submit to Get Points"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

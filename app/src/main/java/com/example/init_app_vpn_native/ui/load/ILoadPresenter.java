@@ -8,4 +8,6 @@ public interface ILoadPresenter<V extends ILoadDataView> extends MVPPresenter<V>
     void getAds();
 
     void getCoin();
+
+    void getQuickLaunch();
 }

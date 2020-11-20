@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp" />
         <LinearLayout
+            android:id="@+id/lineCoinMain"
             android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">

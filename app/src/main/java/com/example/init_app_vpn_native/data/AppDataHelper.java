@@ -77,4 +77,9 @@ public class AppDataHelper implements IAppDataHelper {
     public void setCoin(Context context, int coin, CallBack<Object> callBack) {
         sharePreferHelper.setCoin(context, coin, callBack);
     }
+
+    @Override
+    public void postStatus(String token, String status, String id, CallBack<String> callBack) {
+        apiHepler.postStatus(token, status, id, callBack);
+    }
 }

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.init_app_vpn_native.base.BasePresenter;
 import com.example.init_app_vpn_native.common.Config;
+import com.example.init_app_vpn_native.data.AppDataHelper;
 import com.example.init_app_vpn_native.data.CallBack;
 import com.example.init_app_vpn_native.data.IAppDataHelper;
 import com.example.init_app_vpn_native.data.api.model.Country;
@@ -238,13 +241,12 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-//                view.isConnectedServer(state.equals("CONNECTED"));
                 if (state.equals("CONNECTED")) {
                     App.isStart = true;
                     EnableConnectButton = true;
                     setConnectionStatus(2);
+                    AppDataHelper.getInstance().postStatus(Config.tokenApp, "connected", Config.currentServer.getId(), null);
                     startAnimationLoaded();
-
                 }
                 if (state.equals("NOPROCESS") && App.connection_status == 2) {
                     EnableConnectButton = true;
@@ -428,6 +430,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                                 public void onFinish() {
                                     if (App.isStart && App.connection_status == 1) {
                                         stop_vpn();
+                                        AppDataHelper.getInstance().postStatus(Config.tokenApp, "unable to connect", Config.currentServer.getId(), null);
                                         Toast.makeText(activity, "Connect timeout!", Toast.LENGTH_SHORT).show();
                                         isClickDisConnectVpn = false;
                                         startAnimationLoading();
@@ -453,15 +456,36 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
     }
 
     @Override
-    public void pressLineConnect() {
-        startAnimationLoading();
-//        if (App.connection_status == 0) {
-            connectToVpn();
-//        }
+    public void intentToApp(String s) {
+        if (isPackageExisted(s)) {
+            Intent launchIntent = activity.getPackageManager().getLaunchIntentForPackage(s);
+            if (launchIntent != null) {
+                activity.startActivity(launchIntent);//null pointer check in case package name was not found
+            }
+        } else
+            Toast.makeText(activity, "Your device is not install this app", Toast.LENGTH_SHORT).show();
     }
 
+    public boolean isPackageExisted(String targetPackage) {
+        PackageManager pm = activity.getPackageManager();
+        try {
+            PackageInfo info = pm.getPackageInfo(targetPackage, PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void pressLineConnect() {
+        startAnimationLoading();
+        if (App.connection_status == 0) {
+            connectToVpn();
+        }
+    }
+    @Override
     public void pressDisConnect() {
-        if (App.connection_status == 2) {
+//        if (App.connection_status == 2) {
             try {
                 stop_vpn();
             } catch (Exception e) {
@@ -470,7 +494,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                 params.putString("exception", "MA6" + e.toString());
             }
             App.isStart = false;
-        }
+//        }
     }
 //    private void setTextLineConnect(String s) {
 //        view.setTextLineConnect(s);

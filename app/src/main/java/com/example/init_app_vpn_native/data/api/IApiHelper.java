@@ -11,17 +11,19 @@ import java.util.List;
 public interface IApiHelper {
     void getAdsConfig(CallBack<JSONObject> callBack);
 
-    void getFastConnect(String token,CallBack<Server> callBack);
+    void getFastConnect(String token, CallBack<Server> callBack);
 
-    void getConnect(String token,String countryCode, CallBack<Server> callBack);
+    void getConnect(String token, String countryCode, CallBack<Server> callBack);
 
-    void getCountry(String token,CallBack<List<Country>> callBack);
+    void getCountry(String token, CallBack<List<Country>> callBack);
 
-    void getListVpn(String token,CallBack<List<Server>> callBack);
+    void getListVpn(String token, CallBack<List<Server>> callBack);
 
-    void postConnect(String token,String status, CallBack<String> callBack);
+    void postConnect(String token, String status, CallBack<String> callBack);
 
     void postLogin(String username, String password, CallBack<String> callbackToken);
 
     void postCreateAcc(String username, String password, CallBack<String> callbackToken);
+
+    void postStatus(String token, String status, String id, CallBack<String> callBack);
 }

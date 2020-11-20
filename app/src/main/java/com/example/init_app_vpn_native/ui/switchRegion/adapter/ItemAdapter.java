@@ -49,7 +49,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onItemClick != null) onItemClick.onClick(position);
+                if (onItemClick != null) onItemClick.onClick(countries.get(position));
             }
         });
         holder.txtCoinItemServer.setText(countries.get(position).getPrice());
@@ -66,7 +66,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     public interface OnItemClick {
-        void onClick(int index);
+        void onClick(Country index);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
