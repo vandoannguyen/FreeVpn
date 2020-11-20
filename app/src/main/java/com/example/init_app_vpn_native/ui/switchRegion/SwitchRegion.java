@@ -1,9 +1,11 @@
 package com.example.init_app_vpn_native.ui.switchRegion;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,7 +60,40 @@ public class SwitchRegion extends AppCompatActivity {
     }
 
     private void showDialogConfirm(Country index) {
+//        showDialog();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Title").setMessage("This is a message");
+        builder.setCancelable(true);
+//        builder.setIcon(R.drawable.icon_title);
+        builder.setPositiveButton("Positive", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(SwitchRegion.this, "You choose positive button",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+//        builder.setPositiveButtonIcon(positiveIcon);
 
+        // Create "Negative" button with OnClickListener.
+        builder.setNegativeButton("Negative", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(SwitchRegion.this, "You choose positive button",
+                        Toast.LENGTH_SHORT).show();
+                //  Cancel
+                dialog.cancel();
+            }
+        });
+//        builder.setNegativeButtonIcon(negativeIcon);
+
+        // Create "Neutral" button with OnClickListener.
+        builder.setNeutralButton("Neutral", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //  Action for 'NO' Button
+                Toast.makeText(SwitchRegion.this, "You choose neutral button",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @OnClick({R.id.icBackSwitchRegion, R.id.icRefreshRegion, R.id.linearProgress})

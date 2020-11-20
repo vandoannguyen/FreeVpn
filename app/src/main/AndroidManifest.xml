@@ -22,6 +22,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.speedTest.SpeedTest" />
+        <activity android:name=".ui.switchRegion.SwitchRegion" />
         <activity android:name=".ui.point.PointsDesActivity" />
         <activity android:name=".ui.proxy.ProxySettingActivity" />
         <activity android:name=".ui.invite.InviteFriendActivity" />

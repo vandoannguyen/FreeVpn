@@ -2,9 +2,6 @@ package com.example.init_app_vpn_native.ui.main.fragment.vpn;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.init_app_vpn_native.R;
@@ -39,6 +36,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "VpnFragment";
+    private static final int SWITCH_REQUEST_CODE = 123;
     @BindView(R.id.cardConnect)
     CardView cardConnect;
     @BindView(R.id.cardDisConnect)
@@ -70,6 +68,14 @@ public class VpnFragment extends Fragment implements IVpnView {
     TextView txtUpLoadSpeed;
     @BindView(R.id.linearConnect)
     LinearLayout linearConnect;
+    @BindView(R.id.imgFlagConnected)
+    ImageView imgFlagConnected;
+    @BindView(R.id.quickFacebook)
+    LinearLayout quickFacebook;
+    @BindView(R.id.quickGoogle)
+    LinearLayout quickGoogle;
+    @BindView(R.id.quickGmail)
+    LinearLayout quickGmail;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -127,6 +133,7 @@ public class VpnFragment extends Fragment implements IVpnView {
         if (country != null) {
             txtCountry.setText(country.getName());
             Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
+            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
         }
         return view;
     }
@@ -168,7 +175,7 @@ public class VpnFragment extends Fragment implements IVpnView {
             }
             break;
             case R.id.lineSwitchCountry: {
-                intentToOther(SwitchRegion.class);
+                intentToOther(SwitchRegion.class, SWITCH_REQUEST_CODE);
             }
             break;
             case R.id.lineDisconnect:
@@ -176,7 +183,7 @@ public class VpnFragment extends Fragment implements IVpnView {
             case R.id.lineGetCoin:
                 break;
             case R.id.lineGetServer: {
-                intentToOther(SwitchRegion.class);
+                intentToOther(SwitchRegion.class, SWITCH_REQUEST_CODE);
             }
             break;
             case R.id.lineGetSpeedTest: {
@@ -192,22 +199,26 @@ public class VpnFragment extends Fragment implements IVpnView {
             case 0: {
                 imgConnect.setImageResource(R.drawable.connect);
                 linearConnected.setVisibility(View.GONE);
+                cardDisConnect.setVisibility(View.GONE);
                 linearConnect.setVisibility(View.VISIBLE);
 
                 break;
             }
             case 1: {
-                imgFlag.setImageResource(R.drawable.connecting);
+                imgConnect.setImageResource(R.drawable.connecting);
+                linearConnected.setVisibility(View.VISIBLE);
+                cardDisConnect.setVisibility(View.VISIBLE);
+                linearConnect.setVisibility(View.GONE);
                 break;
             }
             case 2: {
-                imgFlag.setImageResource(R.drawable.connect);
+                imgConnect.setImageResource(R.drawable.connect);
                 linearConnected.setVisibility(View.VISIBLE);
                 break;
             }
             default: {
                 linearConnect.setVisibility(View.GONE);
-                imgFlag.setImageResource(R.drawable.connect);
+                imgConnect.setImageResource(R.drawable.connect);
                 linearConnected.setVisibility(View.GONE);
             }
 
@@ -225,6 +236,15 @@ public class VpnFragment extends Fragment implements IVpnView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SWITCH_REQUEST_CODE) {
+            if (data != null) {
+                String countryCode = data.getStringExtra("country_code");
+                if (!countryCode.isEmpty()) {
+                    Config.currentCountry = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
+                    Config.isFastConnect = false;
+                }
+            }
+        }
         preseter.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -252,6 +272,11 @@ public class VpnFragment extends Fragment implements IVpnView {
     void intentToOther(Class clas) {
         Intent intent = new Intent(getContext(), clas);
         startActivity(intent);
+    }
+
+    void intentToOther(Class clas, int requestCode) {
+        Intent intent = new Intent(getContext(), clas);
+        startActivityForResult(intent, requestCode);
     }
 
     @Override

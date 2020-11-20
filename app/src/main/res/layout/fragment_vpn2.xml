@@ -130,7 +130,7 @@
                 android:id="@+id/cardDisConnect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:cardCornerRadius="5dp">
 
                 <LinearLayout
@@ -163,6 +163,7 @@
                             android:gravity="center">
 
                             <ImageView
+                                android:id="@+id/imgFlagConnected"
                                 android:layout_width="80dp"
                                 android:layout_height="50dp"
                                 android:src="@drawable/ic_flag" />
