@@ -36,6 +36,7 @@
             android:layout_marginLeft="10dp"
             android:layout_margin="10dp"
             android:text="Problems/Bugs"
+            android:textColor="@android:color/black"
             android:textSize="15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -43,7 +44,7 @@
             android:layout_margin="10dp"
             android:focusable="auto"
             android:id="@+id/edtFeedback"
-            android:hint="Please write down your comments here, and provider....."
+            android:hint="Please write down your comments here, and provide as many details as you can(especially bugs). "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText

@@ -1,6 +1,7 @@
 package com.example.init_app_vpn_native.ui.main.fragment.vpn;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -20,9 +23,11 @@ import com.bumptech.glide.Glide;
 import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.common.Config;
 import com.example.init_app_vpn_native.data.api.model.Country;
+import com.example.init_app_vpn_native.ui.dialog.DialogLoading;
 import com.example.init_app_vpn_native.ui.main.fragment.FragmentCallback;
 import com.example.init_app_vpn_native.ui.speedTest.SpeedTest;
 import com.example.init_app_vpn_native.ui.switchRegion.SwitchRegion;
+import com.example.init_app_vpn_native.utils.ads.Ads;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,6 +86,10 @@ public class VpnFragment extends Fragment implements IVpnView {
     LinearLayout quickGoogle;
     @BindView(R.id.quickGmail)
     LinearLayout quickGmail;
+    @BindView(R.id.frameAds)
+    FrameLayout frameAds;
+    @BindView(R.id.txtConnectedCountry)
+    TextView txtConnectedCountry;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -131,10 +140,9 @@ public class VpnFragment extends Fragment implements IVpnView {
         Log.e(TAG, "onCreateView: " + countryCode);
         Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
         App.selectedCountry = country;
+        Ads.getInstance(getActivity()).nativeAds(frameAds, null);
         if (country != null) {
-            txtCountry.setText(country.getName());
-            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
-            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
+            updateCountry(country);
         }
         return view;
     }
@@ -168,7 +176,7 @@ public class VpnFragment extends Fragment implements IVpnView {
         return false;
     }
 
-    @OnClick({R.id.imgConnect, R.id.lineSwitchCountry, R.id.lineDisconnect, R.id.lineGetCoin, R.id.lineGetServer, R.id.lineGetSpeedTest})
+    @OnClick({R.id.imgConnect, R.id.quickFacebook, R.id.quickGoogle, R.id.quickGmail, R.id.lineSwitchCountry, R.id.lineDisconnect, R.id.lineGetCoin, R.id.lineGetServer, R.id.lineGetSpeedTest})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imgConnect: {
@@ -180,7 +188,7 @@ public class VpnFragment extends Fragment implements IVpnView {
             }
             break;
             case R.id.lineDisconnect:
-                preseter.pressDisConnect();
+                disConnectVpn();
                 break;
             case R.id.lineGetCoin: {
                 callback.callGetCoin();
@@ -192,8 +200,61 @@ public class VpnFragment extends Fragment implements IVpnView {
             break;
             case R.id.lineGetSpeedTest: {
                 intentToOther(SpeedTest.class);
+                break;
             }
-            break;
+            case R.id.quickFacebook: {
+                intentQuick("com.facebook.katana");
+                break;
+            }
+            case R.id.quickGoogle: {
+                intentQuick("com.google.android.googlequicksearchbox");
+                break;
+            }
+            case R.id.quickGmail: {
+                intentQuick("com.google.android.gm");
+                break;
+            }
+        }
+    }
+
+    private void intentQuick(String s) {
+        if (checkPackage(s)) {
+            Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage(s);
+            if (launchIntent != null) {
+                startActivity(launchIntent);//null pointer check in case package name was not found
+            }
+        } else {
+            Toast.makeText(getContext(), "This app is not installed in your device", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean checkPackage(String s) {
+        PackageManager pm = getActivity().getPackageManager();
+        boolean app_installed = false;
+        try {
+            pm.getPackageInfo(s, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
+
+    private void disConnectVpn() {
+        preseter.pressDisConnect();
+        if (Ads.getRandom()) {
+            DialogLoading.showDialog(getContext());
+            Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                @Override
+                public void adClose() {
+                    DialogLoading.dismish();
+                }
+
+                @Override
+                public void adLoadFailed(int i) {
+                    DialogLoading.dismish();
+                }
+            });
         }
     }
 
@@ -243,7 +304,24 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     private void connectToVpn() {
-        preseter.pressLineConnect();
+        if (Ads.getRandom()) {
+            DialogLoading.showDialog(getContext());
+            Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                @Override
+                public void adClose() {
+                    preseter.pressLineConnect();
+                    DialogLoading.dismish();
+                }
+
+                @Override
+                public void adLoadFailed(int i) {
+                    preseter.pressLineConnect();
+                    DialogLoading.dismish();
+                }
+            });
+        } else {
+            preseter.pressLineConnect();
+        }
     }
 
     private void pressSwitchCountry() {
@@ -265,6 +343,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     @Override
     public void updateCountry(Country country) {
         txtCountry.setText(country.getName());
+        txtConnectedCountry.setText(country.getName());
         Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
         Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
     }

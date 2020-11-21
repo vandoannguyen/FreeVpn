@@ -10,4 +10,6 @@ public interface ILoadPresenter<V extends ILoadDataView> extends MVPPresenter<V>
     void getCoin();
 
     void getQuickLaunch();
+
+    void intentMain();
 }

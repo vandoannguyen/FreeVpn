@@ -184,7 +184,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
         }
     }
 
-    private void intentMain() {
+    public void intentMain() {
         activity.startActivity(new Intent(activity, MainActivity.class));
         activity.finish();
     }
@@ -283,11 +283,13 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                                 banner = model.banner;
                                 interstitial = model.inter;
                                 nativeAds = model.nativeAds;
+                                rewar_id_admob = model.rewared;
                             } else {
                                 model = models.get(new Random(models.size() - 1).nextInt() + 1);
                                 banner = model.banner;
                                 interstitial = model.inter;
                                 nativeAds = model.nativeAds;
+                                rewar_id_admob = model.rewared;
                             }
                             if (isConstanceAdmob) {
                                 SharedPrefsUtils.getInstance(activity).putString("constAdmob", AdsMordel.toJson(model));
@@ -300,7 +302,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                         isShowInter = adObject.getBoolean("is_show_inter");
                         isShowBanner = adObject.getBoolean("is_show_banner");
                         isShowNative = adObject.getBoolean("is_show_native");
-                        isLoadFailed = adObject.getBoolean("is_load_failed");
+                        isLoadFailed = adObject.getBoolean("is_load_fail");
                         isAdmob = adObject.getBoolean("isAdmob");
                         checkAppData = adObject.getString("checkApp");
                     }
@@ -309,6 +311,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                     Ads.is_load_failed = isLoadFailed;
                     Ads.percents = percents;
                     if (!Config.isDebug) {
+                        Ads.rewar_id_admob = rewar_id_admob;
                         Ads.is_show_admob = isAdmob;
                         Ads.banner_id_admob = banner;
                         Ads.inter_id_admob = interstitial;
@@ -337,11 +340,14 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     }
 
     static class AdsMordel {
-        public AdsMordel(String banner, String inter, String nativeAds, int percent) {
+        private String rewared;
+
+        public AdsMordel(String banner, String inter, String nativeAds, String rewared, int percent) {
             this.banner = banner;
             this.inter = inter;
             this.nativeAds = nativeAds;
             this.percent = percent;
+            this.rewared = rewared;
         }
 
         String banner, inter, nativeAds;
@@ -353,6 +359,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                 jsonObject.put("ad_banner_id", mordel.banner);
                 jsonObject.put("ad_inter_id", mordel.inter);
                 jsonObject.put("ad_native_id", mordel.nativeAds);
+                jsonObject.put("rewar_id_admob", mordel.rewared);
                 jsonObject.put("percents", mordel.percent);
                 return jsonObject.toString();
             } catch (JSONException e) {
@@ -367,6 +374,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                 return new AdsMordel(jsonObject.getString("ad_banner_id"),
                         jsonObject.getString("ad_inter_id"),
                         jsonObject.getString("ad_native_id"),
+                        jsonObject.getString("rewar_id_admob"),
                         jsonObject.getInt("percents"));
             } catch (JSONException e) {
                 e.printStackTrace();

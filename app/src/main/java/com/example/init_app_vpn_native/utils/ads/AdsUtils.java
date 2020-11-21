@@ -5,9 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -34,8 +34,6 @@ import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdBase;
 import com.facebook.ads.NativeAdLayout;
 import com.facebook.ads.NativeAdListener;
-import com.facebook.ads.NativeAdView;
-import com.facebook.ads.NativeAdViewAttributes;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
@@ -65,6 +63,9 @@ public class AdsUtils {
     private long lastRequestInterFan = 0;
     private NativeAd nativeAdFan;
     private UnifiedNativeAd nativeAdmob;
+    private RewardedVideoAd rewardedVideoAd;
+    private boolean isLoadingReward = false;
+    private boolean isIsClickReward = false;
 
     public static AdsUtils getInstance(Activity context) {
         if (adsUtils != null) {
@@ -315,16 +316,22 @@ public class AdsUtils {
     }
 
     public void rewar_admob(String rewar_id_admob, RewardedVideoAdListener listener) {
-        RewardedVideoAd rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(activity);
+        isIsClickReward = true;
+        if (rewardedVideoAd == null)
+            rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(activity);
         rewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
             @Override
             public void onRewardedVideoAdLoaded() {
-                rewardedVideoAd.show();
+                isLoadingReward = false;
+                if (isIsClickReward) {
+                    rewardedVideoAd.show();
+                }
                 listener.onRewardedVideoAdLoaded();
             }
 
             @Override
             public void onRewardedVideoAdOpened() {
+                isIsClickReward = false;
                 listener.onRewardedVideoAdOpened();
             }
 
@@ -336,6 +343,10 @@ public class AdsUtils {
             @Override
             public void onRewardedVideoAdClosed() {
                 listener.onRewardedVideoAdClosed();
+                if (rewardedVideoAd != null) {
+                    rewardedVideoAd.loadAd(rewar_id_admob, new AdRequest.Builder().build());
+                    isLoadingReward = true;
+                }
             }
 
             @Override
@@ -351,6 +362,10 @@ public class AdsUtils {
             @Override
             public void onRewardedVideoAdFailedToLoad(int i) {
                 listener.onRewardedVideoAdFailedToLoad(i);
+                if (rewardedVideoAd != null) {
+                    rewardedVideoAd.loadAd(rewar_id_admob, new AdRequest.Builder().build());
+                    isLoadingReward = true;
+                }
             }
 
             @Override
@@ -358,7 +373,13 @@ public class AdsUtils {
                 listener.onRewardedVideoCompleted();
             }
         });
-        rewardedVideoAd.loadAd(rewar_id_admob, new AdRequest.Builder().build());
+        if (rewardedVideoAd.isLoaded()) {
+            rewardedVideoAd.show();
+            return;
+        }
+        if (!isLoadingReward) {
+            rewardedVideoAd.loadAd(rewar_id_admob, new AdRequest.Builder().build());
+        }
     }
 
     public void rewar_fan(com.facebook.ads.RewardedVideoAdListener listener) {
@@ -531,55 +552,67 @@ public class AdsUtils {
 
     private void inflateAd(Context context, NativeAd nativeAd, ViewGroup frmads, int layout) {
         nativeAd.unregisterView();
-        View adView = NativeAdView.render(activity, nativeAd);
-        frmads.removeAllViews();
-        frmads.addView(adView);
-//        NativeAdLayout nativeAdLayout = new NativeAdLayout(context);
-//        // Add the Ad view into the ad container.
-//        LayoutInflater inflater = LayoutInflater.from(context);
-//        // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
-//        View adView = (LinearLayout) inflater.inflate(layout, nativeAdLayout, false);
-//        nativeAdLayout.addView(adView);
-//
-//        // Add the AdOptionsView
-//        LinearLayout adChoicesContainer = adView.findViewById(R.id.ad_choices_container);
-//        AdOptionsView adOptionsView = new AdOptionsView(context, nativeAd, nativeAdLayout);
-//        adChoicesContainer.removeAllViews();
-//        adChoicesContainer.addView(adOptionsView, 0);
-//
-//        // Create native UI using the ad metadata.
-//        AdIconView nativeAdIcon = adView.findViewById(R.id.native_ad_icon);
-//        TextView nativeAdTitle = adView.findViewById(R.id.native_ad_title);
-//        MediaView nativeAdMedia = adView.findViewById(R.id.native_ad_media);
-//        TextView nativeAdSocialContext = adView.findViewById(R.id.native_ad_social_context);
-//        TextView nativeAdBody = adView.findViewById(R.id.native_ad_body);
-//        TextView sponsoredLabel = adView.findViewById(R.id.native_ad_sponsored_label);
-//        Button nativeAdCallToAction = adView.findViewById(R.id.native_ad_call_to_action);
-//
-//        // Set the Text.
-//        nativeAdTitle.setText(nativeAd.getAdvertiserName());
-//        nativeAdBody.setText(nativeAd.getAdBodyText());
-//        nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
-//        nativeAdCallToAction.setVisibility(nativeAd.hasCallToAction() ? View.VISIBLE : View.INVISIBLE);
-//        nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
-//        sponsoredLabel.setText(nativeAd.getSponsoredTranslation());
-//
-//        // Create a list of clickable views
-//        List<View> clickableViews = new ArrayList<>();
-//        clickableViews.add(nativeAdTitle);
-//        clickableViews.add(nativeAdCallToAction);
-//        clickableViews.add(nativeAdMedia);
-//        clickableViews.add(nativeAdIcon);
-//        clickableViews.add(nativeAdBody);
-//        // Register the Title and CTA button to listen for clicks.
-//        nativeAd.registerViewForInteraction(
-//                adView,
-//                nativeAdMedia,
-//                nativeAdIcon,
-//                clickableViews);
-//        Log.e(TAG, "inflateAd: " + frmads.getChildCount());
+//        View adView = NativeAdView.render(activity, nativeAd);
 //        frmads.removeAllViews();
-//        frmads.addView(nativeAdLayout);
+//        frmads.addView(adView);
+        NativeAdLayout nativeAdLayout = new NativeAdLayout(context);
+        // Add the Ad view into the ad container.
+        LayoutInflater inflater = LayoutInflater.from(context);
+        // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
+        View adView = (LinearLayout) inflater.inflate(layout, nativeAdLayout, false);
+        nativeAdLayout.addView(adView);
+
+        // Add the AdOptionsView
+        LinearLayout adChoicesContainer = adView.findViewById(R.id.ad_choices_container);
+        AdOptionsView adOptionsView = new AdOptionsView(context, nativeAd, nativeAdLayout);
+        adChoicesContainer.removeAllViews();
+        adChoicesContainer.addView(adOptionsView, 0);
+
+        // Create native UI using the ad metadata.
+        AdIconView nativeAdIcon = adView.findViewById(R.id.native_ad_icon);
+        TextView nativeAdTitle = adView.findViewById(R.id.native_ad_title);
+        MediaView nativeAdMedia = adView.findViewById(R.id.native_ad_media);
+        TextView nativeAdSocialContext = adView.findViewById(R.id.native_ad_social_context);
+        TextView nativeAdBody = adView.findViewById(R.id.native_ad_body);
+        TextView sponsoredLabel = adView.findViewById(R.id.native_ad_sponsored_label);
+        Button nativeAdCallToAction = adView.findViewById(R.id.native_ad_call_to_action);
+        nativeAdCallToAction.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    nativeAdCallToAction.setTextColor(0xFFFFFFFF);
+                }
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    nativeAdCallToAction.setTextColor(0xFFFFFF88);
+                }
+                return true;
+            }
+        });
+        // Set the Text.
+        nativeAdTitle.setText(nativeAd.getAdvertiserName());
+        nativeAdBody.setText(nativeAd.getAdBodyText());
+        nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
+        nativeAdCallToAction.setVisibility(nativeAd.hasCallToAction() ? View.VISIBLE : View.INVISIBLE);
+        nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
+        sponsoredLabel.setText(nativeAd.getSponsoredTranslation());
+
+        // Create a list of clickable views
+        List<View> clickableViews = new ArrayList<>();
+        clickableViews.add(nativeAdTitle);
+        clickableViews.add(nativeAdCallToAction);
+        clickableViews.add(nativeAdMedia);
+        clickableViews.add(nativeAdIcon);
+        clickableViews.add(nativeAdBody);
+        // Register the Title and CTA button to listen for clicks.
+
+        nativeAd.registerViewForInteraction(
+                adView,
+                nativeAdMedia,
+                nativeAdIcon,
+                clickableViews);
+        Log.e(TAG, "inflateAd: " + frmads.getChildCount());
+        frmads.removeAllViews();
+        frmads.addView(nativeAdLayout);
     }
 
     private void populateUnifiedNativeAdView(UnifiedNativeAd unifiedNativeAd, UnifiedNativeAdView adView, int layout) {
