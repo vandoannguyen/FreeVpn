@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.ui.speedTest.test.HttpDownloadTest;
 import com.example.init_app_vpn_native.ui.speedTest.test.HttpUploadTest;
 import com.example.init_app_vpn_native.ui.speedTest.test.PingTest;
+import com.example.init_app_vpn_native.utils.ads.Ads;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -58,6 +60,9 @@ public class SpeedTest extends AppCompatActivity {
     TextView txtCPU1;
     @BindView(R.id.txtCPU2)
     TextView txtCPU2;
+    RotateAnimation rotate;
+    @BindView(R.id.frmAdsSpeedTest)
+    FrameLayout frmAdsSpeedTest;
 
     @Override
     public void onResume() {
@@ -77,6 +82,7 @@ public class SpeedTest extends AppCompatActivity {
         tempBlackList = new HashSet<>();
         getSpeedTestHost = new GetSpeedTestHost();
         getSpeedTestHost.start();
+        Ads.getInstance(this).banner(frmAdsSpeedTest, Ads.AdsSize.BANNER);
     }
 
     private void initAds() {
@@ -101,8 +107,6 @@ public class SpeedTest extends AppCompatActivity {
             getSpeedTestHost.start();
         }
         new Thread(new Runnable() {
-            RotateAnimation rotate;
-
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
@@ -271,10 +275,7 @@ public class SpeedTest extends AppCompatActivity {
 
                                 @Override
                                 public void run() {
-                                    rotate = new RotateAnimation(lastPosition, position, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                                    rotate.setInterpolator(new LinearInterpolator());
-                                    rotate.setDuration(100);
-                                    imgBar.startAnimation(rotate);
+                                    setRotate(lastPosition, position);
                                     txtDowload.setText(dec.format(downloadTest.getInstantDownloadRate()) + " Mbps");
                                 }
 
@@ -307,10 +308,7 @@ public class SpeedTest extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    rotate = new RotateAnimation(lastPosition, position, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                                    rotate.setInterpolator(new LinearInterpolator());
-                                    rotate.setDuration(100);
-                                    imgBar.startAnimation(rotate);
+                                    setRotate(lastPosition, position);
                                     txtUpload.setText(dec.format(uploadTest.getInstantUploadRate()) + " Mbps");
                                     Log.e("Upload ", "run: " + dec.format(uploadTest.getInstantUploadRate()));
                                 }
@@ -358,6 +356,13 @@ public class SpeedTest extends AppCompatActivity {
 
             }
         }).start();
+    }
+
+    private void setRotate(int lastPosition, int position) {
+        rotate = new RotateAnimation(lastPosition, position, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotate.setInterpolator(new LinearInterpolator());
+        rotate.setDuration(200);
+        imgBar.startAnimation(rotate);
     }
 
     public int getPositionByRate(double rate) {

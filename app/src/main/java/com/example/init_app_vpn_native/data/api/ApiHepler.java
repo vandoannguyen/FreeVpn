@@ -36,11 +36,13 @@ public class ApiHepler implements IApiHelper {
                     @Override
                     public void onResponse(JSONObject response) {
                         callBack.onSuccess(response);
+                        Log.e(TAG, "onResponse: " + response.toString());
                     }
 
                     @Override
                     public void onError(ANError error) {
                         callBack.onFailed(error.toString());
+                        Log.e(TAG, "onError: " + error.getMessage() );
                     }
                 });
     }

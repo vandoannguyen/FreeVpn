@@ -3,6 +3,7 @@ package com.example.init_app_vpn_native.utils.ads;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.common.Config;
@@ -16,6 +17,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+
+import java.util.Random;
 
 import static com.facebook.ads.AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CRASH_DEBUG_MODE;
 
@@ -33,7 +36,11 @@ public class Ads {
     public static String native_id_fan = "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID";
     public static boolean is_show_admob = false;
     public static boolean is_load_failed = true;
-    private String rewar_id_admob = "ca-app-pub-3940256099942544/5224354917";
+    public static String rewar_id_admob = "ca-app-pub-3940256099942544/5224354917";
+
+    public static boolean getRandom() {
+        return new Random().nextInt(100) < percents;
+    }
 
     public void initAds() {
         MobileAds.initialize(activity, Config.isDebug ? activity.getString(R.string.app_ads_id_debug) : activity.getString(R.string.app_ads_id_release));
@@ -251,49 +258,49 @@ public class Ads {
 
     public void rewared(CallBackRewared rewared) {
 //        if (is_show_admob) {
-            AdsUtils.getInstance(activity).rewar_admob(rewar_id_admob, new RewardedVideoAdListener() {
+        AdsUtils.getInstance(activity).rewar_admob(rewar_id_admob, new RewardedVideoAdListener() {
 
-                @Override
-                public void onRewardedVideoAdLoaded() {
+            @Override
+            public void onRewardedVideoAdLoaded() {
 
-                }
+            }
 
-                @Override
-                public void onRewardedVideoAdOpened() {
+            @Override
+            public void onRewardedVideoAdOpened() {
 
-                }
+            }
 
-                @Override
-                public void onRewardedVideoStarted() {
+            @Override
+            public void onRewardedVideoStarted() {
 
-                }
+            }
 
-                @Override
-                public void onRewardedVideoAdClosed() {
-                    rewared.adClose();
+            @Override
+            public void onRewardedVideoAdClosed() {
+                rewared.adClose();
 
-                }
+            }
 
-                @Override
-                public void onRewarded(RewardItem rewardItem) {
-                    rewared.adRewared();
-                }
+            @Override
+            public void onRewarded(RewardItem rewardItem) {
+                rewared.adRewared();
+            }
 
-                @Override
-                public void onRewardedVideoAdLeftApplication() {
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
 
-                }
+            }
 
-                @Override
-                public void onRewardedVideoAdFailedToLoad(int i) {
-                    rewared.adLoadFailed(i);
-                }
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int i) {
+                rewared.adLoadFailed(i);
+            }
 
-                @Override
-                public void onRewardedVideoCompleted() {
+            @Override
+            public void onRewardedVideoCompleted() {
 
-                }
-            });
+            }
+        });
 //        } else {
 //            AdsUtils.getInstance(activity).rewar_fan(new com.facebook.ads.RewardedVideoAdListener() {
 //                @Override
@@ -377,11 +384,33 @@ public class Ads {
 //        }
     }
 
+    public void nativeAds(ViewGroup viewGroup, AdsSize size) {
+        if (is_show_admob) {
+//
+            AdsUtils.getInstance(activity).nativeAdmob((FrameLayout) viewGroup, R.layout.ad_unified_draw_navigator, new AdListener() {
+
+            }, native_id_admob);
+        } else {
+            AdsUtils.getInstance(activity).nativeFan(viewGroup, native_id_fan, R.layout.fan_native_layout_medium, new AdsUtils.FanNativeCallBack() {
+                @Override
+                public void onError() {
+
+                }
+
+                @Override
+                public void onSuccess() {
+
+                }
+            });
+        }
+    }
+
     public enum AdsSize {
         BANNER,
         MEDIUM,
         LARGE
     }
+
     public interface CallBackRewared {
 
         void adClose();
@@ -390,6 +419,7 @@ public class Ads {
 
         void adRewared();
     }
+
     public interface CallBackInter {
 
         void adClose();

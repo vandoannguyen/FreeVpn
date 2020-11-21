@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
-
+    private String TAG = "CustomExpandableListAdapter";
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;

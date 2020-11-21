@@ -17,6 +17,7 @@ public class Config {
     public static boolean isDebug = true;
     public static boolean isFastConnect = true;
     public static Country currentCountry;
+    public static boolean isDataLoaded = false;
     static String PREF_USAGE = "daily_usage";
     public static String StringCountDown;
     public static long LongDataUsage;

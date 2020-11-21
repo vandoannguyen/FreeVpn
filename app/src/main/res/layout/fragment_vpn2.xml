@@ -41,8 +41,8 @@
 
                         <ImageView
                             android:id="@+id/imgConnect"
-                            android:layout_width="200dp"
-                            android:layout_height="200dp"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
                             android:layout_gravity="center"
                             android:src="@mipmap/ic_launcher" />
 
@@ -90,7 +90,7 @@
                             android:layout_width="0.5dp"
                             android:layout_height="match_parent"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
                             android:background="#5E5E5E" />
 
                         <LinearLayout
@@ -236,13 +236,22 @@
                                         android:text="125 byte/s" />
                                 </LinearLayout>
                             </LinearLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="Virtual IP:192.168.255.255" />
-
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="Country: " />
+                                <TextView
+                                    android:id="@+id/txtConnectedCountry"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="The UnitedState" />
+                            </LinearLayout>
                             <LinearLayout
                                 android:id="@+id/lineDisconnect"
                                 android:layout_width="match_parent"
@@ -268,7 +277,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
@@ -315,18 +324,16 @@
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
+            <FrameLayout
+                android:layout_margin="10dp"
+                android:id="@+id/frameAds"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
             <LinearLayout
                 android:id="@+id/linearConnected"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
                 <androidx.cardview.widget.CardView
                     android:padding="5dp"
                     android:layout_width="match_parent"
@@ -427,7 +434,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="10dp"
@@ -453,7 +460,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1"
-                            android:text="Get Free Coins"
+                            android:text="Switch Region"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -468,7 +475,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="+1000"
+                                android:text="Change"
                                 android:textColor="@android:color/white" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -476,10 +483,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
                     app:cardBackgroundColor="@android:color/white"
                     app:cardCornerRadius="5dp">
 
@@ -517,7 +522,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="+1000"
+                                android:text="Start"
                                 android:textColor="@android:color/white" />
                         </RelativeLayout>
                     </LinearLayout>

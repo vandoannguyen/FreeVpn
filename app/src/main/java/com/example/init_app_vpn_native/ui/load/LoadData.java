@@ -1,6 +1,5 @@
 package com.example.init_app_vpn_native.ui.load;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -8,7 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.init_app_vpn_native.R;
-import com.example.init_app_vpn_native.ui.main.MainActivity;
+import com.example.init_app_vpn_native.common.Config;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,10 +24,14 @@ public class LoadData extends AppCompatActivity implements ILoadDataView {
         ButterKnife.bind(this);
         presenter = new LoadDataPresenter<>(this);
         presenter.onAttact(this);
-        presenter.login();
-        presenter.getAds();
-        presenter.getCoin();
-        presenter.getQuickLaunch();
+        if (Config.isDataLoaded) {
+            presenter.intentMain();
+        } else {
+            presenter.login();
+            presenter.getAds();
+            presenter.getCoin();
+            presenter.getQuickLaunch();
+        }
     }
 
     @Override

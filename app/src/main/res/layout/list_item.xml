@@ -5,8 +5,11 @@
     <TextView
         android:id="@+id/expandedListItem"
         android:layout_width="fill_parent"
+        android:layout_gravity="center_horizontal|start"
+        android:text="pham isdnh fdvs hoanashf hdhash sdsadsjsjhfdfd  bhasfd shbdfjd dhbfdh hbhdc bd"
         android:layout_height="wrap_content"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:paddingTop="10dp"
+        android:layout_marginRight="10dp"
         android:paddingBottom="10dp" />
 </LinearLayout>
