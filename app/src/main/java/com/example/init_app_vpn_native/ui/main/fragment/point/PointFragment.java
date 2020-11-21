@@ -67,7 +67,7 @@ public class PointFragment extends Fragment {
     @BindView(R.id.relTapCoin)
     RelativeLayout relTapCoin;
     int a1, a2, a3;
-    TextView txtCoinDialog;
+    TextView txtCoinDialog, txtCheckin;
     LinearLayout lineGetIt, lineCredits;
     ImageView imgDay1, imgDay2, imgDay3, imgDay4, imgDay5, imgDay6, imgDay7;
     ImageView check1, check2, check3, check4, check5, check6, check7;
@@ -123,6 +123,7 @@ public class PointFragment extends Fragment {
                 Log.e(TAG, "onValueChange: " + numberPicker1.getValue());
             }
         });
+
         //numberpicker 2
         numberPicker2.setMaxValue(9);
         numberPicker2.setMinValue(0);
@@ -133,6 +134,7 @@ public class PointFragment extends Fragment {
                 Log.e(TAG, "onValueChange: " + numberPicker2.getValue());
             }
         });
+
         //numberpicker 3
         numberPicker3.setMaxValue(9);
         numberPicker3.setMinValue(0);
@@ -143,6 +145,7 @@ public class PointFragment extends Fragment {
                 Log.e(TAG, "onValueChange: " + numberPicker3.getValue());
             }
         });
+
     }
 
     //Tap to Get Points
@@ -152,8 +155,6 @@ public class PointFragment extends Fragment {
             method = higherPicker.getClass().getDeclaredMethod("changeValueByOne", boolean.class);
             method.setAccessible(true);
             method.invoke(higherPicker, increment);
-
-
         } catch (final NoSuchMethodException e) {
             e.printStackTrace();
         } catch (final IllegalArgumentException e) {
@@ -175,7 +176,7 @@ public class PointFragment extends Fragment {
             }
 
             public void onFinish() {
-                //Common.checktap = 0;
+                Common.checktap = 0;
                 txtTapCoin.setText("+100~990");
                 relTapCoin.setBackgroundColor(getResources().getColor(R.color.colorTapCoin));
                 Log.e(TAG, "onFinish: " + Common.checktap);
@@ -208,7 +209,7 @@ public class PointFragment extends Fragment {
             public void onClick(View view) {
                 progressDialog.show();
                 Common.totalPoint += istr;
-//              Common.checktap = 1;
+                Common.checktap = 1;
                 dialog.dismiss();
                 txtTapCoin.setText("...");
                 Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
@@ -287,11 +288,17 @@ public class PointFragment extends Fragment {
         check6 = view.findViewById(R.id.imgCheck6);
         check7 = view.findViewById(R.id.imgCheck7);
         lineGotIt = view.findViewById(R.id.lineGotIt);
+        txtCheckin = view.findViewById(R.id.txtCheckin);
+        txtCheckin.setVisibility(View.GONE);
         int checkin = SharedPrefsUtils.getInstance(view.getContext()).getInt("checkin");
         Time today = new Time(Time.getCurrentTimezone());
         today.setToNow();
         Log.e(TAG, "initView: " + today.monthDay);
         Common.days = SharedPrefsUtils.getInstance(getActivity()).getInt("days");
+        //setText
+        if(Common.days == today.monthDay){
+            txtCheckin.setVisibility(View.VISIBLE);
+        }
         //day1
         if (checkin == 0) {
             check1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
@@ -503,16 +510,26 @@ public class PointFragment extends Fragment {
             case R.id.lineTapCoin:
                 if (Common.checktap == 0) {
                     Random rd = new Random();
-                    a1 = rd.nextInt(9);
-                    a2 = rd.nextInt(9);
-                    a3 = rd.nextInt(9);
-                    changeValueByOne(numberPicker1,false);
-                    changeValueByOne(numberPicker2,true);
-                    changeValueByOne(numberPicker3,true);
-//                    numberPicker1.setValue(a1);
-//                    numberPicker2.setValue(a2);
-//                    numberPicker3.setValue(a3);
-                    showDialogGetPoint();
+                    int ard1 = rd.nextInt(30);
+                    int ard2 = rd.nextInt(30);
+                    int ard3 = rd.nextInt(30);
+                    IncreaseValue increasePicker1 = new IncreaseValue(numberPicker1, ard1);
+                    increasePicker1.run(1);
+                    IncreaseValue increasePicker2 = new IncreaseValue(numberPicker2, ard2);
+                    increasePicker2.run(1);
+                    IncreaseValue increasePicker3 = new IncreaseValue(numberPicker3, ard3);
+                    increasePicker3.run(1);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            a1 = numberPicker1.getValue();
+                            a2 = numberPicker2.getValue();
+                            a3 = numberPicker3.getValue();
+                            showDialogGetPoint();
+                        }
+                    }, 5000);
+
                 } else {
                     Toast.makeText(getActivity(), "Please waiting 15 seconds", Toast.LENGTH_SHORT).show();
                 }
