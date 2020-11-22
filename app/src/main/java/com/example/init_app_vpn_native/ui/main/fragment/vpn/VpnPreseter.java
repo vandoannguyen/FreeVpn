@@ -26,6 +26,7 @@ import com.example.init_app_vpn_native.data.CallBack;
 import com.example.init_app_vpn_native.data.IAppDataHelper;
 import com.example.init_app_vpn_native.data.api.model.Country;
 import com.example.init_app_vpn_native.data.api.model.Server;
+import com.example.init_app_vpn_native.ui.dialog.DialogLoading;
 import com.example.init_app_vpn_native.ui.load.LoadData;
 import com.example.init_app_vpn_native.ui.switchRegion.SwitchRegion;
 import com.example.init_app_vpn_native.utils.EncryptData;
@@ -248,7 +249,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                     AppDataHelper.getInstance().postStatus(Config.tokenApp, "connected", Config.currentServer.getId(), null);
                     startAnimationLoaded();
                 }
-                if(state.equals("AUTH_FAILED")){
+                if (state.equals("AUTH_FAILED")) {
                     Toast.makeText(activity, "auth failed", Toast.LENGTH_SHORT).show();
                     EnableConnectButton = true;
                     stop_vpn();
@@ -379,15 +380,17 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                     new CallBack<Server>() {
                         @Override
                         public void onSuccess(Server data) {
-                            Log.e(TAG, "onSuccess:00000" + data);
+                            Log.e(TAG, "onSuccess:00000" + data.toString());
+                            Config.currentServer = data;
                             connectVpn(data);
                         }
 
                         @Override
                         public void onFailed(String mess) {
                             startAnimationLoading();
-                            Log.e(TAG, "onFailed: "  + mess );
+                            Log.e(TAG, "onFailed: " + mess);
                             App.connection_status = 0;
+                            setConnectionStatus(0);
                             Toast.makeText(activity, "Failed to load server", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -398,7 +401,6 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 
     private void connectVpn(Server data) {
         if (data != null) {
-            Log.e(TAG, "o/nSuccess: " + data.toString());
             App.selectedServer = data;
         }
         Runnable r = new Runnable() {
@@ -485,13 +487,13 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
     @Override
     public void pressDisConnect() {
 //        if (App.connection_status == 2) {
-        try {
-            stop_vpn();
-        } catch (Exception e) {
-            Bundle params = new Bundle();
-            params.putString("device_id", App.device_id);
-            params.putString("exception", "MA6" + e.toString());
-        }
+//        try {
+        stop_vpn();
+//        } catch (Exception e) {
+//            Bundle params = new Bundle();
+//            params.putString("device_id", App.device_id);
+//            params.putString("exception", "MA6" + e.toString());
+//        }
         App.isStart = false;
 //        }
     }
@@ -504,8 +506,10 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 //        SharedPreferences.Editor editor = sef.edit();
 //        editor.putString(App.SHARE_SELECTED_COUNTRY, new Gson().toJson(App.selectedServer));
 //        editor.commit();
+        Log.e(TAG, "configDataServer: " + Config.currentServer);
         EncryptData En = new EncryptData();
         File = En.decrypt(Config.currentServer.getVpnConfig());
+        Log.e(TAG, "configDataServer: " + File);
     }
 
     private void showLoadingAds(boolean b) {
@@ -549,17 +553,24 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e(TAG, "onActivityResult: " + requestCode );
+        Log.e(TAG, "onActivityResult: " + requestCode);
         if (requestCode == REQUEST_SERVER_CODE) {
-            if (data != null && data.getSerializableExtra("country") != null) {
-                Config.isFastConnect = false;
-                Config.currentCountry = (Country) data.getSerializableExtra("country");
-                Log.e(TAG, "onActivityResult: " );
-                Log.e(TAG, "onActivityResult: " + Config.currentCountry.toString() );
-                App.selectedCountry = Config.currentCountry;
-                connectToVpn();
-                view.updateCountry(App.selectedCountry);
+            if (resultCode == 0) {
+                if (data != null && data.getSerializableExtra("country") != null) {
+                    Config.isFastConnect = false;
+                    Config.currentCountry = (Country) data.getSerializableExtra("country");
+                    Log.e(TAG, "onActivityResult: ");
+                    Log.e(TAG, "onActivityResult: " + Config.currentCountry.toString());
+                    App.selectedCountry = Config.currentCountry;
+                    stop_vpn();
+                    connectToVpn();
+                    view.updateCountry(App.selectedCountry);
+                } else {
+                    stop_vpn();
+                    getFastConnect();
+                }
             }
+
         }
         if (requestCode == 10 && resultCode == -1) {
             Toast.makeText(activity, "Request timeout!", Toast.LENGTH_SHORT).show();
@@ -572,6 +583,32 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                 }
             }, 3000);
         }
+    }
+
+    private void getFastConnect() {
+        DialogLoading.showDialog(activity, "Getting Fast connect ...");
+        AppDataHelper.getInstance().getFastConnect(Config.tokenApp, new CallBack<Server>() {
+            @Override
+            public void onSuccess(Server data) {
+                DialogLoading.dismish();
+                super.onSuccess(data);
+                Config.isFastConnect = true;
+                Config.currentServer = data;
+                App.selectedServer = data;
+                Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(data.getGeo().getCountry())));
+                App.selectedCountry = country;
+                Config.currentCountry = country;
+                view.updateCountry(country);
+                connectToVpn();
+            }
+
+            @Override
+            public void onFailed(String mess) {
+                super.onFailed(mess);
+                Toast.makeText(activity, "Failed to load Fast Connect", Toast.LENGTH_SHORT).show();
+                DialogLoading.dismish();
+            }
+        });
     }
 
     @Override

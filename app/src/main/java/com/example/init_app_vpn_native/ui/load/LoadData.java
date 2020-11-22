@@ -11,6 +11,7 @@ import com.example.init_app_vpn_native.common.Config;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.blinkt.openvpn.core.App;
 
 public class LoadData extends AppCompatActivity implements ILoadDataView {
     ILoadPresenter<ILoadDataView> presenter;

@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.init_app_vpn_native.BuildConfig;
 import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.ui.faq.FAQActivity;
 import com.example.init_app_vpn_native.ui.feedBack.FeedbackActivity;
@@ -28,6 +30,8 @@ public class MoreFragment extends Fragment {
     FrameLayout frmAdsMore;
     @BindView(R.id.lineSpeedTestMore)
     LinearLayout lineSpeedTestMore;
+    @BindView(R.id.txtVersion)
+    TextView txtVersion;
     private String TAG = "MoreFragment";
     @BindView(R.id.lineProxy)
     LinearLayout lineProxy;
@@ -59,11 +63,14 @@ public class MoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_more, container, false);
         ButterKnife.bind(this, view);
-        Ads.getInstance(getActivity()).banner(frmAdsMore, Ads.AdsSize.BANNER);
+//        frmAdsMore.setVisibility(View.GONE);
+        frmAdsMore.setVisibility(View.GONE);
+//        Ads.getInstance(getActivity()).banner(frmAdsMore, Ads.AdsSize.MEDIUM);
+        txtVersion.setText(BuildConfig.VERSION_NAME);
         return view;
     }
 
-    @OnClick({R.id.lineProxy, R.id.lineLike, R.id.lineSuggestion, R.id.lineUser,R.id.lineSpeedTestMore})
+    @OnClick({R.id.lineProxy, R.id.lineLike, R.id.lineSuggestion, R.id.lineUser, R.id.lineSpeedTestMore})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lineProxy:

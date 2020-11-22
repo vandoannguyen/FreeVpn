@@ -130,6 +130,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
         Log.e(TAG, "intentToMain: isLoadDataFastConnectSuccess" + isLoadDataFastConnectSuccess);
         Log.e(TAG, "intentToMain: =================");
         if (isGetCoinSuccess && isLoadAdsSuccess && isLoadCountrySuccess && isLoadDataFastConnectSuccess) {
+            Config.isDataLoaded = true;
             if (checkAppData.isEmpty()) {
                 intentMain();
             } else {
