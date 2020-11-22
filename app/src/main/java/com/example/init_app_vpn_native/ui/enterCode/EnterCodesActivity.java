@@ -37,7 +37,6 @@ public class EnterCodesActivity extends AppCompatActivity {
     public void onViewClicked(View view){
         switch (view.getId()){
             case R.id.btnBackEnterCodes:
-                Toast.makeText(this, "onback", Toast.LENGTH_SHORT).show();
                 onBackPressed();
                 break;
             case R.id.lineSubmit:

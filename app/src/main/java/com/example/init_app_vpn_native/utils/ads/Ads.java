@@ -394,7 +394,11 @@ public class Ads {
             AdsUtils.getInstance(activity).nativeFan(viewGroup, native_id_fan, R.layout.fan_native_layout_medium, new AdsUtils.FanNativeCallBack() {
                 @Override
                 public void onError() {
+                    if (is_load_failed) {
+                        AdsUtils.getInstance(activity).nativeAdmob((FrameLayout) viewGroup, R.layout.ad_unified_draw_navigator, new AdListener() {
 
+                        }, native_id_admob);
+                    }
                 }
 
                 @Override

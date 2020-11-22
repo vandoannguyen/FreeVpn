@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
 
     defaultConfig {
         applicationId "com.example.init_app_vpn_native"
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -30,7 +30,7 @@ android {
     sourceSets {
         main {
             assets.srcDirs = ['src/main/assets']
-//            jniLibs.srcDirs = ['lib']
+//            jniLibs.srcDirs = ['libs']
             jni {
                 srcDirs 'src/main/jni', 'src/main/jniLibs', 'src/main/jniLib', 'src/main/jniLibs/'
             }
@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.android.support:support-compat:29.0.2'

@@ -90,6 +90,8 @@ public class VpnFragment extends Fragment implements IVpnView {
     FrameLayout frameAds;
     @BindView(R.id.txtConnectedCountry)
     TextView txtConnectedCountry;
+    @BindView(R.id.txtStatusConnect)
+    TextView txtStatusConnect;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -140,6 +142,7 @@ public class VpnFragment extends Fragment implements IVpnView {
         Log.e(TAG, "onCreateView: " + countryCode);
         Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
         App.selectedCountry = country;
+        Config.currentCountry = country;
         Ads.getInstance(getActivity()).nativeAds(frameAds, null);
         if (country != null) {
             updateCountry(country);
@@ -218,10 +221,11 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     private void intentQuick(String s) {
+
         if (checkPackage(s)) {
             Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage(s);
             if (launchIntent != null) {
-                startActivity(launchIntent);//null pointer check in case package name was not found
+                startActivity(launchIntent);
             }
         } else {
             Toast.makeText(getContext(), "This app is not installed in your device", Toast.LENGTH_SHORT).show();
@@ -274,6 +278,13 @@ public class VpnFragment extends Fragment implements IVpnView {
 
         switch (i) {
             case 0: {
+                if (Config.isFastConnect  && Config.currentCountry!= null) {
+                    imgFlag.setImageResource(R.drawable.ic_flag_fast);
+                    imgFlagConnected.setImageResource(R.drawable.ic_flag_fast);
+                    txtCountry.setText("Fast Connect");
+                    txtConnectedCountry.setText("Fast Connect");
+                }
+                txtStatusConnect.setText("Tab to connect");
                 imgConnect.setImageResource(R.drawable.connect);
                 startAnimation(R.id.imgConnect, R.anim.fade_in_1000, true);
                 startAnimation(R.id.cardConnect, R.anim.fade_in_1000, true);
@@ -282,15 +293,30 @@ public class VpnFragment extends Fragment implements IVpnView {
                 break;
             }
             case 1: {
+                if (Config.isFastConnect ) {
+                    imgFlag.setImageResource(R.drawable.ic_flag_fast);
+                    imgFlagConnected.setImageResource(R.drawable.ic_flag_fast);
+                    txtCountry.setText("Fast Connect");
+                    txtConnectedCountry.setText("Fast Connect");
+                }
+                txtStatusConnect.setText("Connecting ...");
                 startAnimation(R.id.imgConnect, R.anim.fade_in_1000, true);
-                imgConnect.setImageResource(R.drawable.connecting);
+                Glide.with(getContext()).asGif().load(R.raw.earth).into(imgConnect);
                 break;
             }
             case 2: {
+                if (Config.isFastConnect) {
+                    txtCountry.setText(Config.currentCountry.getName());
+                    txtConnectedCountry.setText(Config.currentCountry.getName());
+                    Glide.with(this).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlag);
+                    Glide.with(this).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlagConnected);
+                }
+                txtStatusConnect.setText("Connected");
                 startAnimation(R.id.linearConnected, R.anim.fade_in_1000, true);
                 startAnimation(R.id.cardDisConnect, R.anim.fade_in_1000, true);
                 startAnimation(R.id.cardConnect, R.anim.fade_out_500, false);
                 imgConnect.setImageResource(R.drawable.connect);
+                txtVirtualIp.setText(Config.currentServer.getIp());
                 break;
             }
             default: {
@@ -342,10 +368,17 @@ public class VpnFragment extends Fragment implements IVpnView {
 
     @Override
     public void updateCountry(Country country) {
-        txtCountry.setText(country.getName());
-        txtConnectedCountry.setText(country.getName());
-        Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
-        Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
+        if (Config.isFastConnect) {
+            imgFlag.setImageResource(R.drawable.ic_flag_fast);
+            imgFlagConnected.setImageResource(R.drawable.ic_flag_fast);
+            txtCountry.setText("Fast Connect");
+            txtConnectedCountry.setText("Fast Connect");
+        } else {
+            txtCountry.setText(country.getName());
+            txtConnectedCountry.setText(country.getName());
+            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlag);
+            Glide.with(this).load("https://www.countryflags.io/" + country.getCode() + "/flat/64.png").into(imgFlagConnected);
+        }
     }
 
     @Override

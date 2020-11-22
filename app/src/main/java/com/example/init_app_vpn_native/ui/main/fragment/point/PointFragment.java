@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ import com.example.init_app_vpn_native.utils.ads.Ads;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Calendar;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -45,6 +47,8 @@ import butterknife.OnClick;
  * create an instance of this fragment.
  */
 public class PointFragment extends Fragment {
+    @BindView(R.id.linearRandom)
+    LinearLayout linearRandom;
     private String TAG = "PointFragment";
     @BindView(R.id.numberPick1)
     NumberPicker numberPicker1;
@@ -67,7 +71,7 @@ public class PointFragment extends Fragment {
     @BindView(R.id.relTapCoin)
     RelativeLayout relTapCoin;
     int a1, a2, a3;
-    TextView txtCoinDialog;
+    TextView txtCoinDialog, txtCheckin;
     LinearLayout lineGetIt, lineCredits;
     ImageView imgDay1, imgDay2, imgDay3, imgDay4, imgDay5, imgDay6, imgDay7;
     ImageView check1, check2, check3, check4, check5, check6, check7;
@@ -77,6 +81,8 @@ public class PointFragment extends Fragment {
     private int nCounter = 0;
     FragmentCallback callback;
     CountDownTimer Count;
+    private boolean isRandomingPoint = false;
+    private long lastWatchedVideo = 0;
 
     public PointFragment() {
         // Required empty public constructor
@@ -102,6 +108,12 @@ public class PointFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_point, container, false);
         ButterKnife.bind(this, view);
+        linearRandom.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
         initView();
         return view;
     }
@@ -123,6 +135,7 @@ public class PointFragment extends Fragment {
                 Log.e(TAG, "onValueChange: " + numberPicker1.getValue());
             }
         });
+
         //numberpicker 2
         numberPicker2.setMaxValue(9);
         numberPicker2.setMinValue(0);
@@ -133,6 +146,7 @@ public class PointFragment extends Fragment {
                 Log.e(TAG, "onValueChange: " + numberPicker2.getValue());
             }
         });
+
         //numberpicker 3
         numberPicker3.setMaxValue(9);
         numberPicker3.setMinValue(0);
@@ -143,6 +157,7 @@ public class PointFragment extends Fragment {
                 Log.e(TAG, "onValueChange: " + numberPicker3.getValue());
             }
         });
+
     }
 
     //Tap to Get Points
@@ -152,8 +167,6 @@ public class PointFragment extends Fragment {
             method = higherPicker.getClass().getDeclaredMethod("changeValueByOne", boolean.class);
             method.setAccessible(true);
             method.invoke(higherPicker, increment);
-
-
         } catch (final NoSuchMethodException e) {
             e.printStackTrace();
         } catch (final IllegalArgumentException e) {
@@ -166,7 +179,7 @@ public class PointFragment extends Fragment {
     }
 
     public void CountDown() {
-        Count = new CountDownTimer(15000, 1000) {
+        Count = new CountDownTimer(60000, 1000) {
             public void onTick(long millisUntilFinished) {
                 long str = millisUntilFinished / 1000;
                 String TimeFinished = String.valueOf(str);
@@ -175,7 +188,7 @@ public class PointFragment extends Fragment {
             }
 
             public void onFinish() {
-                //Common.checktap = 0;
+                Common.checktap = 0;
                 txtTapCoin.setText("+100~990");
                 relTapCoin.setBackgroundColor(getResources().getColor(R.color.colorTapCoin));
                 Log.e(TAG, "onFinish: " + Common.checktap);
@@ -208,7 +221,7 @@ public class PointFragment extends Fragment {
             public void onClick(View view) {
                 progressDialog.show();
                 Common.totalPoint += istr;
-//              Common.checktap = 1;
+                Common.checktap = 1;
                 dialog.dismiss();
                 txtTapCoin.setText("...");
                 Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
@@ -287,11 +300,17 @@ public class PointFragment extends Fragment {
         check6 = view.findViewById(R.id.imgCheck6);
         check7 = view.findViewById(R.id.imgCheck7);
         lineGotIt = view.findViewById(R.id.lineGotIt);
+        txtCheckin = view.findViewById(R.id.txtCheckin);
+        txtCheckin.setVisibility(View.GONE);
         int checkin = SharedPrefsUtils.getInstance(view.getContext()).getInt("checkin");
         Time today = new Time(Time.getCurrentTimezone());
         today.setToNow();
         Log.e(TAG, "initView: " + today.monthDay);
         Common.days = SharedPrefsUtils.getInstance(getActivity()).getInt("days");
+        //setText
+        if (Common.days == today.monthDay) {
+            txtCheckin.setVisibility(View.VISIBLE);
+        }
         //day1
         if (checkin == 0) {
             check1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
@@ -497,50 +516,68 @@ public class PointFragment extends Fragment {
         });
     }
 
-    @OnClick({R.id.lineTapCoin, R.id.lineWatchVideo, R.id.lineCheckin, R.id.lineInvite, R.id.lineCodes})
+    @OnClick({R.id.lineTapCoin, R.id.lineWatchVideo, R.id.lineCheckin, R.id.lineInvite, R.id.lineCodes, R.id.numberPick1, R.id.numberPick2, R.id.numberPick3})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lineTapCoin:
-                if (Common.checktap == 0) {
+                if (Common.checktap == 0 && !isRandomingPoint) {
+                    isRandomingPoint = true;
                     Random rd = new Random();
-                    a1 = rd.nextInt(9);
-                    a2 = rd.nextInt(9);
-                    a3 = rd.nextInt(9);
-                    changeValueByOne(numberPicker1,false);
-                    changeValueByOne(numberPicker2,true);
-                    changeValueByOne(numberPicker3,true);
-//                    numberPicker1.setValue(a1);
-//                    numberPicker2.setValue(a2);
-//                    numberPicker3.setValue(a3);
-                    showDialogGetPoint();
+                    int ard1 = rd.nextInt(30);
+                    int ard2 = rd.nextInt(30);
+                    int ard3 = rd.nextInt(30);
+                    IncreaseValue increasePicker1 = new IncreaseValue(numberPicker1, ard1);
+                    increasePicker1.run(1);
+                    IncreaseValue increasePicker2 = new IncreaseValue(numberPicker2, ard2);
+                    increasePicker2.run(1);
+                    IncreaseValue increasePicker3 = new IncreaseValue(numberPicker3, ard3);
+                    increasePicker3.run(1);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            a1 = numberPicker1.getValue();
+                            a2 = numberPicker2.getValue();
+                            a3 = numberPicker3.getValue();
+                            showDialogGetPoint();
+                            isRandomingPoint = false;
+                        }
+                    }, 5000);
                 } else {
                     Toast.makeText(getActivity(), "Please waiting 15 seconds", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.lineWatchVideo:
                 progressDialog.show();
-                Random rds = new Random();
-                int rdCoin = rds.nextInt(990 - 100) + 100;
-                Ads.getInstance(getActivity()).rewared(new Ads.CallBackRewared() {
-                    @Override
-                    public void adClose() {
+                long now = Calendar.getInstance().getTimeInMillis();
+                if ((now - lastWatchedVideo) > 60000) {
+                    Random rds = new Random();
+                    int rdCoin = rds.nextInt(990 - 100) + 100;
+                    Ads.getInstance(getActivity()).rewared(new Ads.CallBackRewared() {
+                        @Override
+                        public void adClose() {
+                            progressDialog.dismiss();
+                        }
 
-                    }
+                        @Override
+                        public void adLoadFailed(int i) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void adLoadFailed(int i) {
-                        progressDialog.dismiss();
-                        Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-                    }
+                        @Override
+                        public void adRewared() {
+                            Common.totalPoint += rdCoin;
+                            callback.setPoint(Common.totalPoint);
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), "+" + rdCoin + " Success", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    lastWatchedVideo = now;
+                } else {
+                    Toast.makeText(getContext(), "Wait for 1 minute", Toast.LENGTH_SHORT).show();
+                }
 
-                    @Override
-                    public void adRewared() {
-                        Common.totalPoint += rdCoin;
-                        callback.setPoint(Common.totalPoint);
-                        progressDialog.dismiss();
-                        Toast.makeText(getActivity(), "+" + rdCoin + " Success", Toast.LENGTH_SHORT).show();
-                    }
-                });
                 break;
             case R.id.lineCheckin:
                 showDialogCheckin();
@@ -553,7 +590,18 @@ public class PointFragment extends Fragment {
                 Intent intentCode = new Intent(getActivity(), EnterCodesActivity.class);
                 startActivity(intentCode);
                 break;
+            case R.id.numberPick1: {
+                break;
+            }
+            case R.id.numberPick2: {
+                break;
+            }
+            case R.id.numberPick3: {
+                break;
+            }
         }
+
+
     }
 
     @Override

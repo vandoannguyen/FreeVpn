@@ -33,7 +33,6 @@
         android:layout_height="match_parent">
         <ExpandableListView
             android:id="@+id/expandableListFAQ"
-            android:dividerHeight="0.5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

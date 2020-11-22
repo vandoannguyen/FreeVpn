@@ -2,8 +2,8 @@ package com.example.init_app_vpn_native.ui.switchRegion;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -20,15 +20,19 @@ import com.example.init_app_vpn_native.data.api.model.Country;
 import com.example.init_app_vpn_native.ui.dialog.DialogConfirm;
 import com.example.init_app_vpn_native.ui.switchRegion.adapter.ItemAdapter;
 import com.example.init_app_vpn_native.utils.Common;
+import com.example.init_app_vpn_native.utils.ads.Ads;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.blinkt.openvpn.core.App;
 
 public class SwitchRegion extends AppCompatActivity {
+    @BindView(R.id.frmAdsSwitch)
+    FrameLayout frmAdsSwitch;
+    @BindView(R.id.linearFastConnect)
+    LinearLayout linearFastConnect;
     private String TAG = "SwitchRegion";
     @BindView(R.id.icBackSwitchRegion)
     ImageView icBackSwitchRegion;
@@ -60,6 +64,8 @@ public class SwitchRegion extends AppCompatActivity {
                 showDialogConfirm(index);
             }
         });
+        frmAdsSwitch.setVisibility(View.GONE);
+//        Ads.getInstance(this).banner(frmAdsSwitch, Ads.AdsSize.BANNER);
     }
 
     private void showDialogConfirm(Country index) {
@@ -91,9 +97,15 @@ public class SwitchRegion extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.icBackSwitchRegion, R.id.icRefreshRegion, R.id.linearProgress})
+    @OnClick({R.id.icBackSwitchRegion, R.id.icRefreshRegion, R.id.linearProgress, R.id.linearFastConnect})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.linearFastConnect: {
+//                Intent intent = new Intent();
+                setResult(0, null);
+                finish();
+                break;
+            }
             case R.id.icBackSwitchRegion:
                 onBackPressed();
                 break;
@@ -107,7 +119,7 @@ public class SwitchRegion extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        setResult(0);
+        setResult(1);
         finish();
     }
 

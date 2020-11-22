@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.init_app_vpn_native.R;
+import com.example.init_app_vpn_native.ui.dialog.DialogLoading;
 import com.example.init_app_vpn_native.ui.speedTest.test.HttpDownloadTest;
 import com.example.init_app_vpn_native.ui.speedTest.test.HttpUploadTest;
 import com.example.init_app_vpn_native.ui.speedTest.test.PingTest;
@@ -82,7 +83,8 @@ public class SpeedTest extends AppCompatActivity {
         tempBlackList = new HashSet<>();
         getSpeedTestHost = new GetSpeedTestHost();
         getSpeedTestHost.start();
-        Ads.getInstance(this).banner(frmAdsSpeedTest, Ads.AdsSize.BANNER);
+        frmAdsSpeedTest.setVisibility(View.GONE);
+//        Ads.getInstance(this).banner(frmAdsSpeedTest, Ads.AdsSize.BANNER);
     }
 
     private void initAds() {
@@ -95,7 +97,25 @@ public class SpeedTest extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.btnTest:
-                startTest();
+                if (Ads.getRandom()) {
+                    DialogLoading.showDialog(this);
+                    Ads.getInstance(this).inter(new Ads.CallBackInter() {
+                        @Override
+                        public void adClose() {
+
+                            DialogLoading.dismish();
+                            startTest();
+                        }
+
+                        @Override
+                        public void adLoadFailed(int i) {
+                            DialogLoading.dismish();
+                            startTest();
+                        }
+                    });
+                } else {
+                    startTest();
+                }
                 break;
         }
     }
