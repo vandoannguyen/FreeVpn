@@ -575,7 +575,7 @@ public class PointFragment extends Fragment {
                             showDialogGetPoint();
                             isRandomingPoint = false;
                         }
-                    }, 5000);
+                    }, 4000);
                 } else {
                     Toast.makeText(getActivity(), "Please waiting 15 seconds", Toast.LENGTH_SHORT).show();
                 }

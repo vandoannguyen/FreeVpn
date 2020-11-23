@@ -29,6 +29,7 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="170dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="170dp"
@@ -58,11 +59,12 @@
                                 android:descendantFocusability="blocksDescendants"
                                 android:theme="@style/CustomNumberPicker" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:orientation="vertical"
                             android:id="@+id/linearRandom"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:orientation="vertical" />
                     </RelativeLayout>
 
                     <LinearLayout
@@ -207,12 +209,12 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="15dp"
+                android:visibility="gone"
                 app:cardCornerRadius="6dp">
 
                 <LinearLayout
@@ -256,12 +258,12 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="15dp"
+                android:visibility="gone"
                 app:cardCornerRadius="6dp">
 
                 <LinearLayout
