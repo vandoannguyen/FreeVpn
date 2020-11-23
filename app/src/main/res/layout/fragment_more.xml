@@ -97,7 +97,7 @@
                             android:textStyle="bold" />
 
                         <RelativeLayout
-                            android:layout_width="80dp"
+                            android:layout_width="90dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
@@ -140,7 +140,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1"
-                            android:text="Like Yoga VPN"
+                            android:text="Like Oneadx VPN"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
