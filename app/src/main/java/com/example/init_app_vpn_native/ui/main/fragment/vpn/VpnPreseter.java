@@ -29,6 +29,7 @@ import com.example.init_app_vpn_native.data.api.model.Server;
 import com.example.init_app_vpn_native.ui.dialog.DialogLoading;
 import com.example.init_app_vpn_native.ui.load.LoadData;
 import com.example.init_app_vpn_native.ui.switchRegion.SwitchRegion;
+import com.example.init_app_vpn_native.utils.Common;
 import com.example.init_app_vpn_native.utils.EncryptData;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;
@@ -375,7 +376,17 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 
     void connectToVpn() {
         App.connection_status = 1;
-        if (!Config.isFastConnect)
+        if (!Config.currentCountry.getPrice().equals("free")) {
+            int point = Integer.parseInt(Config.currentCountry.getPrice());
+            if (point < Common.totalPoint) {
+                Common.totalPoint -= point;
+                view.updatePoint(Common.totalPoint);
+            } else {
+                view.showMessage("You do not have enough point");
+                return;
+            }
+        }
+        if (!Config.isFastConnect) {
             AppDataHelper.getInstance().getConnect(Config.tokenApp, Config.currentCountry.getCode(),
                     new CallBack<Server>() {
                         @Override
@@ -394,9 +405,10 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                             Toast.makeText(activity, "Failed to load server", Toast.LENGTH_SHORT).show();
                         }
                     });
-        else {
+        } else {
             connectVpn(Config.currentServer);
         }
+
     }
 
     private void connectVpn(Server data) {

@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
         <ImageView
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_emailcoin"
             android:scaleType="fitXY"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -80,7 +80,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"/>
         <TextView
-            android:text="Credits X 2"
+            android:text="Credits X2"
             android:layout_marginLeft="10dp"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"

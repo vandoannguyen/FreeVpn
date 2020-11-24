@@ -15,4 +15,6 @@ public interface IVpnView extends MVPView {
     void hideLoading();
 
     void setConectionStatus(int i);
+
+    void updatePoint(int point);
 }

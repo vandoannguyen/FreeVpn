@@ -16,14 +16,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:id="@+id/cardConnect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:visibility="visible"
-                app:cardCornerRadius="5dp">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:id="@+id/linearConnect"
@@ -31,107 +31,131 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/white"
-                        android:orientation="vertical"
-                        android:paddingTop="20sp"
-                        android:paddingBottom="10dp">
-
-                        <ImageView
-                            android:id="@+id/imgConnect"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center"
-                            android:src="@mipmap/ic_launcher" />
-
-                        <TextView
-                            android:id="@+id/txtStatusConnect"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:text="Tab to connect"
-                            android:textColor="@android:color/holo_orange_dark"
-                            android:textSize="18sp"
-                            android:textStyle="italic" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp">
+                        android:layout_height="match_parent">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:background="@android:color/white"
+                            android:orientation="vertical"
+                            android:paddingTop="20sp"
+                            android:paddingBottom="10dp">
 
                             <ImageView
-                                android:id="@+id/imgFlag"
-                                android:layout_width="60dp"
-                                android:layout_height="40dp"
+                                android:id="@+id/imgConnect"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:src="@drawable/ic_flag" />
+                                android:src="@mipmap/ic_launcher" />
 
                             <TextView
-                                android:id="@+id/txtCountry"
+                                android:id="@+id/txtStatusConnect"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="5dp"
-                                android:text="Vietnam" />
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:text="Tab to connect"
+                                android:textColor="@android:color/holo_orange_dark"
+                                android:textSize="16sp"
+                                android:textStyle="italic" />
                         </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="#5E5E5E" />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="3dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_height="60dp"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:id="@+id/lineSwitchCountry"
-                                android:layout_width="wrap_content"
-                                android:layout_height="35dp"
-                                android:layout_marginTop="5dp"
-                                android:background="@drawable/custum_background_button"
-                                android:gravity="center"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp">
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imgFlag"
+                                    android:layout_width="60dp"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:src="@drawable/ic_flag" />
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:id="@+id/txtCountry"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:text="Switch Country"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="13dp" />
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/roboto_light"
+                                    android:text="Vietnam"
+                                    android:textColor="#000000"
+                                    android:textSize="18sp" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginRight="10dp"
+                                    android:src="@drawable/ic_switch_server" />
                             </LinearLayout>
+
+                            <!--                            <View-->
+                            <!--                                android:layout_width="0.5dp"-->
+                            <!--                                android:layout_height="match_parent"-->
+                            <!--                                android:layout_marginTop="15dp"-->
+                            <!--                                android:layout_marginBottom="15dp"-->
+                            <!--                                android:background="#5E5E5E" />-->
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="match_parent"-->
+                            <!--                                android:layout_weight="1"-->
+                            <!--                                android:gravity="center"-->
+                            <!--                                android:orientation="vertical">-->
+
+                            <!--                                <LinearLayout-->
+                            <!--                                    android:layout_width="wrap_content"-->
+                            <!--                                    android:layout_height="35dp"-->
+                            <!--                                    android:layout_marginTop="5dp"-->
+                            <!--                                    android:background="@drawable/custum_background_button"-->
+                            <!--                                    android:gravity="center"-->
+                            <!--                                    android:paddingLeft="10dp"-->
+                            <!--                                    android:paddingRight="10dp">-->
+
+                            <!--                                    <TextView-->
+                            <!--                                        android:layout_width="wrap_content"-->
+                            <!--                                        android:layout_height="wrap_content"-->
+                            <!--                                        android:layout_gravity="center"-->
+                            <!--                                        android:text="Switch Country"-->
+                            <!--                                        android:textColor="@android:color/white"-->
+                            <!--                                        android:textSize="13dp" />-->
+                            <!--                                </LinearLayout>-->
+                            <!--                            </LinearLayout>-->
                         </LinearLayout>
-                    </LinearLayout>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
                 android:id="@+id/cardDisConnect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:visibility="visible"
                 app:cardCornerRadius="5dp">
 
                 <LinearLayout
@@ -154,100 +178,30 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:background="#DDDDDD"
-                            android:layout_margin="5dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:gravity="center">
-
-                            <ImageView
-                                android:id="@+id/imgFlagConnected"
-                                android:layout_width="80dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/ic_flag" />
-                        </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:padding="5dp">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Virtual IP:" />
-
-                                <TextView
-                                    android:id="@+id/txtVirtualIp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="192.168.255.255" />
-                            </LinearLayout>
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp">
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:background="#DDDDDD"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="7dp">
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1">
+                                <ImageView
+                                    android:id="@+id/imgFlagConnected"
+                                    android:layout_width="80dp"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/ic_flag" />
 
-                                    <ImageView
-                                        android:layout_width="12dp"
-                                        android:layout_height="12dp"
-                                        android:layout_gravity="center"
-                                        android:src="@drawable/ic_down" />
-
-                                    <TextView
-                                        android:id="@+id/txtDownloadSpeed"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:layout_weight="1"
-                                        android:text="@string/_150kps" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1">
-
-                                    <ImageView
-                                        android:layout_width="12dp"
-                                        android:layout_height="12dp"
-                                        android:layout_gravity="center"
-                                        android:src="@drawable/ic_up" />
-
-                                    <TextView
-                                        android:id="@+id/txtUpLoadSpeed"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="125 byte/s" />
-                                </LinearLayout>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:orientation="horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:text="Country: " />
                                 <TextView
                                     android:id="@+id/txtConnectedCountry"
                                     android:layout_width="wrap_content"
@@ -255,23 +209,107 @@
                                     android:layout_marginTop="5dp"
                                     android:text="The UnitedState" />
                             </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/lineDisconnect"
-                                android:layout_width="match_parent"
-                                android:layout_height="35dp"
-                                android:layout_marginTop="5dp"
-                                android:background="@drawable/custum_background_button"
-                                android:gravity="center">
 
-                                <TextView
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="5dp">
+
+                                <LinearLayout
                                     android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Virtual IP:" />
+
+                                    <TextView
+                                        android:id="@+id/txtVirtualIp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="192.168.255.255" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="Tab to Disconnect"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="13dp"
-                                    android:textStyle="bold" />
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                        <ImageView
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_gravity="center"
+                                            android:src="@drawable/ic_down" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="Download: " />
+
+                                        <TextView
+                                            android:id="@+id/txtDownloadSpeed"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="@string/_150kps" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                        <ImageView
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_gravity="center"
+                                            android:src="@drawable/ic_up" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="Upload: " />
+
+                                        <TextView
+                                            android:id="@+id/txtUpLoadSpeed"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="125 byte/s" />
+                                    </LinearLayout>
+                                </LinearLayout>
                             </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lineDisconnect"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/custum_background_button"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Tab to Disconnect"
+                                android:textColor="@android:color/white"
+                                android:textSize="13dp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -327,22 +365,25 @@
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <FrameLayout
-                android:layout_margin="10dp"
                 android:id="@+id/frameAds"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_height="300dp"
+                android:layout_margin="10dp" />
+
             <LinearLayout
                 android:id="@+id/linearConnected"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <androidx.cardview.widget.CardView
-                    android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -350,24 +391,26 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:text="Quick Launch"
-                            android:textSize="18sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
-                            android:layout_marginLeft="10dp" />
-                        <View
                             android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="5dp"
+                            android:text="Quick Launch"
+                            android:textSize="18sp" />
+
+                        <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
                             android:background="#838383" />
+
                         <LinearLayout
-                            android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp">
+                            android:layout_margin="10dp"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:id="@+id/quickFacebook"

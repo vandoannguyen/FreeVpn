@@ -27,6 +27,7 @@
     </style>
 
     <style name="CustomTabLayout">
+        <item name="background">@android:color/holo_orange_light</item>
         <item name="tabIndicatorColor">@android:color/holo_orange_light</item>
         <item name="tabIconTint">#9F9F9F</item>
         <item name="android:textSize">18sp</item>

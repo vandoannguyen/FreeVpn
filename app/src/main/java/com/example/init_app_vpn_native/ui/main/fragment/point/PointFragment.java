@@ -70,6 +70,10 @@ public class PointFragment extends Fragment {
     TextView txtTapCoin;
     @BindView(R.id.relTapCoin)
     RelativeLayout relTapCoin;
+    @BindView(R.id.txtWatchVideo)
+    TextView txtWatchVideo;
+    @BindView(R.id.relWatchVideo)
+    RelativeLayout relWatchVideo;
     int a1, a2, a3;
     TextView txtCoinDialog, txtCheckin;
     LinearLayout lineGetIt, lineCredits;
@@ -80,7 +84,7 @@ public class PointFragment extends Fragment {
     private Handler mHandler = new Handler();
     private int nCounter = 0;
     FragmentCallback callback;
-    CountDownTimer Count;
+    CountDownTimer Count, CountTwo;
     private boolean isRandomingPoint = false;
     private long lastWatchedVideo = 0;
 
@@ -183,7 +187,7 @@ public class PointFragment extends Fragment {
             public void onTick(long millisUntilFinished) {
                 long str = millisUntilFinished / 1000;
                 String TimeFinished = String.valueOf(str);
-                txtTapCoin.setText(TimeFinished);
+                txtTapCoin.setText(TimeFinished + "s");
                 relTapCoin.setBackgroundColor(getResources().getColor(R.color.text_gray));
             }
 
@@ -196,6 +200,23 @@ public class PointFragment extends Fragment {
             }
         };
         Count.start();
+    }
+
+    public void CountDownTwo() {
+        CountTwo = new CountDownTimer(60000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                long str = millisUntilFinished / 1000;
+                String TimeFinished = String.valueOf(str);
+                txtWatchVideo.setText(TimeFinished + "s");
+                relWatchVideo.setBackgroundColor(getResources().getColor(R.color.text_gray));
+            }
+
+            public void onFinish() {
+                txtWatchVideo.setText("+100~990");
+                relWatchVideo.setBackgroundColor(getResources().getColor(R.color.colorTapCoin));
+            }
+        };
+        CountTwo.start();
     }
 
     public void showDialogGetPoint() {
@@ -263,7 +284,7 @@ public class PointFragment extends Fragment {
                         CountDown();
                         progressDialog.dismiss();
                         dialog.dismiss();
-                        Toast.makeText(getContext(), "+" + istr + istr + " Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "+" + (istr + istr) + " Success", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -523,14 +544,26 @@ public class PointFragment extends Fragment {
                 if (Common.checktap == 0 && !isRandomingPoint) {
                     isRandomingPoint = true;
                     Random rd = new Random();
-                    int ard1 = rd.nextInt(30);
-                    int ard2 = rd.nextInt(30);
-                    int ard3 = rd.nextInt(30);
-                    IncreaseValue increasePicker1 = new IncreaseValue(numberPicker1, ard1);
+                    int ptram = rd.nextInt(9);
+                    int ran1 = 0;
+                    if (ptram < 7) {
+                        ran1 = rd.nextInt(5);
+                    } else {
+                        ran1 = rd.nextInt(9);
+                    }
+                    int ran2 = rd.nextInt(9);
+                    int ran3 = rd.nextInt(9);
+                    Log.e(TAG, "onViewClicked1: " + ran1);
+                    Log.e(TAG, "onViewClicked2: " + ran2);
+                    Log.e(TAG, "onViewClicked3: " + ran3);
+//                    int ard1 = rd.nextInt(30);
+//                    int ard2 = rd.nextInt(30);
+//                    int ard3 = rd.nextInt(30);
+                    IncreaseValue increasePicker1 = new IncreaseValue(numberPicker1, 20 + ran1);
                     increasePicker1.run(1);
-                    IncreaseValue increasePicker2 = new IncreaseValue(numberPicker2, ard2);
+                    IncreaseValue increasePicker2 = new IncreaseValue(numberPicker2, 20 + ran2);
                     increasePicker2.run(1);
-                    IncreaseValue increasePicker3 = new IncreaseValue(numberPicker3, ard3);
+                    IncreaseValue increasePicker3 = new IncreaseValue(numberPicker3, 20 + ran3);
                     increasePicker3.run(1);
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -542,20 +575,28 @@ public class PointFragment extends Fragment {
                             showDialogGetPoint();
                             isRandomingPoint = false;
                         }
-                    }, 5000);
+                    }, 4000);
                 } else {
                     Toast.makeText(getActivity(), "Please waiting 15 seconds", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.lineWatchVideo:
-                progressDialog.show();
                 long now = Calendar.getInstance().getTimeInMillis();
                 if ((now - lastWatchedVideo) > 60000) {
+                    progressDialog.show();
                     Random rds = new Random();
-                    int rdCoin = rds.nextInt(990 - 100) + 100;
+                    int rdd = rds.nextInt(9);
+                    int randVideo = 0;
+                    if (rdd < 7) {
+                        randVideo = 500;
+                    } else {
+                        randVideo = 990;
+                    }
+                    int rdCoin = rds.nextInt(randVideo - 100) + 100;
                     Ads.getInstance(getActivity()).rewared(new Ads.CallBackRewared() {
                         @Override
                         public void adClose() {
+                            CountDownTwo();
                             progressDialog.dismiss();
                         }
 
@@ -600,8 +641,6 @@ public class PointFragment extends Fragment {
                 break;
             }
         }
-
-
     }
 
     @Override
@@ -610,6 +649,10 @@ public class PointFragment extends Fragment {
         if (Count != null) {
             Count.cancel();
             Count = null;
+        }
+        if (CountTwo != null) {
+            CountTwo.cancel();
+            CountTwo = null;
         }
     }
 }

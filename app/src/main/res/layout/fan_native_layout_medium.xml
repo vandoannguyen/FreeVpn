@@ -6,10 +6,6 @@
     android:background="@drawable/custom_ads"
     android:orientation="vertical">
     <!--    android:background="@drawable/custom_item_view_ads"-->
-<!--    android:id="@+id/linearAds"-->
-<!--    android:orientation="vertical"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content">-->
 
     <com.facebook.ads.MediaView
         android:id="@+id/native_ad_media"

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.format.Time;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,7 +16,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.base.BaseActivity;
 import com.example.init_app_vpn_native.data.AppDataHelper;
-import com.example.init_app_vpn_native.data.CallBack;
 import com.example.init_app_vpn_native.ui.main.adapter.ViewPagerAdapter;
 import com.example.init_app_vpn_native.ui.main.fragment.FragmentCallback;
 import com.example.init_app_vpn_native.ui.main.fragment.more.MoreFragment;
@@ -66,40 +63,8 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
         presenter.getExample();
         initViewPager();
         initTabLayout();
-        initView();
+        presenter.getPoint(this);
         rateAuto();
-    }
-
-    private void initView() {
-        txtCoin.setText(Common.totalPoint + "");
-        //add coin
-        Time today = new Time(Time.getCurrentTimezone());
-        today.setToNow();
-        Log.e(TAG, "initView: " + today.monthDay);
-        SharedPrefsUtils.getInstance(this).putInt("days", today.monthDay);
-        AppDataHelper.getInstance().getCoin(this, new CallBack<Integer>() {
-            @Override
-            public void onSuccess(Integer data) {
-                super.onSuccess(data);
-                int coinAdd = data;
-//                coinAdd = Common.points + coinAdd;
-//                Common.points = 0;
-                AppDataHelper.getInstance().setCoin(MainActivity.this, coinAdd, null);
-                String strCoin = String.valueOf(coinAdd);
-//              txtCoin.setText(strCoin);
-            }
-        });
-//        SharedPrefsUtils.getInstance(this).getInt("points");
-//        SharedPrefsUtils.getInstance(this).putInt("points", coinAdd);
-//        String strCoin = String.valueOf(coinAdd);
-//        txtCoin.setText(strCoin);
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        Log.e(TAG, "onWindowFocusChanged: 123");
-        initView();
     }
 
     private void initViewPager() {
@@ -132,7 +97,7 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
         viewPager.setOffscreenPageLimit(3);
     }
 
-    private void setPointMain(int point) {
+    public void setPointMain(int point) {
         txtCoin.setText(point + "");
         AppDataHelper.getInstance().setCoin(this, point, null);
     }

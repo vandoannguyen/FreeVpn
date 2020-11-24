@@ -48,7 +48,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     private static final String TAG = "VpnFragment";
     private static final int SWITCH_REQUEST_CODE = 123;
     @BindView(R.id.cardConnect)
-    CardView cardConnect;
+    LinearLayout cardConnect;
     @BindView(R.id.cardDisConnect)
     CardView cardDisConnect;
     @BindView(R.id.lineGetCoin)
@@ -165,7 +165,12 @@ public class VpnFragment extends Fragment implements IVpnView {
 
     @Override
     public void showMessage(String mess) {
+        Toast.makeText(getContext(), mess, Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void updatePoint(int point) {
+        callback.setPoint(point);
     }
 
     @Override
@@ -278,7 +283,7 @@ public class VpnFragment extends Fragment implements IVpnView {
 
         switch (i) {
             case 0: {
-                if (Config.isFastConnect  && Config.currentCountry!= null) {
+                if (Config.isFastConnect && Config.currentCountry != null) {
                     imgFlag.setImageResource(R.drawable.ic_flag_fast);
                     imgFlagConnected.setImageResource(R.drawable.ic_flag_fast);
                     txtCountry.setText("Fast Connect");
@@ -293,7 +298,7 @@ public class VpnFragment extends Fragment implements IVpnView {
                 break;
             }
             case 1: {
-                if (Config.isFastConnect ) {
+                if (Config.isFastConnect) {
                     imgFlag.setImageResource(R.drawable.ic_flag_fast);
                     imgFlagConnected.setImageResource(R.drawable.ic_flag_fast);
                     txtCountry.setText("Fast Connect");

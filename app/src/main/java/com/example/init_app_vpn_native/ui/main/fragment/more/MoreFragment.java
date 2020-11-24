@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
-
 import com.example.init_app_vpn_native.BuildConfig;
 import com.example.init_app_vpn_native.R;
 import com.example.init_app_vpn_native.ui.faq.FAQActivity;
@@ -20,19 +18,18 @@ import com.example.init_app_vpn_native.ui.main.fragment.FragmentCallback;
 import com.example.init_app_vpn_native.ui.proxy.ProxySettingActivity;
 import com.example.init_app_vpn_native.ui.speedTest.SpeedTest;
 import com.example.init_app_vpn_native.utils.ads.Ads;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MoreFragment extends Fragment {
+    private String TAG = "MoreFragment";
     @BindView(R.id.frmAdsMore)
     FrameLayout frmAdsMore;
     @BindView(R.id.lineSpeedTestMore)
     LinearLayout lineSpeedTestMore;
     @BindView(R.id.txtVersion)
     TextView txtVersion;
-    private String TAG = "MoreFragment";
     @BindView(R.id.lineProxy)
     LinearLayout lineProxy;
     @BindView(R.id.lineLike)
