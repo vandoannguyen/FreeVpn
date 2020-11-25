@@ -22,7 +22,6 @@ import com.example.init_app_vpn_native.ui.main.fragment.more.MoreFragment;
 import com.example.init_app_vpn_native.ui.main.fragment.point.PointFragment;
 import com.example.init_app_vpn_native.ui.main.fragment.vpn.VpnFragment;
 import com.example.init_app_vpn_native.ui.point.PointsDesActivity;
-import com.example.init_app_vpn_native.utils.Common;
 import com.example.init_app_vpn_native.utils.SharedPrefsUtils;
 import com.example.init_app_vpn_native.utils.ads.Ads;
 import com.example.ratedialog.RatingDialog;
@@ -63,8 +62,13 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
         presenter.getExample();
         initViewPager();
         initTabLayout();
-        presenter.getPoint(this);
         rateAuto();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getPoint(this);
     }
 
     private void initViewPager() {
@@ -76,6 +80,13 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
                 if (viewPager != null) {
                     viewPager.setCurrentItem(1);
                 }
+            }
+
+            @Override
+            public void setPoint(int point) {
+                super.setPoint(point);
+                txtCoin.setText(point + "");
+                AppDataHelper.getInstance().setCoin(MainActivity.this, point, null);
             }
         }));
         fragmentList.add(PointFragment.newInstance(new FragmentCallback() {

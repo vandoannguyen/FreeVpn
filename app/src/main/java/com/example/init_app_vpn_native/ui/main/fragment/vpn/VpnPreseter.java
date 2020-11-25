@@ -376,16 +376,16 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 
     void connectToVpn() {
         App.connection_status = 1;
-        if (!Config.currentCountry.getPrice().equals("free")) {
-            int point = Integer.parseInt(Config.currentCountry.getPrice());
-            if (point < Common.totalPoint) {
-                Common.totalPoint -= point;
-                view.updatePoint(Common.totalPoint);
-            } else {
-                view.showMessage("You do not have enough point");
-                return;
-            }
-        }
+//        if (!Config.currentCountry.getPrice().equals("free")) {
+//            int point = Integer.parseInt(Config.currentCountry.getPrice());
+//            if (point < Common.totalPoint) {
+//                Common.totalPoint -= point;
+//                view.updatePoint(Common.totalPoint);
+//            } else {
+//                view.showMessage("You do not have enough point");
+//                return;
+//            }
+//        }
         if (!Config.isFastConnect) {
             AppDataHelper.getInstance().getConnect(Config.tokenApp, Config.currentCountry.getCode(),
                     new CallBack<Server>() {
@@ -492,7 +492,18 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
     public void pressLineConnect() {
         startAnimationLoading();
         if (App.connection_status == 0) {
-            connectToVpn();
+            if (!Config.currentCountry.getPrice().equals("free")) {
+                int point = Integer.parseInt(Config.currentCountry.getPrice());
+                if (point < Common.totalPoint) {
+                    connectToVpn();
+                    Common.totalPoint -= point;
+                    view.updatePoint(Common.totalPoint);
+                } else {
+                    view.showMessage("You do not have enough point");
+                }
+            } else {
+                connectToVpn();
+            }
         }
     }
 
