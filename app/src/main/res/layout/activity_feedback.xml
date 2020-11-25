@@ -47,12 +47,12 @@
             android:hint="Please write down your comments here, and provide as many details as you can(especially bugs). "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <EditText
-            android:layout_margin="10dp"
-            android:id="@+id/edtEmail"
-            android:hint="Your Email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+<!--        <EditText-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:id="@+id/edtEmail"-->
+<!--            android:hint="Your Email"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"/>-->
         <TextView
             android:layout_margin="10dp"
             android:text="Some of your devices data will be collected to help us quickly solve your problems. No personal data will be collected"

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -23,8 +24,6 @@ public class FeedbackActivity extends AppCompatActivity {
     ImageView btnBackFeedBack;
     @BindView(R.id.edtFeedback)
     EditText edtFeedback;
-    @BindView(R.id.edtEmail)
-    EditText edtEmail;
     @BindView(R.id.lineSubmitFB)
     LinearLayout lineSubmitFB;
 
@@ -48,14 +47,15 @@ public class FeedbackActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.lineSubmitFB:
-                if (edtFeedback.getText().toString().isEmpty() && edtEmail.getText().toString().isEmpty()) {
+                if (edtFeedback.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please enter text", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (edtEmail.getText().toString().equals("@gmail.com")) {
+//                    Log.e(TAG, "onViewClicked: " + edtEmail.getText().toString() );
+//                    if (edtEmail.getText().toString().contains("@gmail.com")) {
                         sendEmail();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Please enter again email", Toast.LENGTH_SHORT).show();
-                    }
+//                    } else {
+//                        Toast.makeText(getApplicationContext(), "Please enter again email", Toast.LENGTH_SHORT).show();
+//                    }
                 }
                 break;
         }
@@ -65,11 +65,9 @@ public class FeedbackActivity extends AppCompatActivity {
         Intent intent2 = new Intent();
         intent2.setAction(Intent.ACTION_SEND);
         intent2.setType("message/rfc822");
-        String EMAIL1 = "abc@gmail.com";
-        String emailApp = "oneadx@gmaiil.com";
+        String EMAIL1 = "oneadx@gmaiil.com";
         String ytext = edtFeedback.getText().toString();
         intent2.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL1});
-        intent2.putExtra(Intent.EXTRA_SUBJECT, emailApp);
         intent2.putExtra(Intent.EXTRA_TEXT, ytext);
         startActivity(intent2);
     }
