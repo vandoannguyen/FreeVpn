@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+
                 android:id="@+id/cardConnect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,124 +32,102 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:background="tran"-->
-<!--                        android:layout_height="match_parent">-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:orientation="vertical"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10dp">
 
-                        <LinearLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Status"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txtStatusConnect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="Tab to connect"
+                            android:textColor="@android:color/holo_orange_dark"
+                            android:textSize="16sp"
+                            android:textStyle="italic|bold" />
+
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:orientation="vertical"
-                            android:paddingTop="20sp"
-                            android:paddingBottom="10dp">
+                            android:layout_height="wrap_content">
 
                             <ImageView
                                 android:id="@+id/imgConnect"
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
+                                android:layout_width="170dp"
+                                android:layout_height="170dp"
+                                android:layout_centerInParent="true"
                                 android:layout_gravity="center"
-                                android:src="@mipmap/ic_launcher" />
+                                android:src="@drawable/connect" />
+                        </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/txtStatusConnect"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="10dp"
-                                android:gravity="center"
-                                android:text="Tab to connect"
-                                android:textColor="@android:color/holo_orange_dark"
-                                android:textSize="16sp"
-                                android:textStyle="italic" />
-                        </LinearLayout>
-<!--                    </androidx.cardview.widget.CardView>-->
-
-                    <androidx.cardview.widget.CardView
-                        app:cardElevation="4dp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
+                    </LinearLayout>
+                    <!--                    </androidx.cardview.widget.CardView>-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="3dp">
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:id="@+id/lineSwitchCountry"
+                            android:layout_width="300dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@drawable/custom_background_line_switch"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
-                            <LinearLayout
-                                android:id="@+id/lineSwitchCountry"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal">
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="4dp">
 
                                 <ImageView
                                     android:id="@+id/imgFlag"
-                                    android:layout_width="60dp"
-                                    android:layout_height="40dp"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="10dp"
-                                    android:src="@drawable/ic_flag" />
-
-                                <TextView
-                                    android:id="@+id/txtCountry"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
-                                    android:fontFamily="@font/roboto_light"
-                                    android:text="Vietnam"
-                                    android:textColor="#000000"
-                                    android:textSize="18sp" />
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_flag" />
+                            </androidx.cardview.widget.CardView>
 
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:layout_gravity="center"
-                                    android:layout_marginRight="10dp"
-                                    android:src="@drawable/ic_switch_server" />
-                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/txtCountry"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_light"
+                                android:text="Vietnam"
+                                android:textColor="#000000"
+                                android:textSize="20dp" />
 
-                            <!--                            <View-->
-                            <!--                                android:layout_width="0.5dp"-->
-                            <!--                                android:layout_height="match_parent"-->
-                            <!--                                android:layout_marginTop="15dp"-->
-                            <!--                                android:layout_marginBottom="15dp"-->
-                            <!--                                android:background="#5E5E5E" />-->
-
-                            <!--                            <LinearLayout-->
-                            <!--                                android:layout_width="match_parent"-->
-                            <!--                                android:layout_height="match_parent"-->
-                            <!--                                android:layout_weight="1"-->
-                            <!--                                android:gravity="center"-->
-                            <!--                                android:orientation="vertical">-->
-
-                            <!--                                <LinearLayout-->
-                            <!--                                    android:layout_width="wrap_content"-->
-                            <!--                                    android:layout_height="35dp"-->
-                            <!--                                    android:layout_marginTop="5dp"-->
-                            <!--                                    android:background="@drawable/custum_background_button"-->
-                            <!--                                    android:gravity="center"-->
-                            <!--                                    android:paddingLeft="10dp"-->
-                            <!--                                    android:paddingRight="10dp">-->
-
-                            <!--                                    <TextView-->
-                            <!--                                        android:layout_width="wrap_content"-->
-                            <!--                                        android:layout_height="wrap_content"-->
-                            <!--                                        android:layout_gravity="center"-->
-                            <!--                                        android:text="Switch Country"-->
-                            <!--                                        android:textColor="@android:color/white"-->
-                            <!--                                        android:textSize="13dp" />-->
-                            <!--                                </LinearLayout>-->
-                            <!--                            </LinearLayout>-->
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_switch_server" />
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -187,44 +166,55 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
-                                android:background="#DDDDDD"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="7dp">
+                                android:gravity="center">
 
-                                <ImageView
-                                    android:id="@+id/imgFlagConnected"
-                                    android:layout_width="80dp"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/ic_flag" />
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="5dp">
+
+                                    <ImageView
+                                        android:id="@+id/imgFlagConnected"
+                                        android:layout_width="130dp"
+                                        android:layout_height="80dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/ic_flag" />
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                            <LinearLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:minHeight="120dp"
+                                android:orientation="vertical"
+                                android:padding="5dp">
 
                                 <TextView
                                     android:id="@+id/txtConnectedCountry"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="left"
                                     android:layout_marginTop="5dp"
                                     android:text="The UnitedState" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="5dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="5dp">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -241,12 +231,12 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
                                     android:orientation="vertical">
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
                                         android:layout_weight="1">
 
                                         <TextView
@@ -266,6 +256,7 @@
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
                                         android:layout_weight="1">
 
                                         <TextView
@@ -370,11 +361,116 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:cardCornerRadius="5dp">
+
+                        <LinearLayout
+
+                            android:id="@+id/lineGetServer"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_server" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Switch Region"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <!--                        <RelativeLayout-->
+                            <!--                            android:layout_width="80dp"-->
+                            <!--                            android:layout_height="40dp"-->
+                            <!--                            android:layout_gravity="center"-->
+                            <!--                            android:layout_marginRight="10dp"-->
+                            <!--                            android:background="@drawable/custum_background_button">-->
+
+                            <!--                            <TextView-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_centerInParent="true"-->
+                            <!--                                android:text="Change"-->
+                            <!--                                android:textColor="@android:color/white" />-->
+                            <!--                        </RelativeLayout>-->
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"></View>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:cardCornerRadius="5dp">
+
+                        <LinearLayout
+                            android:id="@+id/lineGetSpeedTest"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_speed_1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Speed test"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <!--                            <RelativeLayout-->
+                            <!--                                android:layout_width="80dp"-->
+                            <!--                                android:layout_height="40dp"-->
+                            <!--                                android:layout_gravity="center"-->
+                            <!--                                android:layout_marginRight="10dp"-->
+                            <!--                                android:background="@drawable/custum_background_button">-->
+
+                            <!--                                <TextView-->
+                            <!--                                    android:layout_width="wrap_content"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_centerInParent="true"-->
+                            <!--                                    android:text="Start"-->
+                            <!--                                    android:textColor="@android:color/white" />-->
+                            <!--                            </RelativeLayout>-->
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
                     android:padding="5dp">
 
                     <LinearLayout
@@ -412,10 +508,17 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
 
-                                <ImageView
+                                <androidx.cardview.widget.CardView
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/ic_facebook" />
+                                    app:cardCornerRadius="25dp"
+                                    app:cardElevation="4dp">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:src="@drawable/ic_facebook" />
+                                </androidx.cardview.widget.CardView>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -433,10 +536,17 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
 
-                                <ImageView
+                                <androidx.cardview.widget.CardView
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/ic_google" />
+                                    app:cardCornerRadius="25dp"
+                                    app:cardElevation="4dp">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:src="@drawable/ic_google" />
+                                </androidx.cardview.widget.CardView>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -454,10 +564,17 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
 
-                                <ImageView
+                                <androidx.cardview.widget.CardView
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/ic_gmail" />
+                                    app:cardCornerRadius="25dp"
+                                    app:cardElevation="4dp">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:src="@drawable/ic_gmail" />
+                                </androidx.cardview.widget.CardView>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -467,102 +584,6 @@
                                     android:textSize="15sp" />
                             </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="10dp"
-                    app:cardBackgroundColor="@android:color/white"
-                    app:cardCornerRadius="5dp">
-
-                    <LinearLayout
-                        android:id="@+id/lineGetServer"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_server" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="Switch Region"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <RelativeLayout
-                            android:layout_width="80dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="10dp"
-                            android:background="@drawable/custum_background_button">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="Change"
-                                android:textColor="@android:color/white" />
-                        </RelativeLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_margin="10dp"
-                    app:cardBackgroundColor="@android:color/white"
-                    app:cardCornerRadius="5dp">
-
-                    <LinearLayout
-                        android:id="@+id/lineGetSpeedTest"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_speed" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="Speed test"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <RelativeLayout
-                            android:layout_width="80dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="10dp"
-                            android:background="@drawable/custum_background_button">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="Start"
-                                android:textColor="@android:color/white" />
-                        </RelativeLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>

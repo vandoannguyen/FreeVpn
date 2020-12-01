@@ -7,7 +7,7 @@
 <!--    android:background="#FCD736"-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:text="Switch Region"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/icRefreshRegion"
@@ -33,7 +33,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:padding="15dp"
+            android:padding="8dp"
             android:src="@drawable/ic_refresh" />
     </LinearLayout>
 
@@ -71,6 +71,11 @@
                     android:text="Fast Connect"
                     android:textColor="@android:color/holo_orange_dark"
                     android:textSize="16sp" />
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_tick"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -92,7 +97,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
-
                 <FrameLayout
                     android:id="@+id/frmAdsSwitch"
                     android:layout_width="match_parent"

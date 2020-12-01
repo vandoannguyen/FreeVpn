@@ -308,7 +308,7 @@ public class VpnFragment extends Fragment implements IVpnView {
                 }
                 txtStatusConnect.setText("Connecting ...");
                 startAnimation(R.id.imgConnect, R.anim.fade_in_1000, true);
-                Glide.with(getContext()).asGif().load(R.raw.earth).into(imgConnect);
+                Glide.with(getContext()).load(R.drawable.connecting).into(imgConnect);
                 break;
             }
             case 2: {
