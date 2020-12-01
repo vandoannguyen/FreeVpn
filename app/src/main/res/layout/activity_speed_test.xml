@@ -69,7 +69,7 @@
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
                         android:textColor="#ffffff"
-                        android:background="@drawable/custom_button_start"
+                        android:background="@drawable/back_gotit"
                         android:text="START  TEST" />
                 </LinearLayout>
             </RelativeLayout>
@@ -88,8 +88,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="21dp"
-                        android:layout_height="14dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:src="@drawable/ic_download" />
 
                     <TextView
@@ -134,8 +134,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:src="@drawable/ic_upload" />
 
                     <TextView

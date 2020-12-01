@@ -78,7 +78,6 @@ public class PointFragment extends Fragment {
     TextView txtCoinDialog, txtCheckin;
     LinearLayout lineGetIt, lineCredits;
     ImageView imgDay1, imgDay2, imgDay3, imgDay4, imgDay5, imgDay6, imgDay7;
-    ImageView check1, check2, check3, check4, check5, check6, check7;
     LinearLayout lineGotIt;
     ProgressDialog progressDialog;
     private Handler mHandler = new Handler();
@@ -313,16 +312,8 @@ public class PointFragment extends Fragment {
         imgDay5 = view.findViewById(R.id.imgDay5);
         imgDay6 = view.findViewById(R.id.imgDay6);
         imgDay7 = view.findViewById(R.id.imgDay7);
-        check1 = view.findViewById(R.id.imgCheck1);
-        check2 = view.findViewById(R.id.imgCheck2);
-        check3 = view.findViewById(R.id.imgCheck3);
-        check4 = view.findViewById(R.id.imgCheck4);
-        check5 = view.findViewById(R.id.imgCheck5);
-        check6 = view.findViewById(R.id.imgCheck6);
-        check7 = view.findViewById(R.id.imgCheck7);
-        lineGotIt = view.findViewById(R.id.lineGotIt);
         txtCheckin = view.findViewById(R.id.txtCheckin);
-        txtCheckin.setVisibility(View.GONE);
+        lineGotIt = view.findViewById(R.id.lineGotIt);
         int checkin = SharedPrefsUtils.getInstance(view.getContext()).getInt("checkin");
         Time today = new Time(Time.getCurrentTimezone());
         today.setToNow();
@@ -334,62 +325,61 @@ public class PointFragment extends Fragment {
         }
         //day1
         if (checkin == 0) {
-            check1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+
         }
         if (checkin == 1) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
-            check2.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+
         }
         //day2
         if (checkin == 2) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day22));
-            check3.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+
         }
         //day3
         if (checkin == 3) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day22));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day33));
-            check4.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+
         }
         //day4
         if (checkin == 4) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day22));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day33));
-            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day44));
-            check5.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+
         }
         //day5
         if (checkin == 5) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day22));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day33));
-            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day44));
-            imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day55));
-            check6.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+
         }
         //day6
         if (checkin == 6) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day22));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day33));
-            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day44));
-            imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day55));
-            imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day66));
-            check7.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+
         }
         //day7
         if (checkin == 7) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day22));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day33));
-            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day44));
-            imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day55));
-            imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day66));
-            imgDay7.setImageDrawable(getResources().getDrawable(R.drawable.day77));
-            check1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay7.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
         }
         //line
         lineGotIt.setOnClickListener(new View.OnClickListener() {
@@ -400,8 +390,7 @@ public class PointFragment extends Fragment {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 1);
-                    imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day11));
-                    check1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
                     Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
                         @Override
                         public void adClose() {
@@ -419,8 +408,7 @@ public class PointFragment extends Fragment {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 2);
-                    imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day22));
-                    check2.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
                     Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
                         @Override
                         public void adClose() {
@@ -438,8 +426,7 @@ public class PointFragment extends Fragment {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 3);
-                    imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day33));
-                    check3.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
                     Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
                         @Override
                         public void adClose() {
@@ -457,8 +444,7 @@ public class PointFragment extends Fragment {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 4);
-                    imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day44));
-                    check4.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
                     Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
                         @Override
                         public void adClose() {
@@ -476,8 +462,7 @@ public class PointFragment extends Fragment {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 5);
-                    imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day55));
-                    check5.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
                     Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
                         @Override
                         public void adClose() {
@@ -495,8 +480,7 @@ public class PointFragment extends Fragment {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 6);
-                    imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day66));
-                    check6.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
                     Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
                         @Override
                         public void adClose() {
@@ -514,8 +498,7 @@ public class PointFragment extends Fragment {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 7);
-                    imgDay7.setImageDrawable(getResources().getDrawable(R.drawable.day77));
-                    check7.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+                    imgDay7.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
                     Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
                         @Override
                         public void adClose() {
