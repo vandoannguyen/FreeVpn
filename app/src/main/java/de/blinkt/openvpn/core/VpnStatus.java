@@ -10,7 +10,7 @@ import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Vector;
 
-//import com.example.init_app_vpn_native.R;
+//import com.freeproxy.vpnmaster.hotspot2.R;
 
 public class VpnStatus {
     final static Object readFileLock = new Object();

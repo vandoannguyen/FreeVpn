@@ -1,4 +1,4 @@
-package com.example.init_app_vpn_native;
+package com.freeproxy.vpnmaster.hotspot2;
 
 import org.junit.Test;
 

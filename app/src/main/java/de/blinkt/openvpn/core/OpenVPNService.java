@@ -39,9 +39,9 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.example.init_app_vpn_native.R;
-import com.example.init_app_vpn_native.ui.main.MainActivity;
-import com.example.init_app_vpn_native.utils.Config;
+import com.freeproxy.vpnmaster.hotspot2.R;
+import com.freeproxy.vpnmaster.hotspot2.ui.main.MainActivity;
+import com.freeproxy.vpnmaster.hotspot2.utils.Config;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

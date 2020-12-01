@@ -1,4 +1,4 @@
-package com.example.init_app_vpn_native;
+package com.freeproxy.vpnmaster.hotspot2;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.init_app_vpn_native", appContext.getPackageName());
+        assertEquals("com.freeproxy.vpnmaster.hotspot2", appContext.getPackageName());
     }
 }

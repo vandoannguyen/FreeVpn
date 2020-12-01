@@ -25,7 +25,7 @@ import android.os.ParcelFileDescriptor;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import java.io.IOException;
 import java.io.StringReader;

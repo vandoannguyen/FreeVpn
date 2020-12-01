@@ -8,7 +8,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import com.example.init_app_vpn_native.BuildConfig;
+import com.freeproxy.vpnmaster.hotspot2.BuildConfig;
 
 import java.math.BigInteger;
 import java.net.Inet6Address;

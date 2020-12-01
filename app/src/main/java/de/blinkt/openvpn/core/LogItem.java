@@ -12,9 +12,9 @@ import android.content.pm.Signature;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-//import com.example.init_app_vpn_native.R;
+//import com.freeproxy.vpnmaster.hotspot2.R;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;

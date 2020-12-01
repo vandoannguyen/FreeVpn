@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@android:color/white"
+        android:background="@color/colorPrimary"
         android:padding="5dp">
 
         <TextView
@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:text="@string/app_name"
-            android:textColor="#000000"
+            android:textColor="@android:color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="3dp"
                 android:text="100"
-                android:textColor="#000000"
+                android:textColor="@android:color/white"
                 android:textSize="16dp" />
         </LinearLayout>
 
@@ -54,6 +54,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabView"
         style="@style/CustomTabLayout"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

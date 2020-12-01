@@ -7,7 +7,7 @@ package de.blinkt.openvpn.core;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

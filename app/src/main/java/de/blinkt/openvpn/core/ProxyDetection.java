@@ -4,7 +4,7 @@
  */
 package de.blinkt.openvpn.core;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;

@@ -13,7 +13,7 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.os.Handler;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import java.util.LinkedList;
 

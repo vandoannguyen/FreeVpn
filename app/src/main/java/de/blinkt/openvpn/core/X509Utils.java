@@ -9,7 +9,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.text.TextUtils;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import org.spongycastle.util.io.pem.PemObject;
 import org.spongycastle.util.io.pem.PemReader;

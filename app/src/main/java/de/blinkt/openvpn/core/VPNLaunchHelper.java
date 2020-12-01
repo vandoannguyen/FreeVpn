@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

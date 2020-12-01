@@ -13,7 +13,7 @@ import android.os.ParcelFileDescriptor;
 
 import androidx.annotation.NonNull;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import java.io.FileDescriptor;
 import java.io.IOException;

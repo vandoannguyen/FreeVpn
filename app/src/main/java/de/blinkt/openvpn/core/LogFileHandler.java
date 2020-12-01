@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.example.init_app_vpn_native.R;
+import com.freeproxy.vpnmaster.hotspot2.R;
 
 import java.io.BufferedInputStream;
 import java.io.File;

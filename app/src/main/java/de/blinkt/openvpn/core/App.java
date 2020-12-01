@@ -14,9 +14,9 @@ import android.util.Log;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.example.init_app_vpn_native.R;
-import com.example.init_app_vpn_native.data.api.model.Country;
-import com.example.init_app_vpn_native.data.api.model.Server;
+import com.freeproxy.vpnmaster.hotspot2.R;
+import com.freeproxy.vpnmaster.hotspot2.data.api.model.Country;
+import com.freeproxy.vpnmaster.hotspot2.data.api.model.Server;
 
 import java.util.Calendar;
 import java.util.Random;
