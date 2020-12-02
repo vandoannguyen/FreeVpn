@@ -6,47 +6,34 @@
     android:background="@drawable/custom_background_dialog"
     android:layout_height="match_parent">
     <LinearLayout
-        android:orientation="horizontal"
-        android:background="#FFF000"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="220dp">
+        <View
+            android:background="@drawable/back_gotit"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+        <TextView
+            android:layout_gravity="center"
+            android:text="Daliy Check-in"
+            android:layout_marginTop="20dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <ImageView
             android:src="@drawable/ic_checkin"
             android:scaleType="fitXY"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_width="120dp"
-            android:layout_height="120dp"/>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="Daliy Check-in"
-                android:layout_margin="5dp"
-                android:textSize="24sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_margin="5dp"
-                android:text="Consecutive"
-                android:textSize="24sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:text="1 Days"
-                android:layout_margin="5dp"
-                android:textSize="24sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
     <LinearLayout
         android:gravity="center"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:weightSum="7"
         android:layout_width="match_parent"
         android:layout_height="100dp">
@@ -55,22 +42,17 @@
             android:gravity="center"
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="100dp">
-            <TextView
-                android:text="200"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgDay1"
                 android:src="@drawable/day1"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
-            <ImageView
-                android:id="@+id/imgCheck1"
-                android:layout_width="30dp"
-                android:layout_margin="5dp"
-
-                android:layout_height="20dp"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="200"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -78,20 +60,16 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                android:text="300"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
             <ImageView
                 android:id="@+id/imgDay2"
                 android:src="@drawable/day2"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
-            <ImageView
-                android:id="@+id/imgCheck2"
-                android:layout_width="30dp"
-                android:layout_margin="5dp"
-                android:layout_height="20dp"/>
+            <TextView
+                android:text="300"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -99,21 +77,16 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                android:text="400"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
             <ImageView
                 android:id="@+id/imgDay3"
                 android:src="@drawable/day3"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
-            <ImageView
-                android:id="@+id/imgCheck3"
-                android:layout_width="30dp"
-                android:layout_margin="5dp"
-
-                android:layout_height="20dp"/>
+            <TextView
+                android:text="400"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -121,21 +94,16 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                android:text="500"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
             <ImageView
                 android:id="@+id/imgDay4"
                 android:src="@drawable/day4"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
-            <ImageView
-                android:id="@+id/imgCheck4"
-                android:layout_width="30dp"
-                android:layout_margin="5dp"
-
-                android:layout_height="20dp"/>
+            <TextView
+                android:text="500"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -143,21 +111,16 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                android:text="600"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
             <ImageView
                 android:id="@+id/imgDay5"
                 android:src="@drawable/day5"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
-            <ImageView
-                android:id="@+id/imgCheck5"
-                android:layout_width="30dp"
-                android:layout_margin="5dp"
-
-                android:layout_height="20dp"/>
+            <TextView
+                android:text="600"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -165,20 +128,16 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                android:text="900"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
             <ImageView
                 android:id="@+id/imgDay6"
                 android:src="@drawable/day6"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
-            <ImageView
-                android:id="@+id/imgCheck6"
-                android:layout_width="30dp"
-                android:layout_margin="5dp"
-                android:layout_height="20dp"/>
+            <TextView
+                android:text="900"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -186,34 +145,33 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                android:text="1000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
             <ImageView
                 android:id="@+id/imgDay7"
                 android:src="@drawable/day7"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
-            <ImageView
-                android:id="@+id/imgCheck7"
-                android:layout_width="30dp"
-                android:layout_margin="5dp"
-                android:layout_height="20dp"/>
+            <TextView
+                android:text="1000"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
     <TextView
         android:id="@+id/txtCheckin"
         android:gravity="center"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:text="You/ve checked in today."
         android:textColor="@android:color/holo_red_light"
         android:layout_margin="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <LinearLayout
-        android:background="@drawable/custum_background_button"
-        android:layout_margin="10dp"
+        android:background="@drawable/back_gotit"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+       android:layout_marginBottom="20dp"
         android:id="@+id/lineGotIt"
         android:gravity="center"
         android:layout_width="match_parent"

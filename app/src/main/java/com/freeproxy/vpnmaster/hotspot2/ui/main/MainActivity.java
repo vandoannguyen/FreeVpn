@@ -39,8 +39,6 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
     MainPresenter<IMainActivity> presenter;
     @BindView(R.id.lineCoinMain)
     LinearLayout lineCoinMain;
-    @BindView(R.id.txtAppName)
-    TextView txtAppName;
     @BindView(R.id.txtCoin)
     TextView txtCoin;
     @BindView(R.id.tabView)
@@ -117,8 +115,8 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lineCoinMain:
-                Intent intentCoin = new Intent(getApplicationContext(), PointsDesActivity.class);
-                startActivity(intentCoin);
+//              click  Intent intentCoin = new Intent(getApplicationContext(), PointsDesActivity.class);
+//                startActivity(intentCoin);
                 break;
         }
     }

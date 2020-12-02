@@ -1,128 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:scaleY="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp"
         android:scaleX="0"
-        android:alpha="0"
-        >
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ribonl"
-            android:layout_marginLeft="5dp"
-            android:layout_above="@+id/btnSubmit"/>
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ribonr"
-            android:layout_marginRight="5dp"
-            android:layout_above="@+id/btnSubmit"/>
-
+        android:scaleY="0">
         <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_marginLeft="20dp"
-           android:layout_marginRight="20dp"
-            android:layout_marginTop="40dp"
-           android:background="@drawable/layout_bg"
-           android:layout_marginBottom="30dp">
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/layout_bg"
+            android:paddingBottom="40dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/head_bg">
-              <ImageView
-                  android:id="@+id/btnCacncel"
-                  android:layout_width="30dp"
-                  android:layout_height="30dp"
-                  android:src="@drawable/cancel"
-                  android:layout_centerVertical="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_marginRight="10dp"
-                  android:alpha="0.5"/>
+                android:layout_height="50dp">
+                <ImageView
+                    android:id="@+id/btnCacncel"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:alpha="0.5"
+                    android:padding="4dp"
+                    android:src="@drawable/cancel" />
             </RelativeLayout>
-
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="60dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#2c3e50"
                     android:gravity="center"
+                    android:text="@string/Do_you_love_this_app"
+                    android:textColor="#2c3e50"
                     android:textSize="19dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/Do_you_love_this_app"/>
+                    android:textStyle="bold" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/rate_for_me"
-                    android:layout_marginTop="5dp"
                     android:layout_gravity="center"
-                    android:gravity="center"/>
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/rate_for_me" />
                 <com.example.ratedialog.RotationRatingBar
                     android:id="@+id/rotationratingbar_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
                     android:layout_gravity="center"
-                    android:visibility="invisible"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="8dp"
                     android:gravity="center"
-                    android:layout_marginTop="16dp"
-                   >
-
+                    android:visibility="visible">
                 </com.example.ratedialog.RotationRatingBar>
-
-
-
-
             </LinearLayout>
-
-
-
-
-
-       </RelativeLayout>
-
-
-
-        <TextView
-            android:id="@+id/btnSubmit"
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/lineButton"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/submit_bg"
-            android:layout_alignParentBottom="true"
-            android:textColor="#ffffff"
-            android:textSize="30dp"
-            android:text="@string/rate_now"
-            android:fontFamily="sans-serif-smallcaps"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/rel1"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="-40dp"
             android:gravity="center"
-            android:textStyle="bold"/>
-
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/btnMoreApp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_cancel_dialog" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_submit_dialog" />
+            </LinearLayout>
+        </LinearLayout>
         <ImageView
             android:id="@+id/ratingFace"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/favorite"
             android:layout_centerHorizontal="true"
-            />
-
+            android:src="@drawable/face3" />
     </RelativeLayout>
-
 </RelativeLayout>

@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.freeproxy.vpnmaster.hotspot2.R;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdIconView;
@@ -34,6 +33,7 @@ import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdBase;
 import com.facebook.ads.NativeAdLayout;
 import com.facebook.ads.NativeAdListener;
+import com.freeproxy.vpnmaster.hotspot2.R;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
@@ -66,6 +66,7 @@ public class AdsUtils {
     private RewardedVideoAd rewardedVideoAd;
     private boolean isLoadingReward = false;
     private boolean isIsClickReward = false;
+    private int loadFailedCount = 0;
 
     public static AdsUtils getInstance(Activity context) {
         if (adsUtils != null) {
@@ -323,6 +324,7 @@ public class AdsUtils {
             @Override
             public void onRewardedVideoAdLoaded() {
                 isLoadingReward = false;
+                loadFailedCount = 0;
                 if (isIsClickReward) {
                     rewardedVideoAd.show();
                 }
@@ -362,7 +364,8 @@ public class AdsUtils {
             @Override
             public void onRewardedVideoAdFailedToLoad(int i) {
                 listener.onRewardedVideoAdFailedToLoad(i);
-                if (rewardedVideoAd != null) {
+                loadFailedCount++;
+                if (rewardedVideoAd != null && loadFailedCount < 2) {
                     rewardedVideoAd.loadAd(rewar_id_admob, new AdRequest.Builder().build());
                     isLoadingReward = true;
                 }

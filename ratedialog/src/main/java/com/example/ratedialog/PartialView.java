@@ -5,6 +5,7 @@ import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -32,12 +33,14 @@ public class PartialView extends RelativeLayout {
     }
 
     private void init() {
+        RelativeLayout.LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(CENTER_IN_PARENT, TRUE);
         mFilledView = new ImageView(getContext());
         mFilledView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         mEmptyView = new ImageView(getContext());
         mEmptyView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        addView(mFilledView);
-        addView(mEmptyView);
+        addView(mFilledView, layoutParams);
+        addView(mEmptyView, layoutParams);
     }
 
     public void setFilledDrawable(Drawable drawable) {

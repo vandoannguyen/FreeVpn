@@ -8,6 +8,14 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/ic_emailcoin" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,32 +23,31 @@
         android:layout_margin="10dp"
         android:text="Congratulations!"
         android:textColor="@android:color/holo_red_light"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_emailcoin" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You earn "
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/txtCoinDialog"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="40dp"
             android:text="+330 Points"
             android:textAlignment="center"
             android:textColor="@android:color/holo_red_light"
             android:textSize="22sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +56,7 @@
         android:layout_margin="10dp"
         android:text="Watch the whole video for double points!"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/lineGetIt"

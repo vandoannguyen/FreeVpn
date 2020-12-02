@@ -1,7 +1,8 @@
 package com.example.ratedialog;
 
 import android.graphics.drawable.Drawable;
-import androidx.annotation.DrawableRes;;
+
+import androidx.annotation.DrawableRes;
 
 
 /**

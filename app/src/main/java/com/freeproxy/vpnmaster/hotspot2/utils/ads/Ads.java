@@ -5,12 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.freeproxy.vpnmaster.hotspot2.R;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.AudienceNetworkAds;
 import com.facebook.ads.InterstitialAdListener;
+import com.freeproxy.vpnmaster.hotspot2.R;
 import com.freeproxy.vpnmaster.hotspot2.utils.Config;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdSize;
@@ -27,6 +27,7 @@ public class Ads {
     public static boolean is_show_inter = true;
     public static boolean is_show_banner = true;
     public static String native_id_admob = "ca-app-pub-3940256099942544/1044960115";
+    public static boolean is_show_admob_rewad = true;
     Activity activity;
     private static Ads ads;
     public static String banner_id_admob = "ca-app-pub-3940256099942544/6300978111";
@@ -257,131 +258,209 @@ public class Ads {
     }
 
     public void rewared(CallBackRewared rewared) {
-//        if (is_show_admob) {
-        AdsUtils.getInstance(activity).rewar_admob(rewar_id_admob, new RewardedVideoAdListener() {
+        if (is_show_admob_rewad) {
+            AdsUtils.getInstance(activity).rewar_admob(rewar_id_admob, new RewardedVideoAdListener() {
 
-            @Override
-            public void onRewardedVideoAdLoaded() {
+                @Override
+                public void onRewardedVideoAdLoaded() {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoAdOpened() {
+                @Override
+                public void onRewardedVideoAdOpened() {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoStarted() {
+                @Override
+                public void onRewardedVideoStarted() {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoAdClosed() {
-                rewared.adClose();
+                @Override
+                public void onRewardedVideoAdClosed() {
+                    rewared.adClose();
 
-            }
+                }
 
-            @Override
-            public void onRewarded(RewardItem rewardItem) {
-                rewared.adRewared();
-            }
+                @Override
+                public void onRewarded(RewardItem rewardItem) {
+                    rewared.adRewared();
+                }
 
-            @Override
-            public void onRewardedVideoAdLeftApplication() {
+                @Override
+                public void onRewardedVideoAdLeftApplication() {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoAdFailedToLoad(int i) {
-                rewared.adLoadFailed(i);
-            }
+                @Override
+                public void onRewardedVideoAdFailedToLoad(int i) {
+                    if (is_load_failed) {
+                        AdsUtils.getInstance(activity).interFan(inter_id_fan, new InterstitialAdListener() {
+                            @Override
+                            public void onInterstitialDisplayed(Ad ad) {
 
-            @Override
-            public void onRewardedVideoCompleted() {
+                            }
 
-            }
-        });
-//        } else {
-//            AdsUtils.getInstance(activity).rewar_fan(new com.facebook.ads.RewardedVideoAdListener() {
-//                @Override
-//                public void onRewardedVideoCompleted() {
-//                    rewared.adRewared();
-//                }
-//
-//                @Override
-//                public void onLoggingImpression(Ad ad) {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoClosed() {
-//                    rewared.adClose();
-//                }
-//
-//                @Override
-//                public void onError(Ad ad, AdError adError) {
-//                    Log.e("TAG", "onError: " + adError.getErrorMessage());
-////                    rewared.adLoadFailed(0);
-////                    if (is_load_failed)
-////                        AdsUtils.getInstance(activity).rewar_admob(new RewardedVideoAdListener() {
-////
-////                            @Override
-////                            public void onRewardedVideoAdLoaded() {
-////                            }
-////
-////                            @Override
-////                            public void onRewardedVideoAdOpened() {
-////
-////                            }
-////
-////                            @Override
-////                            public void onRewardedVideoStarted() {
-////
-////                            }
-////
-////                            @Override
-////                            public void onRewardedVideoAdClosed() {
-////                                rewared.adClose();
-////
-////                            }
-////
-////                            @Override
-////                            public void onRewarded(RewardItem rewardItem) {
-////                                rewared.adRewared();
-////                            }
-////
-////                            @Override
-////                            public void onRewardedVideoAdLeftApplication() {
-////
-////                            }
-////
-////                            @Override
-////                            public void onRewardedVideoAdFailedToLoad(int i) {
-////                                rewared.adLoadFailed(i);
-////                            }
-////
-////                            @Override
-////                            public void onRewardedVideoCompleted() {
-////
-////                            }
-////                        });
-////                    else {
-////                        rewared.adLoadFailed(-1);
-////                    }
-//
-//                }
-//
-//                @Override
-//                public void onAdLoaded(Ad ad) {
-//
-//                }
-//
-//                @Override
-//                public void onAdClicked(Ad ad) {
-//
-//                }
-//            });
-//        }
+                            @Override
+                            public void onInterstitialDismissed(Ad ad) {
+                                rewared.adRewared();
+                                rewared.adClose();
+                            }
+
+                            @Override
+                            public void onError(Ad ad, AdError adError) {
+                                if (is_load_failed) {
+                                    AdsUtils.getInstance(activity).rewar_admob(rewar_id_admob, new RewardedVideoAdListener() {
+
+                                        @Override
+                                        public void onRewardedVideoAdLoaded() {
+
+                                        }
+
+                                        @Override
+                                        public void onRewardedVideoAdOpened() {
+
+                                        }
+
+                                        @Override
+                                        public void onRewardedVideoStarted() {
+
+                                        }
+
+                                        @Override
+                                        public void onRewardedVideoAdClosed() {
+                                            rewared.adClose();
+
+                                        }
+
+                                        @Override
+                                        public void onRewarded(RewardItem rewardItem) {
+                                            rewared.adRewared();
+                                        }
+
+                                        @Override
+                                        public void onRewardedVideoAdLeftApplication() {
+
+                                        }
+
+                                        @Override
+                                        public void onRewardedVideoAdFailedToLoad(int i) {
+                                            rewared.adLoadFailed(i);
+                                        }
+
+                                        @Override
+                                        public void onRewardedVideoCompleted() {
+
+                                        }
+                                    });
+                                } else
+                                    rewared.adLoadFailed(-1);
+                            }
+
+                            @Override
+                            public void onAdLoaded(Ad ad) {
+
+                            }
+
+                            @Override
+                            public void onAdClicked(Ad ad) {
+
+                            }
+
+                            @Override
+                            public void onLoggingImpression(Ad ad) {
+
+                            }
+                        });
+                    } else {
+                        rewared.adLoadFailed(i);
+                    }
+                }
+
+                @Override
+                public void onRewardedVideoCompleted() {
+
+                }
+            });
+        } else {
+            AdsUtils.getInstance(activity).interFan(inter_id_fan, new InterstitialAdListener() {
+                @Override
+                public void onInterstitialDisplayed(Ad ad) {
+
+                }
+
+                @Override
+                public void onInterstitialDismissed(Ad ad) {
+                    rewared.adRewared();
+                    rewared.adClose();
+                }
+
+                @Override
+                public void onError(Ad ad, AdError adError) {
+                    if (is_load_failed) {
+                        AdsUtils.getInstance(activity).rewar_admob(rewar_id_admob, new RewardedVideoAdListener() {
+
+                            @Override
+                            public void onRewardedVideoAdLoaded() {
+
+                            }
+
+                            @Override
+                            public void onRewardedVideoAdOpened() {
+
+                            }
+
+                            @Override
+                            public void onRewardedVideoStarted() {
+
+                            }
+
+                            @Override
+                            public void onRewardedVideoAdClosed() {
+                                rewared.adClose();
+
+                            }
+
+                            @Override
+                            public void onRewarded(RewardItem rewardItem) {
+                                rewared.adRewared();
+                            }
+
+                            @Override
+                            public void onRewardedVideoAdLeftApplication() {
+
+                            }
+
+                            @Override
+                            public void onRewardedVideoAdFailedToLoad(int i) {
+                                rewared.adLoadFailed(i);
+                            }
+
+                            @Override
+                            public void onRewardedVideoCompleted() {
+
+                            }
+                        });
+                    } else
+                        rewared.adLoadFailed(-1);
+                }
+
+                @Override
+                public void onAdLoaded(Ad ad) {
+
+                }
+
+                @Override
+                public void onAdClicked(Ad ad) {
+
+                }
+
+                @Override
+                public void onLoggingImpression(Ad ad) {
+
+                }
+            });
+        }
     }
 
     public void nativeAds(ViewGroup viewGroup, AdsSize size) {

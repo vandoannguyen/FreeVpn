@@ -2,7 +2,6 @@ package com.example.ratedialog;
 
 import android.content.Context;
 import android.os.Handler;
-//import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;

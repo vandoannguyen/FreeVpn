@@ -3,8 +3,9 @@ package com.example.ratedialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-
+import android.os.Build;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
@@ -105,13 +107,18 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initRatingView() {
         mPartialViews = new ArrayList<>();
 
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                mStarWidth == 0 ? LayoutParams.WRAP_CONTENT : mStarWidth,
+        LayoutParams params = new LayoutParams(
+                mStarWidth == 0 ? LayoutParams.MATCH_PARENT : mStarWidth,
                 mStarHeight == 0 ? ViewGroup.LayoutParams.WRAP_CONTENT : mStarHeight);
-
+        params.weight = 1;
+        params.gravity = Gravity.CENTER;
+        float des = getContext().getResources().getDisplayMetrics().density;
+//        params.setMarginStart((int) (5 * des));
+//        params.setMarginEnd((int) (5 * des));
         for (int i = 1; i <= mNumStars; i++) {
             PartialView partialView = getPartialView(i, mFilledDrawable, mEmptyDrawable);
             mPartialViews.add(partialView);

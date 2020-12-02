@@ -49,7 +49,7 @@ public class ConfirmDialog extends Activity implements CompoundButton.OnCheckedC
             ApplicationInfo app = pm.getApplicationInfo(mPackage, 0);
             View view = View.inflate(this, R.layout.api_confirm, null);
             ((ImageView) view.findViewById(R.id.icon)).setImageDrawable(app.loadIcon(pm));
-            ((TextView) view.findViewById(R.id.prompt)).setText(getString(R.string.prompt, app.loadLabel(pm), getString(R.string.app_name)));
+            ((TextView) view.findViewById(R.id.prompt)).setText(getString(R.string.prompt, app.loadLabel(pm), getString(R.string.app_name_title)));
             ((CompoundButton) view.findViewById(R.id.check)).setOnCheckedChangeListener(this);
             Builder builder = new AlertDialog.Builder(this);
             builder.setView(view);

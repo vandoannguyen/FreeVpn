@@ -8,12 +8,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.moreapp.MoreAppConfig;
 import com.freeproxy.vpnmaster.hotspot2.BuildConfig;
 import com.freeproxy.vpnmaster.hotspot2.base.BasePresenter;
 import com.freeproxy.vpnmaster.hotspot2.common.Config;
 import com.freeproxy.vpnmaster.hotspot2.data.AppDataHelper;
 import com.freeproxy.vpnmaster.hotspot2.data.CallBack;
-import com.freeproxy.vpnmaster.hotspot2.data.api.model.Auth;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Country;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Server;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.User;
@@ -281,7 +281,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                     boolean isShowBanner = false;
                     boolean isLoadFailed = false;
                     boolean isShowNative = false;
-                    boolean isAdmob = false;
+                    boolean isAdmob = false,isAdmobRewad = false;
                     int percents = 0;
                     int free_time_connect = 15;
 
@@ -326,6 +326,8 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                             if (isConstanceAdmob) {
                                 SharedPrefsUtils.getInstance(activity).putString("constAdmob", AdsMordel.toJson(model));
                             }
+                            String more_app = adObject.getString("more_app");
+                            MoreAppConfig.setMoreAppConfigs(more_app);
                         }
                         percents = adObject.getInt("percents_inter");
                         bannerFan = adObject.getString("ad_banner_fan_id");
@@ -336,12 +338,15 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                         isShowNative = adObject.getBoolean("is_show_native");
                         isLoadFailed = adObject.getBoolean("is_load_fail");
                         isAdmob = adObject.getBoolean("isAdmob");
+                        isAdmobRewad = adObject.getBoolean("isAdmobRewad");
                         checkAppData = adObject.getString("checkApp");
                     }
                     Ads.is_show_inter = isShowInter;
                     Ads.is_show_banner = isShowBanner;
                     Ads.is_load_failed = isLoadFailed;
                     Ads.is_show_admob = isAdmob;
+                    Ads.is_show_admob_rewad = isAdmobRewad;
+//                    Ads.is_show_admob = true;
                     Ads.percents = percents;
                     if (!com.freeproxy.vpnmaster.hotspot2.utils.Config.isDebug) {
                         Ads.rewar_id_admob = rewar_id_admob;
@@ -353,6 +358,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                         Ads.native_id_fan = nativeAdsFan;
                     }
                     isLoadAdsSuccess = true;
+
                     intentToMain();
                 } catch (
                         Exception e) {
