@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,15 +8,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_main"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/icBackSwitchRegion"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="15dp"
-            app:srcCompat="@drawable/ic_back" />
+            android:padding="12dp"
+            android:src="@drawable/ic_back_ios" />
 
         <TextView
             android:layout_width="match_parent"
@@ -25,6 +24,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="Switch Region"
+            android:textStyle="bold"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
@@ -34,14 +34,14 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:padding="8dp"
-            app:srcCompat="@drawable/ic_refresh" />
+            android:padding="10dp"
+            android:src="@drawable/ic_refresh"/>
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EDEDED">
+        android:background="#FFF8EA">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,28 +55,33 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/custom_background_item_server">
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_flag_fast" />
+<!--                <ImageView-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:scaleType="fitCenter"-->
+<!--                    android:src="@drawable/ic_flag_fast" />-->
 
                 <TextView
+                    android:fontFamily="@font/semi_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:text="Fast Connect"
-                    android:textColor="@android:color/holo_orange_dark"
-                    android:textSize="16sp" />
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="28sp" />
+
                 <ImageView
+                    android:padding="10dp"
+                    android:layout_width="49dp"
+                    android:layout_height="49dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_tick"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_tick" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

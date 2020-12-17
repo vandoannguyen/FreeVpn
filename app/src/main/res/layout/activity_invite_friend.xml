@@ -12,7 +12,7 @@
         android:layout_height="60dp">
         <ImageView
             android:id="@+id/btnBackInvite"
-            app:srcCompat="@drawable/ic_back"
+            android:src="@drawable/ic_back"
             android:layout_centerInParent="true"
             android:layout_alignParentLeft="true"
             android:padding="12dp"
@@ -177,7 +177,7 @@
                             android:layout_height="wrap_content">
                             <ImageView
                                 android:padding="15dp"
-                                app:srcCompat="@drawable/ic_chat"
+                                android:src="@mipmap/ic_launcher"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"/>
                             <TextView
@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content">
                             <ImageView
                                 android:padding="15dp"
-                                app:srcCompat="@drawable/ic_email"
+                                android:src="@mipmap/ic_launcher"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"/>
                             <TextView
@@ -219,7 +219,7 @@
                             android:layout_height="wrap_content">
                             <ImageView
                                 android:padding="15dp"
-                                app:srcCompat="@drawable/ic_link"
+                                android:src="@mipmap/ic_launcher"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"/>
                             <TextView
@@ -240,7 +240,7 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:padding="15dp"
-                            app:srcCompat="@drawable/ic_plus"
+                            android:src="@mipmap/ic_launcher"
                             android:layout_width="80dp"
                             android:layout_height="80dp"/>
                         <TextView

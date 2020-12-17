@@ -6,6 +6,7 @@ package de.blinkt.openvpn.core;
 
 import android.Manifest.permission;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -421,6 +422,17 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
 
         String Title = getString(R.string.app_name_title);
+//        String Title;
+//        if (App.connection_status == 0) {
+//            Title = "Tap to connect " + App.selectedCountry.getName();
+//        } else if (App.connection_status == 1) {
+//            Title = "Connecting " + App.selectedCountry.getName();
+//
+//        } else if (App.connection_status == 2) {
+//            Title = "Connected " + App.selectedCountry.getName();
+//        } else {
+//            Title = "Tap to open VPN";
+//        }
 
         return new NotificationCompat.Builder(this, App.CHANNEL_ID)
                 .setContentTitle(Title)

@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_back_fragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +39,7 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            app:srcCompat="@drawable/ic_settings" />
+                            android:src="@mipmap/ic_launcher" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -67,6 +68,51 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMoreApp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="15sp"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_more_app" />
+
+                        <TextView
+                            style="@style/text_more_fragment_card"
+                            android:text="More app" />
+
+                        <RelativeLayout
+                            android:layout_width="90dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/custom_button_more">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/medium"
+                                android:text="Start"
+                                android:textColor="@color/color_main"
+                                android:textSize="17sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_margin="15sp"
@@ -81,34 +127,33 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            app:srcCompat="@drawable/ic_speed" />
+                            android:padding="5dp"
+                            android:src="@drawable/ic_speed_2" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="Speed test"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/text_more_fragment_card"
+
+                            android:text="Speed test" />
 
                         <RelativeLayout
                             android:layout_width="90dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/custum_background_button">
+                            android:background="@drawable/custom_button_more">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
+                                android:fontFamily="@font/medium"
                                 android:text="Start"
-                                android:textColor="@android:color/white" />
+                                android:textColor="@color/color_main"
+                                android:textSize="17sp" />
                         </RelativeLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -129,81 +174,33 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            app:srcCompat="@drawable/ic_star" />
+                            android:src="@drawable/ic_like" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="Like Rich VPN"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/text_more_fragment_card"
+
+                            android:text="Like Rich VPN" />
+                        android:text="Like Rich VPN" />
 
                         <RelativeLayout
                             android:layout_width="90dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/custum_background_button">
+                            android:background="@drawable/custom_button_more">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
+                                android:fontFamily="@font/medium"
                                 android:text="Rate Us"
-                                android:textColor="@android:color/white" />
-                        </RelativeLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardMoreApp"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="15dp"
-                    app:cardCornerRadius="6dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            app:srcCompat="@drawable/ic_more_app" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="Get More Apps"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <RelativeLayout
-                            android:layout_width="90dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="10dp"
-                            android:background="@drawable/custum_background_button">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="More"
-                                android:textColor="@android:color/white" />
+                                android:textColor="@color/color_main"
+                                android:textSize="17sp" />
                         </RelativeLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -224,34 +221,31 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            app:srcCompat="@drawable/ic_message" />
+                            android:src="@drawable/ic_message_1" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="Suggestion"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/text_more_fragment_card"
+                            android:text="Suggestion" />
 
                         <RelativeLayout
                             android:layout_width="90dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/custum_background_button">
+                            android:background="@drawable/custom_button_more">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
+                                android:fontFamily="@font/medium"
                                 android:text="Feedback"
-                                android:textColor="@android:color/white" />
+                                android:textColor="@color/color_main"
+                                android:textSize="17sp" />
                         </RelativeLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -272,54 +266,54 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            app:srcCompat="@drawable/ic_pencil" />
+                            android:src="@drawable/ic_manual" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="User Manual"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/text_more_fragment_card"
+                            android:text="User Manual" />
 
                         <RelativeLayout
                             android:layout_width="90dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/custum_background_button">
+                            android:background="@drawable/custom_button_more">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
+                                android:fontFamily="@font/medium"
                                 android:text="FAQ"
-                                android:textColor="@android:color/white" />
+                                android:textColor="@color/color_main"
+                                android:textSize="17sp" />
                         </RelativeLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
                 <LinearLayout
-                    android:gravity="center"
-                    android:layout_margin="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center">
+
                     <TextView
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="RELEASE " />
+
                     <TextView
                         android:id="@+id/txtVersion"
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="5.0.388" />
                 </LinearLayout>
             </LinearLayout>

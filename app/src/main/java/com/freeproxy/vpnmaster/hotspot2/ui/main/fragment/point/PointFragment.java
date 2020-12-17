@@ -51,11 +51,11 @@ public class PointFragment extends Fragment {
     LinearLayout linearRandom;
     private String TAG = "PointFragment";
     @BindView(R.id.numberPick1)
-    NumberPicker numberPicker1;
+    com.shawnlin.numberpicker.NumberPicker numberPicker1;
     @BindView(R.id.numberPick2)
-    NumberPicker numberPicker2;
+    com.shawnlin.numberpicker.NumberPicker numberPicker2;
     @BindView(R.id.numberPick3)
-    NumberPicker numberPicker3;
+    com.shawnlin.numberpicker.NumberPicker numberPicker3;
     @BindView(R.id.lineTapCoin)
     LinearLayout lineTapCoin;
     @BindView(R.id.lineWatchVideo)
@@ -129,37 +129,19 @@ public class PointFragment extends Fragment {
 //            CountDown();
 //        }
         //numberpicker 1
+//        testNumberPicker.smoothScrollToPosition();
         numberPicker1.setMaxValue(9);
         numberPicker1.setMinValue(0);
-        numberPicker1.setWrapSelectorWheel(true);
-        numberPicker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                Log.e(TAG, "onValueChange: " + numberPicker1.getValue());
-            }
-        });
-
+        numberPicker1.setValue(0);
         //numberpicker 2
         numberPicker2.setMaxValue(9);
         numberPicker2.setMinValue(0);
-        numberPicker2.setWrapSelectorWheel(true);
-        numberPicker2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                Log.e(TAG, "onValueChange: " + numberPicker2.getValue());
-            }
-        });
-
+        numberPicker2.setValue(0);
         //numberpicker 3
         numberPicker3.setMaxValue(9);
         numberPicker3.setMinValue(0);
-        numberPicker3.setWrapSelectorWheel(true);
-        numberPicker3.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                Log.e(TAG, "onValueChange: " + numberPicker3.getValue());
-            }
-        });
+        numberPicker3.setValue(0);
+
 
     }
 
@@ -526,28 +508,34 @@ public class PointFragment extends Fragment {
             case R.id.lineTapCoin:
                 if (Common.checktap == 0 && !isRandomingPoint) {
                     isRandomingPoint = true;
+                    numberPicker1.setValue(0);
+                    numberPicker2.setValue(0);
+                    numberPicker3.setValue(0);
                     Random rd = new Random();
                     int ptram = rd.nextInt(9);
                     int ran1 = 0;
                     if (ptram < 7) {
-                        ran1 = rd.nextInt(5);
+                        ran1 = rd.nextInt(5) + 30;
                     } else {
-                        ran1 = rd.nextInt(9);
+                        ran1 = rd.nextInt(9) + 30;
                     }
-                    int ran2 = rd.nextInt(9);
-                    int ran3 = rd.nextInt(9);
-                    Log.e(TAG, "onViewClicked1: " + ran1);
-                    Log.e(TAG, "onViewClicked2: " + ran2);
-                    Log.e(TAG, "onViewClicked3: " + ran3);
-//                    int ard1 = rd.nextInt(30);
-//                    int ard2 = rd.nextInt(30);
-//                    int ard3 = rd.nextInt(30);
-                    IncreaseValue increasePicker1 = new IncreaseValue(numberPicker1, 20 + ran1);
-                    increasePicker1.run(1);
-                    IncreaseValue increasePicker2 = new IncreaseValue(numberPicker2, 20 + ran2);
-                    increasePicker2.run(1);
-                    IncreaseValue increasePicker3 = new IncreaseValue(numberPicker3, 20 + ran3);
-                    increasePicker3.run(1);
+                    int ran2 = rd.nextInt(9) + 30;
+                    int ran3 = rd.nextInt(9) + 30;
+
+//                    numberPicker1.smoothScrollToWithRandomNumber(ran1);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            numberPicker2.smoothScrollToWithRandomNumber(ran2);
+                        }
+                    }, 200);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            numberPicker1.smoothScrollToWithRandomNumber(ran2);
+                        }
+                    }, 300);
+                    int delay = numberPicker3.smoothScrollToWithRandomNumber(ran3);
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -558,10 +546,13 @@ public class PointFragment extends Fragment {
                             showDialogGetPoint();
                             isRandomingPoint = false;
                         }
-                    }, 4000);
+                    }, delay+1500);
                 } else {
                     Toast.makeText(getActivity(), "Please waiting 15 seconds", Toast.LENGTH_SHORT).show();
                 }
+//                int ran = new Random().nextInt(30);
+//                Log.e(TAG, "onViewClicked:  " + ran);
+//                testNumberPicker.smoothScrollToWithRandomNumber(30);
                 break;
             case R.id.lineWatchVideo:
                 long now = Calendar.getInstance().getTimeInMillis();

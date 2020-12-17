@@ -8,8 +8,8 @@ android {
         applicationId "com.freeproxy.vpnmaster.hotspot2"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 3
-        versionName "3.0.0"
+        versionCode 4
+        versionName "3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation project(path: ':ratedialog')
+    implementation project(path: ':library')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -61,8 +62,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     annotationProcessor 'androidx.room:room-compiler:2.2.2'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
-    //numberpicker
-    implementation 'com.super_rabbit.wheel_picker:NumberPicker:1.0.1'
 //    glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'

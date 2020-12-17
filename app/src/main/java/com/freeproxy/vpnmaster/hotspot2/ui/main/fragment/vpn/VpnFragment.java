@@ -3,6 +3,7 @@ package com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.vpn;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.blinkt.openvpn.core.App;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +67,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     @BindView(R.id.txtCountry)
     TextView txtCountry;
     @BindView(R.id.lineSwitchCountry)
-    RelativeLayout lineSwitchCountry;
+    LinearLayout lineSwitchCountry;
     @BindView(R.id.lineDisconnect)
     LinearLayout lineDisconnect;
     IVpnPresenter<IVpnView> presenter;
@@ -87,6 +89,8 @@ public class VpnFragment extends Fragment implements IVpnView {
     LinearLayout quickGmail;
     @BindView(R.id.frameAds)
     FrameLayout frameAds;
+//    @BindView(R.id.cardFlag)
+//    CardView cardFlag;
     @BindView(R.id.txtConnectedCountry)
     TextView txtConnectedCountry;
     @BindView(R.id.txtStatusConnect)
@@ -210,7 +214,7 @@ public class VpnFragment extends Fragment implements IVpnView {
                 intentToOther(SpeedTest.class);
                 break;
             }
-            case R.id.  quickFacebook: {
+            case R.id.quickFacebook: {
                 intentQuick("com.facebook.katana");
                 break;
             }
@@ -313,7 +317,7 @@ public class VpnFragment extends Fragment implements IVpnView {
                 }
                 txtStatusConnect.setText("Connecting ...");
                 startAnimation(R.id.imgConnect, R.anim.fade_in_1000, true);
-                Glide.with(getContext()).load(R.drawable.connecting).into(imgConnect);
+                Glide.with(getContext()).load(R.drawable.connect).into(imgConnect);
                 break;
             }
             case 2: {

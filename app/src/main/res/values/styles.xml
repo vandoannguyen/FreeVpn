@@ -23,7 +23,7 @@
     </style>
 
     <style name="Title">
-        <item name="fontFamily">@font/roboto_light</item>
+        <item name="fontFamily">@font/semi_bold</item>
     </style>
 
     <style name="CustomTabLayout">
@@ -34,11 +34,11 @@
         <item name="iconSize">15dp</item>
         <item name="textAllCaps">false</item>
         <item name="tabSelectedTextColor">@android:color/white</item>
-        <item name="tabTextColor">@color/colorPrimaryDark</item>
+        <item name="tabTextColor">#9F9F9F</item>
     </style>
 
     <style name="MyCustomTabTextAppearance">
-        <item name="textColor">@android:color/holo_orange_light</item>
+<!--        <item name="textColor">@android:color/holo_orange_light</item>-->
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -58,5 +58,26 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowMinWidthMajor">100%</item>
         <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+    <style name="text_daily_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/light</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="text_more_fragment_card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/color_main</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="number_picker">
+        <item name="android:fontFamily">@font/bold</item>
     </style>
 </resources>

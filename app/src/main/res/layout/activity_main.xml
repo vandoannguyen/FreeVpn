@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,21 +8,18 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_main"
         android:padding="5dp">
 
-<!--        <ImageView-->
-<!--            android:layout_width="117dp"-->
-<!--            android:layout_height="fill_parent"-->
-<!--            android:src="@drawable/ic_logo" />-->
         <TextView
+            android:fontFamily="@font/bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:text="@string/app_name_title"
             android:textColor="@android:color/white"
-            android:textSize="27dp"
+            android:textSize="28sp"
             android:textStyle="bold" />
 
         <View
@@ -38,20 +34,22 @@
             android:layout_marginRight="5dp">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_coin" />
+                android:src="@drawable/ic_coin_1" />
 
             <TextView
+                android:fontFamily="@font/light"
+                android:textStyle="bold"
                 android:id="@+id/txtCoin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="3dp"
                 android:text="100"
-                android:textColor="@android:color/white"
-                android:textSize="16dp" />
+                android:textColor="@android:color/holo_orange_light"
+                android:textSize="23sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -59,7 +57,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabView"
         style="@style/CustomTabLayout"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
