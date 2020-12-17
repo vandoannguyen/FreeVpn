@@ -11,7 +11,7 @@ import java.util.List;
 public interface IApiHelper {
     void getAdsConfig(CallBack<JSONObject> callBack);
 
-    void getFastConnect(String token, CallBack<Server> callBack);
+    void getFastConnect(String token,int Coin, CallBack<Server> callBack);
 
     void getConnect(String token, String countryCode, CallBack<Server> callBack);
 

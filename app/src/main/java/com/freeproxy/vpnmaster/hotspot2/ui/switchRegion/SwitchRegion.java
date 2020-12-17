@@ -8,19 +8,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.freeproxy.vpnmaster.hotspot2.R;
+import com.freeproxy.vpnmaster.hotspot2.base.BaseActivity;
 import com.freeproxy.vpnmaster.hotspot2.common.Config;
 import com.freeproxy.vpnmaster.hotspot2.data.AppDataHelper;
 import com.freeproxy.vpnmaster.hotspot2.data.CallBack;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Country;
 import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogConfirm;
+import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogLoading;
 import com.freeproxy.vpnmaster.hotspot2.ui.switchRegion.adapter.ItemAdapter;
 import com.freeproxy.vpnmaster.hotspot2.utils.Common;
-import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
 
 import java.util.List;
 
@@ -28,7 +28,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SwitchRegion extends AppCompatActivity {
+public class SwitchRegion extends BaseActivity implements ISwitchRegionView {
+    public static final int RESULT_CODE_NOT_ENOUGH_POINT = 123;
+    public static final int SWITCH_COUNTRY = 12;
     @BindView(R.id.frmAdsSwitch)
     FrameLayout frmAdsSwitch;
     @BindView(R.id.linearFastConnect)
@@ -43,6 +45,7 @@ public class SwitchRegion extends AppCompatActivity {
     @BindView(R.id.linearProgress)
     LinearLayout linearProgress;
     ItemAdapter adapter;
+    ISwitchPresenter<ISwitchRegionView> presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,23 @@ public class SwitchRegion extends AppCompatActivity {
         setContentView(R.layout.activity_switch_region);
         ButterKnife.bind(this);
         initRecyclerView();
+        presenter = new SwitchVPresenter<>(this);
+        presenter.onAttact(this);
+        presenter.getCountry();
+    }
+
+    @Override
+    public void showDialogLoading(boolean b) {
+        if (b) {
+            DialogLoading.showDialog(this);
+        } else DialogLoading.dismish();
+    }
+
+    @Override
+    public void updateListCountry(List<Country> listCountry) {
+        if (adapter != null) {
+            adapter.setCountries(listCountry);
+        }
     }
 
     private void initRecyclerView() {
@@ -69,32 +89,32 @@ public class SwitchRegion extends AppCompatActivity {
     }
 
     private void showDialogConfirm(Country index) {
-        if (index.getPrice().equals("free")) {
+//        if (index.getPrice().equals("free")) {
             Intent intent = new Intent();
             intent.putExtra("country", index);
-            setResult(0, intent);
+            setResult(SWITCH_COUNTRY, intent);
             finish();
-        } else {
-            int point = Integer.parseInt(index.getPrice());
-            if (point > Common.totalPoint) {
-                Toast.makeText(this, "Sorry you do not have enough point!", Toast.LENGTH_SHORT).show();
-            } else {
-                DialogConfirm dialogConfirm = new DialogConfirm(this, index.getPrice());
-                dialogConfirm.setOnClickListener(new DialogConfirm.OnClickListener() {
-                    @Override
-                    public void clickYes() {
-                        super.clickYes();
-                        Intent intent = new Intent();
-                        intent.putExtra("country", index);
-                        setResult(0, intent);
-                        Common.totalPoint -= point;
-                        AppDataHelper.getInstance().setCoin(SwitchRegion.this, Common.totalPoint, null);
-                        finish();
-                    }
-                });
-                dialogConfirm.show();
-            }
-        }
+//        } else {
+//            int point = Integer.parseInt(index.getPrice());
+//            if (point > Common.totalPoint) {
+//                Toast.makeText(this, "Sorry you do not have enough point!", Toast.LENGTH_SHORT).show();
+//            } else {
+//                DialogConfirm dialogConfirm = new DialogConfirm(this, index.getPrice());
+//                dialogConfirm.setOnClickListener(new DialogConfirm.OnClickListener() {
+//                    @Override
+//                    public void clickYes() {
+//                        super.clickYes();
+//                        Intent intent = new Intent();
+//                        intent.putExtra("country", index);
+//                        setResult(SWITCH_COUNTRY, intent);
+//                        Common.totalPoint -= point;
+//                        AppDataHelper.getInstance().setCoin(SwitchRegion.this, Common.totalPoint, null);
+//                        finish();
+//                    }
+//                });
+//                dialogConfirm.show();
+//            }
+//        }
     }
 
     @OnClick({R.id.icBackSwitchRegion, R.id.icRefreshRegion, R.id.linearProgress, R.id.linearFastConnect})
@@ -102,7 +122,7 @@ public class SwitchRegion extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.linearFastConnect: {
 //                Intent intent = new Intent();
-                setResult(0, null);
+                setResult(SWITCH_COUNTRY, null);
                 finish();
                 break;
             }
@@ -147,5 +167,10 @@ public class SwitchRegion extends AppCompatActivity {
         else {
             linearProgress.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void showMessage(String mess) {
+
     }
 }

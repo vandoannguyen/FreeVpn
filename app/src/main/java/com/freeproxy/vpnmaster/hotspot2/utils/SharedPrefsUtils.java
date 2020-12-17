@@ -1,10 +1,11 @@
 package com.freeproxy.vpnmaster.hotspot2.utils;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SharedPrefsUtils {
     Context activity;
@@ -35,7 +36,7 @@ public class SharedPrefsUtils {
         editor = pref.edit();
     }
 
-    private SharedPrefsUtils(Activity activity, boolean autoCommit) {
+    private SharedPrefsUtils(AppCompatActivity activity, boolean autoCommit) {
         this.autoCommit = autoCommit;
         this.activity = activity;
         pref = PreferenceManager.getDefaultSharedPreferences(activity);

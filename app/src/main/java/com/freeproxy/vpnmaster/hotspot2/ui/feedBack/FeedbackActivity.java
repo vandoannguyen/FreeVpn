@@ -65,7 +65,7 @@ public class FeedbackActivity extends AppCompatActivity {
         Intent intent2 = new Intent();
         intent2.setAction(Intent.ACTION_SEND);
         intent2.setType("message/rfc822");
-        String EMAIL1 = "oneadx@gmaiil.com";
+        String EMAIL1 = "oneadx@yahoo.com";
         String ytext = edtFeedback.getText().toString();
         intent2.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL1});
         intent2.putExtra(Intent.EXTRA_TEXT, ytext);

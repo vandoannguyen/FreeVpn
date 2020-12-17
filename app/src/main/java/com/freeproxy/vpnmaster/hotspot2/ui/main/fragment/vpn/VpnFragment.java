@@ -3,7 +3,6 @@ package com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.vpn;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +24,7 @@ import com.freeproxy.vpnmaster.hotspot2.R;
 import com.freeproxy.vpnmaster.hotspot2.common.Config;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Country;
 import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogLoading;
+import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogPoint;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.FragmentCallback;
 import com.freeproxy.vpnmaster.hotspot2.ui.speedTest.SpeedTest;
 import com.freeproxy.vpnmaster.hotspot2.ui.switchRegion.SwitchRegion;
@@ -32,7 +33,6 @@ import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.blinkt.openvpn.core.App;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +65,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     @BindView(R.id.txtCountry)
     TextView txtCountry;
     @BindView(R.id.lineSwitchCountry)
-    LinearLayout lineSwitchCountry;
+    RelativeLayout lineSwitchCountry;
     @BindView(R.id.lineDisconnect)
     LinearLayout lineDisconnect;
     IVpnPresenter<IVpnView> presenter;
@@ -115,7 +115,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preseter = new VpnPreseter<>(getActivity());
+        preseter = new VpnPreseter<IVpnView>(this.getActivity());
         preseter.onAttact(this);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -136,17 +136,17 @@ public class VpnFragment extends Fragment implements IVpnView {
         View view = inflater.inflate(R.layout.fragment_vpn2, container, false);
         ButterKnife.bind(this, view);
 //        preseter.getConnectionStatus();
-        String countryCode = Config.currentServer.getGeo().getCountry();
-        App.selectedServer = Config.currentServer;
-        Log.e(TAG, "onCreateView: " + countryCode);
-        Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
-        App.selectedCountry = country;
-        Config.currentCountry = country;
+//        String countryCode = Config.currentServer.getGeo().getCountry();
+//        App.selectedServer = Config.currentServer;
+//        Log.e(TAG, "onCreateView: " + countryCode);
+//        Country country = Config.listCountry.get(Config.listCountry.indexOf(new Country(countryCode)));
+//        App.selectedCountry = country;
+//        Config.currentCountry = country;
 //        frameAds.setVisibility(View.GONE);
         Ads.getInstance(getActivity()).nativeAds(frameAds, null);
-        if (country != null) {
-            updateCountry(country);
-        }
+//        if (country != null) {
+        updateCountry(null);
+//        }
         return view;
     }
 
@@ -210,7 +210,7 @@ public class VpnFragment extends Fragment implements IVpnView {
                 intentToOther(SpeedTest.class);
                 break;
             }
-            case R.id.quickFacebook: {
+            case R.id.  quickFacebook: {
                 intentQuick("com.facebook.katana");
                 break;
             }
@@ -235,6 +235,11 @@ public class VpnFragment extends Fragment implements IVpnView {
         } else {
             Toast.makeText(getContext(), "This app is not installed in your device", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void callGetCoin() {
+        if (callback != null) callback.callGetCoin();
     }
 
     private boolean checkPackage(String s) {
@@ -268,16 +273,16 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     private void startAnimation(int view, int animation, boolean show) {
-        if(getView()!= null)
-       {
-           final View Element = getView().findViewById(view);
-           if (show) {
-               Element.setVisibility(View.VISIBLE);
-           } else {
-               Element.setVisibility(View.GONE);
-           }
-           Animation anim = AnimationUtils.loadAnimation(getContext(), animation);
-           Element.startAnimation(anim);}
+        if (getView() != null) {
+            final View Element = getView().findViewById(view);
+            if (show) {
+                Element.setVisibility(View.VISIBLE);
+            } else {
+                Element.setVisibility(View.GONE);
+            }
+            Animation anim = AnimationUtils.loadAnimation(getContext(), animation);
+            Element.startAnimation(anim);
+        }
     }
 
     @Override
@@ -313,17 +318,25 @@ public class VpnFragment extends Fragment implements IVpnView {
             }
             case 2: {
                 if (Config.isFastConnect) {
-                    txtCountry.setText(Config.currentCountry.getName());
-                    txtConnectedCountry.setText(Config.currentCountry.getName());
-                    Glide.with(this).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlag);
-                    Glide.with(this).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlagConnected);
+                    txtCountry.setText(Config.currentCountry != null ? Config.currentCountry.getName() : "");
+                    txtConnectedCountry.setText(Config.currentCountry != null ? Config.currentCountry.getName() : "");
+                    if (Config.currentCountry != null) {
+                        Glide.with(getContext()).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlag);
+                        Glide.with(getContext()).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlagConnected);
+                    }
+//                    txtCountry.setText(Config.currentCountry != null ? Config.currentCountry.getName() : "");
+//                    txtConnectedCountry.setText(Config.currentCountry != null ? Config.currentCountry.getName() : "");
+//                    if (Config.currentCountry != null) {
+//                        Glide.with(getContext()).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlag);
+//                        Glide.with(getContext()).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlagConnected);
+//                    }
                 }
                 txtStatusConnect.setText("Connected");
                 startAnimation(R.id.linearConnected, R.anim.fade_in_1000, true);
                 startAnimation(R.id.cardDisConnect, R.anim.fade_in_1000, true);
                 startAnimation(R.id.cardConnect, R.anim.fade_out_500, false);
                 imgConnect.setImageResource(R.drawable.connect);
-                txtVirtualIp.setText(Config.currentServer.getIp());
+                txtVirtualIp.setText(Config.currentServer != null ? Config.currentServer.getIp() : "");
                 break;
             }
             default: {
@@ -337,24 +350,34 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     private void connectToVpn() {
-        if (Ads.getRandom()) {
-            DialogLoading.showDialog(getContext());
-            Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
-                @Override
-                public void adClose() {
-                    preseter.pressLineConnect();
-                    DialogLoading.dismish();
-                }
-
-                @Override
-                public void adLoadFailed(int i) {
-                    preseter.pressLineConnect();
-                    DialogLoading.dismish();
-                }
-            });
-        } else {
+//        if (Ads.getRandom()) {
+//            DialogLoading.showDialog(getContext());
+//            Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+//                @Override
+//                public void adClose() {
+//                    preseter.pressLineConnect();
+//                    DialogLoading.dismish();
+//                }
+//
+//                @Override
+//                public void adLoadFailed(int i) {
+//                    preseter.pressLineConnect();
+//                    DialogLoading.dismish();
+//                }
+//            });
+//        } else {
             preseter.pressLineConnect();
-        }
+//        }
+    }
+
+    @Override
+    public void showDialogPoint() {
+        DialogPoint.showDialog(getContext(), new DialogPoint.OnOkClick() {
+            @Override
+            public void onClick() {
+                callGetCoin();
+            }
+        });
     }
 
     private void pressSwitchCountry() {
@@ -375,7 +398,7 @@ public class VpnFragment extends Fragment implements IVpnView {
 
     @Override
     public void updateCountry(Country country) {
-        if (Config.isFastConnect) {
+        if (Config.isFastConnect || country == null) {
             imgFlag.setImageResource(R.drawable.ic_flag_fast);
             imgFlagConnected.setImageResource(R.drawable.ic_flag_fast);
             txtCountry.setText("Fast Connect");
@@ -390,12 +413,12 @@ public class VpnFragment extends Fragment implements IVpnView {
 
     @Override
     public void showLoading() {
-
+        DialogLoading.showDialog(getContext());
     }
 
     @Override
     public void hideLoading() {
-
+        DialogLoading.dismish();
     }
 
     void intentToOther(Class clas) {
@@ -404,7 +427,9 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     void intentToOther(Class clas, int requestCode) {
+
         Intent intent = new Intent(getActivity(), clas);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivityForResult(intent, requestCode);
     }
 

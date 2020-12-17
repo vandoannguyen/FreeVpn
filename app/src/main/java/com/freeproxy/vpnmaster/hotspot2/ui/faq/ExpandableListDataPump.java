@@ -23,14 +23,14 @@ public class ExpandableListDataPump {
 
         List<String> question4 = new ArrayList<>();
         question4.add("Please click the national flag at the left bottom of main panel in homepage. Then choose the fastest and most stable server, and " +
-                "reconnect. The fastest server is usually in the regon close to the country you are in. If all servers are not stable, please contact us via Facebook, or you can email to oneadx@gmail.com. Our Facebook page is....." +
+                "reconnect. The fastest server is usually in the regon close to the country you are in. If all servers are not stable, please contact us via Facebook, or you can email to oneadx@yahoo.com. Our Facebook page is....." +
                 "We will reply to you as soon as possible.");
 
         List<String> question5 = new ArrayList<String>();
         question5.add("Please click the national flag at the left bottom of main panel in homepage. Then choose IP, region or server you prefer and connect.");
 
         List<String> question6 = new ArrayList<String>();
-        question6.add("Please contact us via Facebook, or you can email to oneadx@gmail.com. Our Facebook page is http........... We will reply to you as soon as possible.");
+        question6.add("Please contact us via Facebook, or you can email to oneadx@yahoo.com. Our Facebook page is http........... We will reply to you as soon as possible.");
 
         List<String> question7 = new ArrayList<String>();
         question7.add("Please don't use BitTorrent with VPN, or your account will be blocked. ");

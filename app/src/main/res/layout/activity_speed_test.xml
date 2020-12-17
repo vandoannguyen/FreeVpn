@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,7 +17,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="15dp"
-            android:src="@drawable/ic_back" />
+            app:srcCompat="@drawable/ic_back" />
 
         <TextView
             android:layout_width="match_parent"
@@ -49,13 +50,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/main" />
+                    app:srcCompat="@drawable/main" />
 
                 <ImageView
                     android:id="@+id/imgBar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/bar" />
+                    app:srcCompat="@drawable/bar" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -69,6 +70,7 @@
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
                         android:textColor="#ffffff"
+                        android:textSize="18sp"
                         android:background="@drawable/custom_button_start"
                         android:text="START  TEST" />
                 </LinearLayout>
@@ -90,7 +92,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_download" />
+                        app:srcCompat="@drawable/ic_download" />
 
                     <TextView
                         android:id="@+id/txtDownload"
@@ -111,9 +113,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:padding="4dp"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_speed" />
+                        app:srcCompat="@drawable/ic_speed" />
 
                     <TextView
                         android:id="@+id/txtPing"
@@ -136,7 +139,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_upload" />
+                        app:srcCompat="@drawable/ic_upload" />
 
                     <TextView
                         android:id="@+id/txtUpload"

@@ -34,8 +34,8 @@ public class AppDataHelper implements IAppDataHelper {
     }
 
     @Override
-    public void getFastConnect(String token, CallBack<Server> callBack) {
-        apiHepler.getFastConnect(token, callBack);
+    public void getFastConnect(String token,int coin, CallBack<Server> callBack) {
+        apiHepler.getFastConnect(token, coin,callBack);
     }
 
     @Override

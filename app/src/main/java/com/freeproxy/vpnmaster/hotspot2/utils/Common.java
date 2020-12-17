@@ -6,4 +6,5 @@ public class Common {
     public static int check = 0;
     public static int checktap = 0;
     public static int days = 0;
+    public static int minCountryCoin = 100;
 }

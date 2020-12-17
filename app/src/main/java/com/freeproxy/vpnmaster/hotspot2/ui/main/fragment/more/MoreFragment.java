@@ -9,7 +9,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+
+import com.example.moreapp.MoreAppConfig;
+import com.example.moreapp.MoreAppUtil;
 import com.freeproxy.vpnmaster.hotspot2.BuildConfig;
 import com.freeproxy.vpnmaster.hotspot2.R;
 import com.freeproxy.vpnmaster.hotspot2.ui.faq.FAQActivity;
@@ -17,12 +22,14 @@ import com.freeproxy.vpnmaster.hotspot2.ui.feedBack.FeedbackActivity;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.FragmentCallback;
 import com.freeproxy.vpnmaster.hotspot2.ui.proxy.ProxySettingActivity;
 import com.freeproxy.vpnmaster.hotspot2.ui.speedTest.SpeedTest;
-import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MoreFragment extends Fragment {
+    @BindView(R.id.cardMoreApp)
+    CardView cardMoreApp;
     private String TAG = "MoreFragment";
     @BindView(R.id.frmAdsMore)
     FrameLayout frmAdsMore;
@@ -40,8 +47,10 @@ public class MoreFragment extends Fragment {
     LinearLayout lineUser;
     FragmentCallback callback;
 
+
     public MoreFragment(FragmentCallback callback) {
         // Required empty public constructor
+        super();
         this.callback = callback;
     }
 
@@ -64,10 +73,13 @@ public class MoreFragment extends Fragment {
         frmAdsMore.setVisibility(View.GONE);
 //        Ads.getInstance(getActivity()).banner(frmAdsMore, Ads.AdsSize.MEDIUM);
         txtVersion.setText(BuildConfig.VERSION_NAME);
+        if (MoreAppConfig.getMoreAppConfigs() == null || MoreAppConfig.getMoreAppConfigs().isEmpty()) {
+            cardMoreApp.setVisibility(View.GONE);
+        }
         return view;
     }
 
-    @OnClick({R.id.lineProxy, R.id.lineLike, R.id.lineSuggestion, R.id.lineUser, R.id.lineSpeedTestMore})
+    @OnClick({R.id.lineProxy, R.id.lineLike, R.id.lineSuggestion, R.id.lineUser, R.id.lineSpeedTestMore,R.id.cardMoreApp})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lineProxy:
@@ -88,6 +100,18 @@ public class MoreFragment extends Fragment {
                 break;
             case R.id.lineSpeedTestMore: {
                 startActivity(new Intent(getActivity(), SpeedTest.class));
+                break;
+            }
+            case R.id.cardMoreApp: {
+                if (MoreAppConfig.getMoreAppConfigs() != null && !MoreAppConfig.getMoreAppConfigs().isEmpty()) {
+                    MoreAppUtil moreAppUtil = new MoreAppUtil(getContext(), new MoreAppUtil.OnClickInstall() {
+                        @Override
+                        public void onClick(String packageName) {
+
+                        }
+                    });
+                    moreAppUtil.show();
+                }
                 break;
             }
         }

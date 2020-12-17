@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.ratedialog.RatingDialog;
 import com.freeproxy.vpnmaster.hotspot2.R;
 import com.freeproxy.vpnmaster.hotspot2.base.BaseActivity;
 import com.freeproxy.vpnmaster.hotspot2.data.AppDataHelper;
@@ -21,10 +22,8 @@ import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.FragmentCallback;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.more.MoreFragment;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.point.PointFragment;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.vpn.VpnFragment;
-import com.freeproxy.vpnmaster.hotspot2.ui.point.PointsDesActivity;
 import com.freeproxy.vpnmaster.hotspot2.utils.SharedPrefsUtils;
 import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
-import com.example.ratedialog.RatingDialog;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -54,7 +53,6 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
         setContentView(R.layout.activity_main);
         Ads.getInstance(this).initAds();
         ButterKnife.bind(this);
-        Ads.getInstance(this).initAds();
         presenter = new MainPresenter<>(this);
         presenter.onAttact(this);
         presenter.getExample();
@@ -70,8 +68,7 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
     }
 
     private void initViewPager() {
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(VpnFragment.newInstance(new FragmentCallback() {
+        VpnFragment vpnFragment = VpnFragment.newInstance(new FragmentCallback() {
             @Override
             public void callGetCoin() {
                 super.callGetCoin();
@@ -86,24 +83,32 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
                 txtCoin.setText(point + "");
                 AppDataHelper.getInstance().setCoin(MainActivity.this, point, null);
             }
-        }));
-        fragmentList.add(PointFragment.newInstance(new FragmentCallback() {
+        });
+        PointFragment pointFragment = PointFragment.newInstance(new FragmentCallback() {
             @Override
             public void setPoint(int point) {
                 super.setPoint(point);
                 setPointMain(point);
             }
-        }));
-        fragmentList.add(MoreFragment.newInstance(new FragmentCallback() {
+        });
+        MoreFragment moreFragment = MoreFragment.newInstance(new FragmentCallback() {
             @Override
             public void callBackRate() {
                 super.callBackRate();
                 rateManual();
             }
-        }));
+        });
+        List<Fragment> fragmentList = new ArrayList<>();
+        if (!vpnFragment.isAdded())
+            fragmentList.add(vpnFragment);
+        if (!pointFragment.isAdded()) {
+            fragmentList.add(pointFragment);
+        }
+        if (!moreFragment.isAdded())
+            fragmentList.add(moreFragment);
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(fragmentList.size());
     }
 
     public void setPointMain(int point) {
@@ -115,7 +120,7 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lineCoinMain:
-//              click  Intent intentCoin = new Intent(getApplicationContext(), PointsDesActivity.class);
+//                Intent intentCoin = new Intent(getApplicationContext(), PointsDesActivity.class);
 //                startActivity(intentCoin);
                 break;
         }
@@ -169,8 +174,9 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
 
     @Override
     public void onSubmit(float rating) {
+        rateApp(this);
         if (rating > 3) {
-            rateApp(this);
+//            rateApp(this);
             SharedPrefsUtils.getInstance(this).putInt("rate", 5);
         }
     }

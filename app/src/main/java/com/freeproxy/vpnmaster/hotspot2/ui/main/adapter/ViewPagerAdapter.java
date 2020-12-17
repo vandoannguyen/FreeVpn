@@ -14,7 +14,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return position == 0 ? "VPN" : position == 1 ? "Points" : "Mores";
+        return position == 0 ? "VPN" : position == 1 ? "Points" : position == 2 ? "Mores" : null;
     }
 
     public ViewPagerAdapter(@NonNull FragmentManager fm, List<Fragment> fragments) {
@@ -27,10 +27,13 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
      *
      * @param position
      */
+
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return fragments.get(position);
+        if (!fragments.get(position).isAdded())
+            return fragments.get(position);
+        else return null;
     }
 
     /**

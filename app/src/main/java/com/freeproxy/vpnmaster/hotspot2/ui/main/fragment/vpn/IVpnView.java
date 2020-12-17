@@ -17,4 +17,8 @@ public interface IVpnView extends MVPView {
     void setConectionStatus(int i);
 
     void updatePoint(int point);
+
+    void callGetCoin();
+
+    void showDialogPoint();
 }

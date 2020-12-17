@@ -12,7 +12,7 @@
         android:layout_height="60dp">
         <ImageView
             android:id="@+id/btnBackInvite"
-            android:src="@drawable/ic_back"
+            app:srcCompat="@drawable/ic_back"
             android:layout_centerInParent="true"
             android:layout_alignParentLeft="true"
             android:padding="12dp"
@@ -177,7 +177,7 @@
                             android:layout_height="wrap_content">
                             <ImageView
                                 android:padding="15dp"
-                                android:src="@drawable/ic_chat"
+                                app:srcCompat="@drawable/ic_chat"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"/>
                             <TextView
@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content">
                             <ImageView
                                 android:padding="15dp"
-                                android:src="@drawable/ic_email"
+                                app:srcCompat="@drawable/ic_email"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"/>
                             <TextView
@@ -219,7 +219,7 @@
                             android:layout_height="wrap_content">
                             <ImageView
                                 android:padding="15dp"
-                                android:src="@drawable/ic_link"
+                                app:srcCompat="@drawable/ic_link"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"/>
                             <TextView
@@ -240,7 +240,7 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:padding="15dp"
-                            android:src="@drawable/ic_plus"
+                            app:srcCompat="@drawable/ic_plus"
                             android:layout_width="80dp"
                             android:layout_height="80dp"/>
                         <TextView

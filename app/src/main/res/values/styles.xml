@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -14,12 +14,12 @@
     <style name="AppTheme.AdAttribution">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#FF9800</item>
+        <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">11sp</item>
         <item name="android:text">Ad</item>
-        <item name="android:background">@drawable/custom_background_ad_attribution</item>
+        <item name="backgroundColor">#FFAA00</item>
         <item name="android:width">19dp</item>
-        <item name="android:height">19dp</item>
+        <item name="height">19dp</item>
     </style>
 
     <style name="Title">
@@ -51,5 +51,12 @@
 
     <style name="CustomDialogTheme">
         <item name="colorAccent">@android:color/holo_orange_light</item>
+    </style>
+    <style name="AppTheme.Dialog">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
     </style>
 </resources>

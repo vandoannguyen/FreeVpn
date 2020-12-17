@@ -1,7 +1,5 @@
 package com.example.moreapp;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +10,12 @@ import java.util.List;
 
 public class MoreAppConfig {
     private static List<MoreAppModel> moreAppConfigs;
+
+    public static boolean isIsShowInRate() {
+        return isShowInRate;
+    }
+
+    private static boolean isShowInRate = false;
 
     public static void demoMoreAppConfig() {
         moreAppConfigs = null;
@@ -33,10 +37,13 @@ public class MoreAppConfig {
         return moreAppConfigs;
     }
 
-    public static void setMoreAppConfigs(String data){
+    public static void setMoreAppConfigs(String data) {
+
         List<MoreAppModel> moreAppModels = new ArrayList<>();
         try {
-            JSONArray jsonArray = new JSONArray(data);
+            JSONObject object = new JSONObject(data);
+            isShowInRate = object.getBoolean("is_show_rate");
+            JSONArray jsonArray = object.getJSONArray("list");
 //            Log.e("TAGGGG", "setMoreAppConfigs: " + jsonArray.length() );
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);

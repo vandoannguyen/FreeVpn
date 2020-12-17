@@ -4,6 +4,8 @@
     package="com.freeproxy.vpnmaster.hotspot2">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SET_ALARM"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -21,13 +23,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <receiver
+            android:name=".broadcast.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
 
+        </receiver>
 
         <activity android:name=".ui.speedTest.SpeedTest" />
         <activity android:name=".ui.switchRegion.SwitchRegion" />
         <activity android:name=".ui.point.PointsDesActivity" />
         <activity android:name=".ui.proxy.ProxySettingActivity" />
-<!--        <activity android:name=".ui.invite.InviteFriendActivity" />-->
+        <activity android:name=".ui.invite.InviteFriendActivity" />
         <activity android:name=".ui.enterCode.EnterCodesActivity" />
         <activity android:name=".ui.feedBack.FeedbackActivity" />
         <activity android:name=".ui.faq.FAQActivity" />

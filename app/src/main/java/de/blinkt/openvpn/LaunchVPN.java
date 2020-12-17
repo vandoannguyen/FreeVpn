@@ -7,7 +7,6 @@ package de.blinkt.openvpn;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,6 +28,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.freeproxy.vpnmaster.hotspot2.R;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Server;
 import com.freeproxy.vpnmaster.hotspot2.utils.EncryptData;
@@ -47,7 +49,7 @@ import de.blinkt.openvpn.core.VpnStatus;
 
 ;
 
-public class LaunchVPN extends Activity {
+public class LaunchVPN extends AppCompatActivity {
     public static final String EXTRA_KEY = "de.blinkt.openvpn.shortcutProfileUUID";
     public static final String EXTRA_NAME = "de.blinkt.openvpn.shortcutProfileName";
     public static final String EXTRA_HIDELOG = "de.blinkt.openvpn.showNoLogWindow";
@@ -267,7 +269,7 @@ public class LaunchVPN extends Activity {
                 showLogWindow();
             }
         } else {
-            onActivityResult(START_VPN_PROFILE, Activity.RESULT_OK, null);
+            onActivityResult(START_VPN_PROFILE, AppCompatActivity.RESULT_OK, null);
         }
     }
 

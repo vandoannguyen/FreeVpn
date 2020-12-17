@@ -48,9 +48,10 @@ public class ApiHepler implements IApiHelper {
                 });
     }
 
-    public void getFastConnect(String token, CallBack<Server> callBack) {
+    public void getFastConnect(String token,int coin, CallBack<Server> callBack) {
         Log.e(TAG, "getFastConnect: ");
-        AndroidNetworking.get(Constance.ROOT_API + "/client/fastconnect/100000")
+        Log.e(TAG, "getFastConnect: " + Constance.ROOT_API + "/client/fastconnect/" + coin );
+        AndroidNetworking.get(Constance.ROOT_API + "/client/fastconnect/" + coin)
                 .setPriority(Priority.LOW)
                 .addHeaders("Authorization", "Bearer " + token)
                 .build()
@@ -78,7 +79,8 @@ public class ApiHepler implements IApiHelper {
 
                     @Override
                     public void onError(ANError error) {
-                        Log.e(TAG, "onError: " + error.getMessage());
+                        Log.e(TAG, "onError: " + error.getMessage() + error.getErrorBody());
+                        Log.e(TAG, "onError: " + error.getMessage() + error.getErrorCode());
                         callBack.onFailed(error.toString());
                     }
                 });
@@ -123,7 +125,7 @@ public class ApiHepler implements IApiHelper {
 
     @Override
     public void getCountry(String token, CallBack<List<Country>> callBack) {
-        Log.e(TAG, "getCountry: " + token);
+        Log.e(TAG, "getCountry: " + Constance.ROOT_API + "/countries");
         AndroidNetworking.get(Constance.ROOT_API + "/countries")
                 .setPriority(Priority.LOW)
                 .addHeaders("Authorization", "Bearer " + token)

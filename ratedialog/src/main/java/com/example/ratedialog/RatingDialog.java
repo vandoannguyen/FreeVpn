@@ -54,11 +54,10 @@ public class RatingDialog {
         rotationratingbar_main = (RotationRatingBar) dialog.findViewById(R.id.rotationratingbar_main);
         btnSubmit = (ImageView) dialog.findViewById(R.id.btnSubmit);
         btnMoreApp = (ImageView) dialog.findViewById(R.id.btnMoreApp);
-        if (MoreAppConfig.getMoreAppConfigs() == null || MoreAppConfig.getMoreAppConfigs().isEmpty()) {
+        if (MoreAppConfig.getMoreAppConfigs() == null || MoreAppConfig.getMoreAppConfigs().isEmpty() || !MoreAppConfig.isIsShowInRate()) {
             btnMoreApp.setImageResource(R.drawable.ic_cancel_dialog);
             btnCacncel.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             btnMoreApp.setImageResource(R.drawable.ic_play_dialog);
         }
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -96,7 +95,7 @@ public class RatingDialog {
                         dialog.dismiss();
                         main.clearAnimation();
                         rotationratingbar_main.setVisibility(View.INVISIBLE);
-                        if (MoreAppConfig.getMoreAppConfigs() != null && !MoreAppConfig.getMoreAppConfigs().isEmpty()) {
+                        if (MoreAppConfig.getMoreAppConfigs() != null && !MoreAppConfig.getMoreAppConfigs().isEmpty() && MoreAppConfig.isIsShowInRate()) {
                             MoreAppUtil moreAppUtil = new MoreAppUtil(rotationratingbar_main.getContext(), new MoreAppUtil.OnClickInstall() {
                                 @Override
                                 public void onClick(String packageName) {

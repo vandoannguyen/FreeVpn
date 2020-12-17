@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@drawable/custom_background_dialog"
@@ -23,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
-            android:src="@drawable/ic_checkin"
+            app:srcCompat="@drawable/ic_checkin"
             android:scaleType="fitXY"
             android:layout_gravity="center"
             android:layout_width="250dp"
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgDay1"
-                android:src="@drawable/day1"
+                app:srcCompat="@drawable/day1"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
             <TextView
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgDay2"
-                android:src="@drawable/day2"
+                app:srcCompat="@drawable/day2"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
             <TextView
@@ -79,7 +80,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgDay3"
-                android:src="@drawable/day3"
+                app:srcCompat="@drawable/day3"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
             <TextView
@@ -96,7 +97,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgDay4"
-                android:src="@drawable/day4"
+                app:srcCompat="@drawable/day4"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
             <TextView
@@ -113,7 +114,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgDay5"
-                android:src="@drawable/day5"
+                app:srcCompat="@drawable/day5"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
             <TextView
@@ -130,7 +131,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgDay6"
-                android:src="@drawable/day6"
+                app:srcCompat="@drawable/day6"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
             <TextView
@@ -147,7 +148,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgDay7"
-                android:src="@drawable/day7"
+                app:srcCompat="@drawable/day7"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
             <TextView

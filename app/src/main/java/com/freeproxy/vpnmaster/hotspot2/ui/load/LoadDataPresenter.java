@@ -1,12 +1,13 @@
 package com.freeproxy.vpnmaster.hotspot2.ui.load;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.moreapp.MoreAppConfig;
 import com.freeproxy.vpnmaster.hotspot2.BuildConfig;
@@ -38,7 +39,7 @@ import java.util.Random;
 
 public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V> implements ILoadPresenter<V> {
     private static final String TAG = "LoadDataPresenter";
-    Activity activity;
+    AppCompatActivity activity;
     boolean isLoadCountrySuccess = false,
             isLoadDataFastConnectSuccess = false,
             isGetCoinSuccess = false,
@@ -46,7 +47,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     String checkAppData = "";
 
 
-    public LoadDataPresenter(Activity activity) {
+    public LoadDataPresenter(AppCompatActivity activity) {
         this.activity = activity;
     }
 
@@ -117,7 +118,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     }
 
     private void getData() {
-        getFastConnect();
+//        getFastConnect();
         getCountryList();
     }
 
@@ -125,7 +126,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
         view.setStatus("Getting fast connect");
 //        isLoadDataFastConnectSuccess = true;
 //        intentToMain();
-        AppDataHelper.getInstance().getFastConnect(Config.tokenApp, new CallBack<Server>() {
+        AppDataHelper.getInstance().getFastConnect(Config.tokenApp, 0, new CallBack<Server>() {
             @Override
             public void onSuccess(Server data) {
                 super.onSuccess(data);
@@ -155,12 +156,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     }
 
     private void intentToMain() {
-        Log.e(TAG, "intentToMain: isGetCoinSuccess" + isGetCoinSuccess);
-        Log.e(TAG, "intentToMain: isLoadAdsSuccess" + isLoadAdsSuccess);
-        Log.e(TAG, "intentToMain: isLoadCountrySuccess" + isLoadCountrySuccess);
-        Log.e(TAG, "intentToMain: isLoadDataFastConnectSuccess" + isLoadDataFastConnectSuccess);
-        Log.e(TAG, "intentToMain: =================");
-        if (isGetCoinSuccess && isLoadAdsSuccess && isLoadCountrySuccess && isLoadDataFastConnectSuccess) {
+        if (isGetCoinSuccess && isLoadAdsSuccess && isLoadCountrySuccess ) {
             Config.isDataLoaded = true;
             if (checkAppData.isEmpty()) {
                 intentMain();
@@ -253,7 +249,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
             public void onSuccess(Integer data) {
                 super.onSuccess(data);
                 if (data == -1) {
-                    Common.totalPoint = 100;
+                    Common.totalPoint = 300;
                 } else {
                     Common.totalPoint = data;
                 }
@@ -281,7 +277,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
                     boolean isShowBanner = false;
                     boolean isLoadFailed = false;
                     boolean isShowNative = false;
-                    boolean isAdmob = false,isAdmobRewad = false;
+                    boolean isAdmob = false, isAdmobRewad = false;
                     int percents = 0;
                     int free_time_connect = 15;
 

@@ -27,10 +27,10 @@ import com.freeproxy.vpnmaster.hotspot2.data.IAppDataHelper;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Country;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Server;
 import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogLoading;
-import com.freeproxy.vpnmaster.hotspot2.ui.load.LoadData;
 import com.freeproxy.vpnmaster.hotspot2.ui.switchRegion.SwitchRegion;
 import com.freeproxy.vpnmaster.hotspot2.utils.Common;
 import com.freeproxy.vpnmaster.hotspot2.utils.EncryptData;
+import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;
 
@@ -169,7 +169,8 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                view.setConectionStatus(i);
+                if (isAttacted())
+                    view.setConectionStatus(i);
                 if (i == 2) {
                     if (countDownLimitConnect != null) {
                         countDownLimitConnect.cancel();
@@ -251,7 +252,8 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                     startAnimationLoaded();
                 }
                 if (state.equals("AUTH_FAILED")) {
-                    Toast.makeText(activity, "auth failed", Toast.LENGTH_SHORT).show();
+                    AppDataHelper.getInstance().postStatus(Config.tokenApp, "unable to connect", Config.currentServer.getId(), null);
+//                    Toast.makeText(activity, "auth failed", Toast.LENGTH_SHORT).show();
                     EnableConnectButton = true;
                     stop_vpn();
                 }
@@ -324,23 +326,23 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
             }, 3000);
         }
         if (!App.isGetServerFailed && hasInternetConnection()) {
-            if (App.isStart) {
-//                view.startAnimation(R.id.la_animation_main, R.anim.fade_in_1000, true);
-                if (App.connection_status == 1) {
-                } else {
-//                    view.setAnimationImage("android.resource://" + BuildConfig.APPLICATION_ID + "/raw/connectedun");
-                }
-            } else if (App.selectedCountry == null) {
-                try {
-                    Intent Welcome = new Intent(activity, LoadData.class);
-                    Welcome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    activity.startActivityForResult(Welcome, 10);
-                } catch (Exception e) {
-                    Log.e(TAG, "onResume: " + e);
-                }
-            } else {
-                configDataServer();
-            }
+//            if (App.isStart) {
+////                view.startAnimation(R.id.la_animation_main, R.anim.fade_in_1000, true);
+//                if (App.connection_status == 1) {
+//                } else {
+////                    view.setAnimationImage("android.resource://" + BuildConfig.APPLICATION_ID + "/raw/connectedun");
+//                }
+//            } else if (App.selectedCountry == null) {
+//                try {
+//                    Intent Welcome = new Intent(activity, LoadData.class);
+//                    Welcome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    activity.startActivityForResult(Welcome, 10);
+//                } catch (Exception e) {
+//                    Log.e(TAG, "onResume: " + e);
+//                }
+//            } else {
+//                configDataServer();
+//            }
             try {
                 VpnStatus.addStateListener(this);
                 VpnStatus.addByteCountListener(this);
@@ -375,6 +377,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
     }
 
     void connectToVpn() {
+        startAnimationLoading();
         App.connection_status = 1;
 //        if (!Config.currentCountry.getPrice().equals("free")) {
 //            int point = Integer.parseInt(Config.currentCountry.getPrice());
@@ -386,6 +389,33 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 //                return;
 //            }
 //        }
+        if (Common.totalPoint < Common.minCountryCoin) {
+            setConnectionStatus(0);
+            view.showDialogPoint();
+        } else {
+
+            if (Ads.getRandom()) {
+                view.showLoading();
+                Ads.getInstance(activity).inter(new Ads.CallBackInter() {
+                    @Override
+                    public void adClose() {
+                        connect();
+                        view.hideLoading();
+                    }
+
+                    @Override
+                    public void adLoadFailed(int i) {
+                        connect();
+                        view.hideLoading();
+                    }
+                });
+            } else
+                connect();
+        }
+
+    }
+
+    private void connect() {
         if (!Config.isFastConnect) {
             AppDataHelper.getInstance().getConnect(Config.tokenApp, Config.currentCountry.getCode(),
                     new CallBack<Server>() {
@@ -393,7 +423,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                         public void onSuccess(Server data) {
                             Log.e(TAG, "onSuccess:00000" + data.toString());
                             Config.currentServer = data;
-                            connectVpn(data);
+                            connectVpn();
                         }
 
                         @Override
@@ -406,12 +436,47 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                         }
                     });
         } else {
-            connectVpn(Config.currentServer);
-        }
+            AppDataHelper.getInstance().getFastConnect(Config.tokenApp, Common.totalPoint, new CallBack<Server>() {
+                @Override
+                public void onSuccess(Server data) {
+                    super.onSuccess(data);
+                    Log.e(TAG, "onSuccess:1111 " + data.getGeo().getCountry());
+                    Config.currentServer = data;
+                    Config.currentCountry = Config.listCountry.get(Config.listCountry.indexOf(new Country(Config.currentServer.getGeo().getCountry())));
+                    connectVpn();
+                }
 
+                @Override
+                public void onFailed(String mess) {
+                    startAnimationLoading();
+                    Log.e(TAG, "onFailed: " + mess);
+                    App.connection_status = 0;
+                    setConnectionStatus(0);
+                    Toast.makeText(activity, "Failed to load server", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void connectVpn() {
+//        if (!Config.currentCountry.getPrice().equals("free")) {
+        int point = Integer.parseInt(Config.currentCountry.getPrice());
+        int po = Common.totalPoint;
+        if (point <= Common.totalPoint) {
+            connectVpn(Config.currentServer);
+            Common.totalPoint -= point;
+            view.updatePoint(Common.totalPoint);
+        } else {
+            setConnectionStatus(0);
+            view.showDialogPoint();
+        }
+//        } else {
+//            connectVpn(Config.currentServer);
+//        }
     }
 
     private void connectVpn(Server data) {
+
         if (data != null) {
             App.selectedServer = data;
         }
@@ -465,6 +530,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
             }
         };
         r.run();
+
     }
 
     @Override
@@ -490,22 +556,21 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 
     @Override
     public void pressLineConnect() {
-        startAnimationLoading();
-        if (App.connection_status == 0) {
-            if (!Config.currentCountry.getPrice().equals("free")) {
-                int point = Integer.parseInt(Config.currentCountry.getPrice());
-                int po = Common.totalPoint;
-                if (point <= Common.totalPoint) {
-                    connectToVpn();
-                    Common.totalPoint -= point;
-                    view.updatePoint(Common.totalPoint);
-                } else {
-                    view.showMessage("You do not have enough point");
-                }
-            } else {
-                connectToVpn();
-            }
-        }
+//        if (App.connection_status == 0) {
+//            if (!Config.currentCountry.getPrice().equals("free")) {
+//                int point = Integer.parseInt(Config.currentCountry.getPrice());
+//                int po = Common.totalPoint;
+//                if (point <= Common.totalPoint) {
+//                    connectToVpn();
+//                    Common.totalPoint -= point;
+//                    view.updatePoint(Common.totalPoint);
+//                } else {
+//                    view.showMessage("You do not have enough point");
+//                }
+//            } else {
+        connectToVpn();
+//            }
+//        }
     }
 
     @Override
@@ -526,10 +591,6 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 //    }
 
     private void configDataServer() {
-//        SharedPreferences sef = activity.getSharedPreferences(App.SHARE_CONNECTION_DATA, 0);
-//        SharedPreferences.Editor editor = sef.edit();
-//        editor.putString(App.SHARE_SELECTED_COUNTRY, new Gson().toJson(App.selectedServer));
-//        editor.commit();
         Log.e(TAG, "configDataServer: " + Config.currentServer);
         EncryptData En = new EncryptData();
         File = En.decrypt(Config.currentServer.getVpnConfig());
@@ -579,7 +640,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e(TAG, "onActivityResult: " + requestCode);
         if (requestCode == REQUEST_SERVER_CODE) {
-            if (resultCode == 0) {
+            if (resultCode == SwitchRegion.SWITCH_COUNTRY) {
                 if (data != null && data.getSerializableExtra("country") != null) {
                     Config.isFastConnect = false;
                     Config.currentCountry = (Country) data.getSerializableExtra("country");
@@ -594,6 +655,10 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
                     getFastConnect();
                 }
             }
+            if (resultCode == SwitchRegion.RESULT_CODE_NOT_ENOUGH_POINT) {
+                view.callGetCoin();
+            }
+
 
         }
         if (requestCode == 10 && resultCode == -1) {
@@ -611,7 +676,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 
     private void getFastConnect() {
         DialogLoading.showDialog(activity, "Getting Fast connect ...");
-        AppDataHelper.getInstance().getFastConnect(Config.tokenApp, new CallBack<Server>() {
+        AppDataHelper.getInstance().getFastConnect(Config.tokenApp, Common.totalPoint, new CallBack<Server>() {
             @Override
             public void onSuccess(Server data) {
                 DialogLoading.dismish();

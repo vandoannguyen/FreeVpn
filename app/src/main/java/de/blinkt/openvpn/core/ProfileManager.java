@@ -4,10 +4,11 @@
  */
 package de.blinkt.openvpn.core;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -93,7 +94,7 @@ public class ProfileManager {
         String filename = profile.getUUID().toString() + ".vp";
         if (isTemporary) filename = TEMPORARY_PROFILE_FILENAME + ".vp";
         try {
-            vpnFile = new ObjectOutputStream(context.openFileOutput(filename, Activity.MODE_PRIVATE));
+            vpnFile = new ObjectOutputStream(context.openFileOutput(filename, AppCompatActivity.MODE_PRIVATE));
             vpnFile.writeObject(profile);
             vpnFile.flush();
             vpnFile.close();

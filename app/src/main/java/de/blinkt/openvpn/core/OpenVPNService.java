@@ -6,7 +6,6 @@ package de.blinkt.openvpn.core;
 
 import android.Manifest.permission;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -37,6 +36,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 import com.freeproxy.vpnmaster.hotspot2.R;
@@ -163,7 +163,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
      *
      * @param activityClass The activity class to open
      */
-    public static void setNotificationActivityClass(Class<? extends Activity> activityClass) {
+    public static void setNotificationActivityClass(Class<? extends AppCompatActivity> activityClass) {
         mNotificationActivityClass = activityClass;
     }
 
@@ -420,16 +420,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         int int_temp = R.mipmap.ic_launcher;
 
 
-        String Title;
-        if (App.connection_status == 0) {
-            Title = "Tap to connect " + App.selectedCountry.getName();
-        } else if (App.connection_status == 1) {
-            Title = "Connecting " + App.selectedCountry.getName();
-        } else if (App.connection_status == 2) {
-            Title = "Connected " + App.selectedCountry.getName();
-        } else {
-            Title = "Tap to open VPN";
-        }
+        String Title = getString(R.string.app_name_title);
 
         return new NotificationCompat.Builder(this, App.CHANNEL_ID)
                 .setContentTitle(Title)

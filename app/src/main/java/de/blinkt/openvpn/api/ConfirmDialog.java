@@ -15,9 +15,6 @@
  */
 package de.blinkt.openvpn.api;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.content.pm.ApplicationInfo;
@@ -28,9 +25,13 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.freeproxy.vpnmaster.hotspot2.R;
 
-public class ConfirmDialog extends Activity implements CompoundButton.OnCheckedChangeListener, DialogInterface.OnClickListener {
+public class ConfirmDialog extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, DialogInterface.OnClickListener {
     private static final String TAG = "OpenVPNVpnConfirm";
     private String mPackage;
     private Button mButton;
