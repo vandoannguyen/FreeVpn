@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_1_white"
+    android:background="@color/color_back_fragment"
     android:orientation="vertical"
     android:paddingTop="10dp">
 
@@ -41,14 +41,14 @@
                         android:paddingBottom="10dp">
 
                         <TextView
-                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="Status"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/txtStatusConnect"
@@ -59,7 +59,7 @@
                             android:layout_marginBottom="10dp"
                             android:gravity="center"
                             android:text="Tab to connect"
-                            android:textColor="@android:color/holo_orange_dark"
+                            android:textColor="#8692A2"
                             android:textSize="18sp"
                             android:textStyle="italic|bold" />
 
@@ -80,13 +80,13 @@
                     <!--                    </androidx.cardview.widget.CardView>-->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="55dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/lineSwitchCountry"
-                            android:layout_width="300dp"
+                            android:layout_width="280dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@drawable/custom_background_line_switch"
@@ -94,9 +94,11 @@
                             android:orientation="horizontal">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/cardFlag"
+                                android:visibility="gone"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
-                                android:layout_marginLeft="10dp"
+                                android:layout_marginLeft="15dp"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="4dp">
 
@@ -105,36 +107,34 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop"
+
                                     android:src="@drawable/ic_flag" />
                             </androidx.cardview.widget.CardView>
 
                             <TextView
                                 android:id="@+id/txtCountry"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="5dp"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/roboto_light"
                                 android:text="Vietnam"
-                                android:textColor="#000000"
-                                android:textSize="20dp" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
 
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:layout_marginRight="10dp"
-                                android:src="@drawable/ic_switch_server" />
+                            <!--                            <ImageView-->
+                            <!--                                android:layout_width="25dp"-->
+                            <!--                                android:layout_height="25dp"-->
+                            <!--                                android:layout_gravity="center"-->
+                            <!--                                android:layout_marginRight="10dp"-->
+                            <!--                                android:src="@drawable/ic_switch_server" />-->
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
-                app:cardElevation="4dp"
                 android:id="@+id/cardDisConnect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,7 +142,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:visibility="visible"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,12 +155,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Connected"
-                        android:textColor="@color/text_gray"
+                        android:textColor="@color/color_main"
                         android:textSize="20sp" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="1dp"
                         android:background="#838383" />
 
                     <LinearLayout
@@ -180,13 +181,13 @@
                                 android:gravity="center">
 
                                 <androidx.cardview.widget.CardView
-                                    app:cardCornerRadius="35dp"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_gravity="center"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginRight="10dp"
-                                    android:layout_marginBottom="5dp">
+                                    android:layout_marginBottom="5dp"
+                                    app:cardCornerRadius="35dp">
 
                                     <ImageView
                                         android:id="@+id/imgFlagConnected"
@@ -198,9 +199,9 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:gravity="center"
                                 android:minHeight="120dp"
                                 android:orientation="vertical"
@@ -210,10 +211,11 @@
                                     android:id="@+id/txtConnectedCountry"
                                     android:layout_width="wrap_content"
                                     android:layout_height="20dp"
-                                    android:textSize="18sp"
                                     android:layout_gravity="left"
                                     android:layout_marginTop="5dp"
-                                    android:text="The UnitedState" />
+                                    android:text="The UnitedState"
+                                    android:textColor="@color/color_main"
+                                    android:textSize="18sp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -221,17 +223,19 @@
                                     android:layout_marginTop="5dp">
 
                                     <TextView
-                                        android:textSize="18sp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Virtual IP:" />
+                                        android:text="Virtual IP:"
+                                        android:textColor="@color/color_main"
+                                        android:textSize="18sp" />
 
                                     <TextView
-                                        android:textSize="18sp"
                                         android:id="@+id/txtVirtualIp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="192.168.255.255" />
+                                        android:text="192.168.255.255"
+                                        android:textColor="@color/color_main"
+                                        android:textSize="18sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -246,19 +250,21 @@
                                         android:layout_weight="1">
 
                                         <TextView
-                                            android:textSize="18sp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center"
-                                            android:text="Download: " />
+                                            android:text="Download: "
+                                            android:textColor="@color/color_main"
+                                            android:textSize="18sp" />
 
                                         <TextView
-                                            android:textSize="18sp"
                                             android:id="@+id/txtDownloadSpeed"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center"
-                                            android:text="@string/_150kps" />
+                                            android:text="@string/_150kps"
+                                            android:textColor="@color/color_main"
+                                            android:textSize="18sp" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -268,19 +274,21 @@
                                         android:layout_weight="1">
 
                                         <TextView
-                                            android:textSize="18sp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center"
-                                            android:text="Upload: " />
+                                            android:text="Upload: "
+                                            android:textColor="@color/color_main"
+                                            android:textSize="18sp" />
 
                                         <TextView
-                                            android:textSize="18sp"
                                             android:id="@+id/txtUpLoadSpeed"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="125 byte/s" />
+                                            android:text="125 byte/s"
+                                            android:textColor="@color/color_main"
+                                            android:textSize="18sp" />
                                     </LinearLayout>
                                 </LinearLayout>
                             </LinearLayout>
@@ -300,7 +308,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Tab to Disconnect"
-                                android:textColor="@android:color/white"
+                                android:textColor="@color/color_main"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -315,7 +323,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
-                app:cardBackgroundColor="@android:color/white"
+                app:cardBackgroundColor="#F4D8A2"
                 app:cardCornerRadius="5dp">
 
                 <LinearLayout
@@ -329,7 +337,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="20dp"
                         android:src="@drawable/ic_gift" />
 
                     <TextView
@@ -338,6 +346,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
                         android:text="Get Free Coins"
+                        android:textColor="@color/colorRed"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -346,14 +355,14 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/custum_background_button">
+                        android:background="@drawable/custom_button_point">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:text="+1000"
-                            android:textColor="@android:color/white"
+                            android:textColor="#FCD385"
                             android:textSize="15dp" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -375,10 +384,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    app:cardElevation="4dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:padding="5dp">
+                    android:padding="5dp"
+                    app:cardElevation="4dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -493,6 +502,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -501,19 +511,20 @@
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        app:cardElevation="4dp"
                         app:cardBackgroundColor="@android:color/white"
-                        app:cardCornerRadius="5dp">
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="4dp">
 
                         <LinearLayout
-                            android:padding="10dp"
                             android:id="@+id/lineGetServer"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:padding="10dp">
 
                             <ImageView
                                 android:layout_width="50dp"
@@ -522,86 +533,94 @@
                                 android:src="@drawable/ic_server" />
 
                             <TextView
-                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Switch Region"
-                                android:textSize="16sp"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
+                                android:text="Switch Region"
+                                android:textColor="@color/color_main"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
+
                             <View
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
                             <RelativeLayout
                                 android:layout_width="80dp"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="10dp"
-                                android:background="@drawable/custum_background_button">
+                                android:background="@drawable/custom_button_more">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:text="Start"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="15dp" />
+                                    android:textColor="@color/color_main"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
                             </RelativeLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-<!--                    <View-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"></View>-->
+                    <!--                    <View-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="match_parent"-->
+                    <!--                        android:layout_weight="1"></View>-->
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        app:cardElevation="4dp"
                         app:cardBackgroundColor="@android:color/white"
-                        app:cardCornerRadius="5dp">
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="4dp">
 
                         <LinearLayout
-                            android:padding="10dp"
                             android:id="@+id/lineGetSpeedTest"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:padding="10dp">
 
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:src="@drawable/ic_speed_1" />
+                                android:src="@drawable/ic_speed_2" />
 
                             <TextView
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
                                 android:text="Speed test"
+                                android:textColor="@color/color_main"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
+
                             <View
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
                             <RelativeLayout
                                 android:layout_width="80dp"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="10dp"
-                                android:background="@drawable/custum_background_button">
+                                android:background="@drawable/custom_button_more">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:text="Start"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="15dp" />
+                                    android:textColor="@color/color_main"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
                             </RelativeLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>

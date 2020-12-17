@@ -28,6 +28,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_weight="1"
+        android:textStyle="bold"
         android:text="Viet Nam"
         android:textColor="@android:color/black"
         android:textSize="18dp" />
@@ -36,24 +37,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginRight="10dp">
-
+        android:layout_marginRight="15dp">
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/coin" />
         <TextView
             android:id="@+id/txtCoinItemServer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
+
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="5dp"
             android:text="100"
             android:textColor="@android:color/holo_orange_dark"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_marginLeft="8dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_coin" />
+
 
 
     </LinearLayout>

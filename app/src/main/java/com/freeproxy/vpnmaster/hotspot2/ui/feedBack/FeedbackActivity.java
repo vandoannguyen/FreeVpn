@@ -1,7 +1,6 @@
 package com.freeproxy.vpnmaster.hotspot2.ui.feedBack;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.freeproxy.vpnmaster.hotspot2.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -65,7 +62,7 @@ public class FeedbackActivity extends AppCompatActivity {
         Intent intent2 = new Intent();
         intent2.setAction(Intent.ACTION_SEND);
         intent2.setType("message/rfc822");
-        String EMAIL1 = "oneadx@gmaiil.com";
+        String EMAIL1 = "oneadx@gmail.com";
         String ytext = edtFeedback.getText().toString();
         intent2.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL1});
         intent2.putExtra(Intent.EXTRA_TEXT, ytext);

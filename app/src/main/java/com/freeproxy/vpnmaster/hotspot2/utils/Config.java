@@ -5,7 +5,7 @@ public class Config {
     public static String FilePassword;
     public static boolean isAppDetails = false;
     public static boolean isConnectionDetails = false;
-    public static boolean isDebug = false;
+    public static boolean isDebug = true;
     static String PREF_USAGE = "daily_usage";
     public static String StringCountDown;
 

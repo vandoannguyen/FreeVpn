@@ -6,7 +6,7 @@
     <color name="text_gray">#777777</color>
     //add
 <!--    <color name="tablayout">#f6c83d</color>-->
-    <color name="tablayout">@color/color_4_blue</color>
+<!--    <color name="tablayout">@color/color_4_blue</color>-->
     <color name="colorRed">#FF0000</color>
     <color name="colorWhite">#FFFFFF</color>
 <!--<<<<<<< HEAD-->
@@ -14,4 +14,10 @@
 <!--=======/-->
     <color name="colorTapCoin">#ffffbb33</color>
 <!--&gt;>>>>>> fee38a3... push code 16h 1911-->
+    //day1612
+    <color name="color_main">#011025</color>
+    <color name="color_tablayout">#011530</color>
+    <color name="color_numpicker">#F4D8A2</color>
+    <color name="color_more">#FFC455</color>
+    <color name="color_back_fragment">#FFF8EA</color>
 </resources>

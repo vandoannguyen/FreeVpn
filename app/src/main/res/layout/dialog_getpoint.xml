@@ -8,19 +8,20 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:src="@drawable/ic_emailcoin" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/test" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
+
         android:text="Congratulations!"
         android:textColor="@android:color/holo_red_light"
         android:textSize="20sp"
@@ -36,8 +37,9 @@
             android:layout_height="wrap_content"
             android:text="You earn "
             android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="22sp" />
+            android:textColor="@color/color_main"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtCoinDialog"
@@ -46,7 +48,8 @@
             android:text="+330 Points"
             android:textAlignment="center"
             android:textColor="@android:color/holo_red_light"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
@@ -64,7 +67,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:background="@drawable/custum_background_button"
+        android:background="@drawable/custom_button_gotit"
         android:gravity="center">
 
         <TextView
@@ -72,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Get It"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorRed"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -84,7 +87,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/custum_background_button"
+        android:background="@drawable/custom_button_gotit"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -92,14 +95,14 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_multimedia" />
+            android:src="@drawable/ic_munti" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="Credits X2"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorRed"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>

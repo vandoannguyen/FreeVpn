@@ -87,6 +87,8 @@ public class VpnFragment extends Fragment implements IVpnView {
     LinearLayout quickGmail;
     @BindView(R.id.frameAds)
     FrameLayout frameAds;
+    @BindView(R.id.cardFlag)
+    CardView cardFlag;
     @BindView(R.id.txtConnectedCountry)
     TextView txtConnectedCountry;
     @BindView(R.id.txtStatusConnect)
@@ -293,6 +295,7 @@ public class VpnFragment extends Fragment implements IVpnView {
                 }
                 txtStatusConnect.setText("Tab to connect");
                 imgConnect.setImageResource(R.drawable.connect);
+                cardFlag.setVisibility(View.GONE);
                 startAnimation(R.id.imgConnect, R.anim.fade_in_1000, true);
                 startAnimation(R.id.cardConnect, R.anim.fade_in_1000, true);
                 startAnimation(R.id.linearConnected, R.anim.fade_out_500, false);
@@ -308,7 +311,8 @@ public class VpnFragment extends Fragment implements IVpnView {
                 }
                 txtStatusConnect.setText("Connecting ...");
                 startAnimation(R.id.imgConnect, R.anim.fade_in_1000, true);
-                Glide.with(getContext()).load(R.drawable.connecting).into(imgConnect);
+                Glide.with(getContext()).load(R.drawable.connect).into(imgConnect);
+                cardFlag.setVisibility(View.VISIBLE);
                 break;
             }
             case 2: {
@@ -323,12 +327,14 @@ public class VpnFragment extends Fragment implements IVpnView {
                 startAnimation(R.id.cardDisConnect, R.anim.fade_in_1000, true);
                 startAnimation(R.id.cardConnect, R.anim.fade_out_500, false);
                 imgConnect.setImageResource(R.drawable.connect);
+                cardFlag.setVisibility(View.GONE);
                 txtVirtualIp.setText(Config.currentServer.getIp());
                 break;
             }
             default: {
                 linearConnect.setVisibility(View.VISIBLE);
                 imgConnect.setImageResource(R.drawable.connect);
+                cardFlag.setVisibility(View.GONE);
                 linearConnected.setVisibility(View.GONE);
                 cardDisConnect.setVisibility(View.GONE);
             }

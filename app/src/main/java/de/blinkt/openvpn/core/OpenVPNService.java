@@ -425,6 +425,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
             Title = "Tap to connect " + App.selectedCountry.getName();
         } else if (App.connection_status == 1) {
             Title = "Connecting " + App.selectedCountry.getName();
+
         } else if (App.connection_status == 2) {
             Title = "Connected " + App.selectedCountry.getName();
         } else {

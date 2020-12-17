@@ -7,12 +7,12 @@
     android:orientation="vertical"
     tools:context=".ui.faq.FAQActivity">
     <RelativeLayout
-        android:background="@color/colorPrimary"
+        android:background="@color/color_main"
         android:layout_width="match_parent"
         android:layout_height="55dp">
         <ImageView
             android:id="@+id/btnBackFaq"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_back_ios"
             android:layout_centerInParent="true"
             android:layout_alignParentLeft="true"
             android:padding="12dp"
@@ -29,6 +29,7 @@
     </RelativeLayout>
     <LinearLayout
         android:orientation="vertical"
+        android:background="@color/color_back_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ExpandableListView

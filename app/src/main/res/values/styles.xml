@@ -34,11 +34,11 @@
         <item name="iconSize">15dp</item>
         <item name="textAllCaps">false</item>
         <item name="tabSelectedTextColor">@android:color/white</item>
-        <item name="tabTextColor">@color/colorPrimaryDark</item>
+        <item name="tabTextColor">#9F9F9F</item>
     </style>
 
     <style name="MyCustomTabTextAppearance">
-        <item name="textColor">@android:color/holo_orange_light</item>
+<!--        <item name="textColor">@android:color/holo_orange_light</item>-->
         <item name="android:textStyle">bold</item>
     </style>
 

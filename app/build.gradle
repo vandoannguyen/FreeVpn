@@ -8,8 +8,8 @@ android {
         applicationId "com.freeproxy.vpnmaster.hotspot2"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -61,8 +61,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     annotationProcessor 'androidx.room:room-compiler:2.2.2'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
-    //numberpicker
-    implementation 'com.super_rabbit.wheel_picker:NumberPicker:1.0.1'
 //    glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'

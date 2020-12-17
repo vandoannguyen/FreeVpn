@@ -7,12 +7,12 @@
     android:orientation="vertical"
     tools:context=".ui.feedBack.FeedbackActivity">
     <RelativeLayout
-        android:background="@color/colorPrimary"
+        android:background="@color/color_main"
         android:layout_width="match_parent"
         android:layout_height="60dp">
         <ImageView
             android:id="@+id/btnBackFeedBack"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_back_ios"
             android:layout_centerInParent="true"
             android:layout_alignParentLeft="true"
             android:padding="12dp"
@@ -22,12 +22,14 @@
         <TextView
             android:text="Feedback"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
     <LinearLayout
+        android:background="@color/color_back_fragment"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -37,7 +39,7 @@
             android:layout_margin="10dp"
             android:text="Problems/Bugs"
             android:textColor="@android:color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
@@ -69,8 +71,8 @@
             <TextView
                 android:text="Submit"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textColor="@color/color_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

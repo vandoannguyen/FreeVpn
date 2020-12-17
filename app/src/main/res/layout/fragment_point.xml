@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/color_back_fragment"
     android:layout_height="match_parent">
 
     <ScrollView
@@ -35,7 +36,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="170dp"
                             android:layout_margin="10dp"
-                            android:background="@drawable/spin"
+                            android:background="@color/color_numpicker"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -76,17 +77,18 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_gift" />
+                            android:src="@drawable/ic_coin" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1"
+                            android:textColor="@color/color_main"
                             android:text="Tap to Get Points"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -97,7 +99,7 @@
                             android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/custum_background_button">
+                            android:background="@drawable/custom_button_point">
 
                             <TextView
                                 android:id="@+id/txtTapCoin"
@@ -105,7 +107,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:text="+100~990"
-                                android:textColor="@android:color/white" />
+                                android:textColor="#FCD385" />
                         </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -127,8 +129,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/ic_multimedia" />
@@ -139,6 +141,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
                         android:text="Watch Video"
+                        android:textColor="@color/color_main"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -148,7 +151,7 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/custum_background_button">
+                        android:background="@drawable/custom_button_point">
 
                         <TextView
                             android:id="@+id/txtWatchVideo"
@@ -156,7 +159,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:text="+100~990"
-                            android:textColor="@android:color/white" />
+                            android:textColor="#FCD385" />
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -177,8 +180,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="fitXY"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/ic_checkin" />
@@ -189,6 +193,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
                         android:text="Check-in"
+                        android:textColor="@color/color_main"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -197,14 +202,14 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/custum_background_button">
+                        android:background="@drawable/custom_button_point">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:text="+200~1000"
-                            android:textColor="@android:color/white" />
+                            android:textColor="#FCD385" />
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -230,7 +235,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_invite" />
+                        android:src="@mipmap/ic_launcher" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -279,7 +284,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_pencil" />
+                        android:src="@mipmap/ic_launcher" />
 
                     <TextView
                         android:layout_width="match_parent"

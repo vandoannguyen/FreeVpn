@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_main"
         android:padding="5dp">
 
         <TextView
@@ -33,10 +33,10 @@
             android:layout_marginRight="5dp">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_coin" />
+                android:src="@drawable/ic_coin_1" />
 
             <TextView
                 android:id="@+id/txtCoin"
@@ -45,8 +45,8 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="3dp"
                 android:text="100"
-                android:textColor="@android:color/white"
-                android:textSize="16dp" />
+                android:textColor="@android:color/holo_orange_light"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -54,7 +54,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabView"
         style="@style/CustomTabLayout"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
