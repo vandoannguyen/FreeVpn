@@ -30,9 +30,10 @@ import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogLoading;
 import com.freeproxy.vpnmaster.hotspot2.ui.switchRegion.SwitchRegion;
 import com.freeproxy.vpnmaster.hotspot2.utils.Common;
 import com.freeproxy.vpnmaster.hotspot2.utils.EncryptData;
-import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;
+import com.oneadx.android.oneads.AdInterstitial;
+import com.oneadx.android.oneads.AdListener;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -67,6 +68,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
     String FileID = "NULL", City = "NULL", Image = "NULL";
     InterstitialAd interstitialAd, interstitialAdConnect;
     private Class classIntentScreen = null;
+    private AdInterstitial inter;
     IAppDataHelper appDataHelper;
 
 
@@ -394,17 +396,11 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
             view.showDialogPoint();
         } else {
 
-            if (Ads.getRandom()) {
+            if (Config.getRandom()) {
                 view.showLoading();
-                Ads.getInstance(activity).inter(new Ads.CallBackInter() {
+                inter.show(new AdListener() {
                     @Override
-                    public void adClose() {
-                        connect();
-                        view.hideLoading();
-                    }
-
-                    @Override
-                    public void adLoadFailed(int i) {
+                    public void onAdClosed() {
                         connect();
                         view.hideLoading();
                     }
@@ -584,9 +580,29 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
 //            params.putString("exception", "MA6" + e.toString());
 //        }
         App.isStart = false;
-//        }
+        if (Config.getRandom()) {
+            DialogLoading.showDialog(activity);
+            inter.show(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    DialogLoading.dismish();
+                }
+            });
+        }
     }
-//    private void setTextLineConnect(String s) {
+
+    @Override
+    public void initAds() {
+        inter = new AdInterstitial(activity);
+        inter.load();
+    }
+
+    @Override
+    public void onDetact() {
+        super.onDetact();
+        inter.destroy();
+    }
+    //    private void setTextLineConnect(String s) {
 //        view.setTextLineConnect(s);
 //    }
 

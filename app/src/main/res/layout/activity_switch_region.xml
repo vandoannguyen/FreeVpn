@@ -16,7 +16,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="12dp"
-            android:src="@drawable/ic_back_ios" />
+            android:src="@mipmap/ic_back_ios" />
 
         <TextView
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:padding="10dp"
-            android:src="@drawable/ic_refresh"/>
+            android:src="@drawable/ic_reffresh"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -81,7 +81,7 @@
                     android:layout_height="49dp"
                     android:layout_gravity="center"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_tick" />
+                    android:src="@mipmap/ic_tick" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

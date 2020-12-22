@@ -14,7 +14,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/test" />
+        android:src="@mipmap/ic_dialog_check_in" />
 
     <TextView
         android:fontFamily="@font/bold"
@@ -101,7 +101,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_munti" />
+            android:src="@mipmap/ic_munti" />
 
         <TextView
             android:fontFamily="@font/bold"

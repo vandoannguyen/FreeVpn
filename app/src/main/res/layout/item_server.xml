@@ -16,8 +16,7 @@
             android:id="@+id/imgFlagItem"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_flag" />
+            android:scaleType="centerCrop"/>
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -42,7 +41,7 @@
             android:layout_marginLeft="5dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/coin" />
+            android:src="@mipmap/ic_coin" />
         <TextView
             android:id="@+id/txtCoinItemServer"
             android:layout_width="wrap_content"

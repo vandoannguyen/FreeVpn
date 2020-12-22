@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -30,7 +31,10 @@ import com.freeproxy.vpnmaster.hotspot2.ui.invite.InviteFriendActivity;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.FragmentCallback;
 import com.freeproxy.vpnmaster.hotspot2.utils.Common;
 import com.freeproxy.vpnmaster.hotspot2.utils.SharedPrefsUtils;
-import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.oneadx.android.oneads.AdInterstitial;
+import com.oneadx.android.oneads.AdListener;
+import com.oneadx.android.oneads.AdReward;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -86,6 +90,8 @@ public class PointFragment extends Fragment {
     CountDownTimer Count, CountTwo;
     private boolean isRandomingPoint = false;
     private long lastWatchedVideo = 0;
+    private AdInterstitial inter;
+    private AdReward rewared;
 
     public PointFragment() {
         // Required empty public constructor
@@ -118,7 +124,21 @@ public class PointFragment extends Fragment {
             }
         });
         initView();
+        initAds();
         return view;
+    }
+
+    private void initAds() {
+        inter = new AdInterstitial(getActivity());
+        inter.load();
+        rewared = new AdReward(getActivity());
+        rewared.load();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        inter.destroy();
     }
 
     private void initView() {
@@ -175,7 +195,7 @@ public class PointFragment extends Fragment {
             public void onFinish() {
                 Common.checktap = 0;
                 txtTapCoin.setText("+100~990");
-                relTapCoin.setBackgroundColor(getResources().getColor(R.color.colorTapCoin));
+                relTapCoin.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 Log.e(TAG, "onFinish: " + Common.checktap);
 
             }
@@ -194,7 +214,7 @@ public class PointFragment extends Fragment {
 
             public void onFinish() {
                 txtWatchVideo.setText("+100~990");
-                relWatchVideo.setBackgroundColor(getResources().getColor(R.color.colorTapCoin));
+                relWatchVideo.setBackgroundColor(getResources().getColor(R.color.colorRed));
             }
         };
         CountTwo.start();
@@ -226,20 +246,29 @@ public class PointFragment extends Fragment {
                 Common.checktap = 1;
                 dialog.dismiss();
                 txtTapCoin.setText("...");
-                Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                inter.show(new AdListener() {
                     @Override
-                    public void adClose() {
+                    public void onAdClosed() {
                         callback.setPoint(Common.totalPoint);
                         CountDown();
                         progressDialog.dismiss();
                         Toast.makeText(getContext(), "+" + istr + " Success", Toast.LENGTH_SHORT).show();
                     }
-
-                    @Override
-                    public void adLoadFailed(int i) {
-
-                    }
                 });
+//                Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+//                    @Override
+//                    public void adClose() {
+//                        callback.setPoint(Common.totalPoint);
+//                        CountDown();
+//                        progressDialog.dismiss();
+//                        Toast.makeText(getContext(), "+" + istr + " Success", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void adLoadFailed(int i) {
+//
+//                    }
+//                });
                 //initView();
             }
         });
@@ -248,24 +277,30 @@ public class PointFragment extends Fragment {
             public void onClick(View view) {
                 progressDialog.show();
                 Common.totalPoint += istr + istr;
-                Ads.getInstance(getActivity()).rewared(new Ads.CallBackRewared() {
+                rewared.show(new AdReward.AdRewardListener() {
                     @Override
-                    public void adClose() {
+                    public void onRewardedAdOpened() {
 
                     }
 
                     @Override
-                    public void adLoadFailed(int i) {
-                        Toast.makeText(getContext(), "Load ads failed", Toast.LENGTH_SHORT).show();
+                    public void onRewardedAdClosed() {
+
                     }
 
                     @Override
-                    public void adRewared() {
+                    public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                         callback.setPoint(Common.totalPoint);
                         CountDown();
                         progressDialog.dismiss();
                         dialog.dismiss();
                         Toast.makeText(getContext(), "+" + (istr + istr) + " Success", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onRewardedAdFailedToShow() {
+                        progressDialog.dismiss();
+                        Toast.makeText(getContext(), "Load ads failed", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -305,63 +340,63 @@ public class PointFragment extends Fragment {
         if (Common.days == today.monthDay) {
             txtCheckin.setVisibility(View.VISIBLE);
         }
-        //day1
+        //ic_day1
         if (checkin == 0) {
 
         }
         if (checkin == 1) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay1.setImageResource(R.mipmap.ic_day_check);
 
         }
-        //day2
+        //ic_day2
         if (checkin == 2) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay1.setImageResource(R.mipmap.ic_day_check);
+            imgDay2.setImageResource(R.mipmap.ic_day_check);
 
         }
-        //day3
+        //ic_day3
         if (checkin == 3) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay1.setImageResource(R.mipmap.ic_day_check);
+            imgDay2.setImageResource(R.mipmap.ic_day_check);
+            imgDay3.setImageResource(R.mipmap.ic_day_check);
 
         }
-        //day4
+        //ic_day4
         if (checkin == 4) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay1.setImageResource(R.mipmap.ic_day_check);
+            imgDay2.setImageResource(R.mipmap.ic_day_check);
+            imgDay3.setImageResource(R.mipmap.ic_day_check);
+            imgDay4.setImageResource(R.mipmap.ic_day_check);
 
         }
-        //day5
+        //ic_day5
         if (checkin == 5) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay1.setImageResource(R.mipmap.ic_day_check);
+            imgDay2.setImageResource(R.mipmap.ic_day_check);
+            imgDay3.setImageResource(R.mipmap.ic_day_check);
+            imgDay4.setImageResource(R.mipmap.ic_day_check);
+            imgDay5.setImageResource(R.mipmap.ic_day_check);
 
         }
-        //day6
+        //ic_day6
         if (checkin == 6) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay1.setImageResource(R.mipmap.ic_day_check);
+            imgDay2.setImageResource(R.mipmap.ic_day_check);
+            imgDay3.setImageResource(R.mipmap.ic_day_check);
+            imgDay4.setImageResource(R.mipmap.ic_day_check);
+            imgDay5.setImageResource(R.mipmap.ic_day_check);
+            imgDay6.setImageResource(R.mipmap.ic_day_check);
 
         }
-        //day7
+        //ic_day7
         if (checkin == 7) {
-            imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-            imgDay7.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
+            imgDay1.setImageResource(R.mipmap.ic_day_check);
+            imgDay2.setImageResource(R.mipmap.ic_day_check);
+            imgDay3.setImageResource(R.mipmap.ic_day_check);
+            imgDay4.setImageResource(R.mipmap.ic_day_check);
+            imgDay5.setImageResource(R.mipmap.ic_day_check);
+            imgDay6.setImageResource(R.mipmap.ic_day_check);
+            imgDay7.setImageResource(R.mipmap.ic_day_check);
         }
         //line
         lineGotIt.setOnClickListener(new View.OnClickListener() {
@@ -372,128 +407,184 @@ public class PointFragment extends Fragment {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 1);
-                    imgDay1.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                    imgDay1.setImageResource(R.mipmap.ic_day_check);
+                    inter.show(new AdListener() {
                         @Override
-                        public void adClose() {
+                        public void onAdClosed() {
                             Common.totalPoint += 200;
                             callback.setPoint(Common.totalPoint);
                             Toast.makeText(getActivity(), "+200 Success", Toast.LENGTH_SHORT).show();
                         }
-
-                        @Override
-                        public void adLoadFailed(int i) {
-                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-                        }
                     });
+//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+//                        @Override
+//                        public void adClose() {
+//                            Common.totalPoint += 200;
+//                            callback.setPoint(Common.totalPoint);
+//                            Toast.makeText(getActivity(), "+200 Success", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void adLoadFailed(int i) {
+//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 } else if (checkin == 1 && Common.days != today.monthDay) {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 2);
-                    imgDay2.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                    imgDay2.setImageResource(R.mipmap.ic_day_check);
+                    inter.show(new AdListener() {
                         @Override
-                        public void adClose() {
+                        public void onAdClosed() {
                             Common.totalPoint += 300;
                             callback.setPoint(Common.totalPoint);
                             Toast.makeText(getActivity(), "+300 Success", Toast.LENGTH_SHORT).show();
                         }
-
-                        @Override
-                        public void adLoadFailed(int i) {
-                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-                        }
                     });
+//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+//                        @Override
+//                        public void adClose() {
+//                            Common.totalPoint += 300;
+//                            callback.setPoint(Common.totalPoint);
+//                            Toast.makeText(getActivity(), "+300 Success", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void adLoadFailed(int i) {
+//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 } else if (checkin == 2 && Common.days != today.monthDay) {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 3);
-                    imgDay3.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                    imgDay3.setImageResource(R.mipmap.ic_day_check);
+                    inter.show(new AdListener() {
                         @Override
-                        public void adClose() {
+                        public void onAdClosed() {
                             Common.totalPoint += 400;
                             callback.setPoint(Common.totalPoint);
                             Toast.makeText(getActivity(), "+400 Success", Toast.LENGTH_SHORT).show();
                         }
-
-                        @Override
-                        public void adLoadFailed(int i) {
-                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-                        }
                     });
+//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+//                        @Override
+//                        public void adClose() {
+//                            Common.totalPoint += 400;
+//                            callback.setPoint(Common.totalPoint);
+//                            Toast.makeText(getActivity(), "+400 Success", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void adLoadFailed(int i) {
+//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 } else if (checkin == 3 && Common.days != today.monthDay) {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 4);
-                    imgDay4.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                    imgDay4.setImageResource(R.mipmap.ic_day_check);
+                    inter.show(new AdListener() {
                         @Override
-                        public void adClose() {
+                        public void onAdClosed() {
                             Common.totalPoint += 500;
                             callback.setPoint(Common.totalPoint);
                             Toast.makeText(getActivity(), "+500 Success", Toast.LENGTH_SHORT).show();
                         }
-
-                        @Override
-                        public void adLoadFailed(int i) {
-                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-                        }
                     });
+//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+//                        @Override
+//                        public void adClose() {
+//                            Common.totalPoint += 500;
+//                            callback.setPoint(Common.totalPoint);
+//                            Toast.makeText(getActivity(), "+500 Success", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void adLoadFailed(int i) {
+//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 } else if (checkin == 4 && Common.days != today.monthDay) {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 5);
-                    imgDay5.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                    imgDay5.setImageResource(R.mipmap.ic_day_check);
+                    inter.show(new AdListener() {
                         @Override
-                        public void adClose() {
+                        public void onAdClosed() {
                             Common.totalPoint += 600;
                             callback.setPoint(Common.totalPoint);
                             Toast.makeText(getActivity(), "+600 Success", Toast.LENGTH_SHORT).show();
                         }
-
-                        @Override
-                        public void adLoadFailed(int i) {
-                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-                        }
                     });
+//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+//                        @Override
+//                        public void adClose() {
+//                            Common.totalPoint += 600;
+//                            callback.setPoint(Common.totalPoint);
+//                            Toast.makeText(getActivity(), "+600 Success", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void adLoadFailed(int i) {
+//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 } else if (checkin == 5 && Common.days != today.monthDay) {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 6);
-                    imgDay6.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                    imgDay6.setImageResource(R.mipmap.ic_day_check);
+                    inter.show(new AdListener() {
                         @Override
-                        public void adClose() {
+                        public void onAdClosed() {
                             Common.totalPoint += 900;
                             callback.setPoint(Common.totalPoint);
                             Toast.makeText(getActivity(), "+900 Success", Toast.LENGTH_SHORT).show();
                         }
-
-                        @Override
-                        public void adLoadFailed(int i) {
-                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-                        }
                     });
+//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+//                        @Override
+//                        public void adClose() {
+//                            Common.totalPoint += 900;
+//                            callback.setPoint(Common.totalPoint);
+//                            Toast.makeText(getActivity(), "+900 Success", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void adLoadFailed(int i) {
+//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 } else if (checkin == 6 && Common.days != today.monthDay) {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("checkin", 7);
-                    imgDay7.setImageDrawable(getResources().getDrawable(R.drawable.day_check));
-                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+                    imgDay7.setImageResource(R.mipmap.ic_day_check);
+                    inter.show(new AdListener() {
                         @Override
-                        public void adClose() {
+                        public void onAdClosed() {
                             Common.totalPoint += 1000;
                             callback.setPoint(Common.totalPoint);
                             Toast.makeText(getActivity(), "+1000 Success", Toast.LENGTH_SHORT).show();
                         }
-
-                        @Override
-                        public void adLoadFailed(int i) {
-                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-                        }
                     });
+//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
+//                        @Override
+//                        public void adClose() {
+//                            Common.totalPoint += 1000;
+//                            callback.setPoint(Common.totalPoint);
+//                            Toast.makeText(getActivity(), "+1000 Success", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void adLoadFailed(int i) {
+//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 }
                 progressDialog.dismiss();
                 initView();
@@ -506,7 +597,7 @@ public class PointFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lineTapCoin:
-                if (Common.checktap == 0 && !isRandomingPoint) {
+                if (Common.checktap == 0) {
                     isRandomingPoint = true;
                     numberPicker1.setValue(0);
                     numberPicker2.setValue(0);
@@ -544,11 +635,11 @@ public class PointFragment extends Fragment {
                             a2 = numberPicker2.getValue();
                             a3 = numberPicker3.getValue();
                             showDialogGetPoint();
-                            isRandomingPoint = false;
+//                            isRandomingPoint = false;
                         }
-                    }, delay+1500);
+                    }, delay + 1500);
                 } else {
-                    Toast.makeText(getActivity(), "Please waiting 15 seconds", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please waiting 60 seconds", Toast.LENGTH_SHORT).show();
                 }
 //                int ran = new Random().nextInt(30);
 //                Log.e(TAG, "onViewClicked:  " + ran);
@@ -567,27 +658,53 @@ public class PointFragment extends Fragment {
                         randVideo = 990;
                     }
                     int rdCoin = rds.nextInt(randVideo - 100) + 100;
-                    Ads.getInstance(getActivity()).rewared(new Ads.CallBackRewared() {
+                    rewared.show(new AdReward.AdRewardListener() {
                         @Override
-                        public void adClose() {
+                        public void onRewardedAdOpened() {
+
+                        }
+
+                        @Override
+                        public void onRewardedAdClosed() {
                             CountDownTwo();
                             progressDialog.dismiss();
                         }
 
                         @Override
-                        public void adLoadFailed(int i) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void adRewared() {
+                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                             Common.totalPoint += rdCoin;
                             callback.setPoint(Common.totalPoint);
                             progressDialog.dismiss();
                             Toast.makeText(getActivity(), "+" + rdCoin + " Success", Toast.LENGTH_SHORT).show();
                         }
+
+                        @Override
+                        public void onRewardedAdFailedToShow() {
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+                        }
                     });
+//                    Ads.getInstance(getActivity()).rewared(new Ads.CallBackRewared() {
+//                        @Override
+//                        public void adClose() {
+//                            CountDownTwo();
+//                            progressDialog.dismiss();
+//                        }
+//
+//                        @Override
+//                        public void adLoadFailed(int i) {
+//                            progressDialog.dismiss();
+//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void adRewared() {
+//                            Common.totalPoint += rdCoin;
+//                            callback.setPoint(Common.totalPoint);
+//                            progressDialog.dismiss();
+//                            Toast.makeText(getActivity(), "+" + rdCoin + " Success", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                     lastWatchedVideo = now;
                 } else {
                     Toast.makeText(getContext(), "Wait for 1 minute", Toast.LENGTH_SHORT).show();

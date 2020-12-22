@@ -3,16 +3,12 @@ package com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.vpn;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,12 +25,11 @@ import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogPoint;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.FragmentCallback;
 import com.freeproxy.vpnmaster.hotspot2.ui.speedTest.SpeedTest;
 import com.freeproxy.vpnmaster.hotspot2.ui.switchRegion.SwitchRegion;
-import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
+import com.oneadx.android.oneads.adnative.AdNative;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.blinkt.openvpn.core.App;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,7 +65,6 @@ public class VpnFragment extends Fragment implements IVpnView {
     LinearLayout lineSwitchCountry;
     @BindView(R.id.lineDisconnect)
     LinearLayout lineDisconnect;
-    IVpnPresenter<IVpnView> presenter;
     @BindView(R.id.txtVirtualIp)
     TextView txtVirtualIp;
     @BindView(R.id.txtDownloadSpeed)
@@ -89,7 +83,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     LinearLayout quickGmail;
     @BindView(R.id.frameAds)
     FrameLayout frameAds;
-//    @BindView(R.id.cardFlag)
+    //    @BindView(R.id.cardFlag)
 //    CardView cardFlag;
     @BindView(R.id.txtConnectedCountry)
     TextView txtConnectedCountry;
@@ -98,8 +92,9 @@ public class VpnFragment extends Fragment implements IVpnView {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private IVpnPresenter<IVpnView> preseter;
+    private IVpnPresenter<IVpnView> presenter;
     FragmentCallback callback;
+    private AdNative adNative;
 
     public VpnFragment() {
         // Required empty public constructor
@@ -119,19 +114,12 @@ public class VpnFragment extends Fragment implements IVpnView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preseter = new VpnPreseter<IVpnView>(this.getActivity());
-        preseter.onAttact(this);
+        presenter = new VpnPreseter<IVpnView>(this.getActivity());
+        presenter.onAttact(this);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        if (preseter != null)
-            preseter.onDetact();
-        super.onDestroy();
     }
 
     @Override
@@ -147,11 +135,26 @@ public class VpnFragment extends Fragment implements IVpnView {
 //        App.selectedCountry = country;
 //        Config.currentCountry = country;
 //        frameAds.setVisibility(View.GONE);
-        Ads.getInstance(getActivity()).nativeAds(frameAds, null);
+        initAds();
+//        Ads.getInstance(getActivity()).nativeAds(frameAds, null);
 //        if (country != null) {
         updateCountry(null);
 //        }
         return view;
+    }
+
+    private void initAds() {
+        adNative = new AdNative(getActivity(), frameAds, null);
+        adNative.load();
+        presenter.initAds();
+    }
+
+    @Override
+    public void onDestroy() {
+        adNative.destroy();
+        if (presenter != null)
+            presenter.onDetact();
+        super.onDestroy();
     }
 
     @Override
@@ -180,7 +183,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     @Override
     public void onPause() {
         super.onPause();
-        preseter.onPause();
+        presenter.onPause();
     }
 
     @Override
@@ -259,21 +262,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     private void disConnectVpn() {
-        preseter.pressDisConnect();
-        if (Ads.getRandom()) {
-            DialogLoading.showDialog(getContext());
-            Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
-                @Override
-                public void adClose() {
-                    DialogLoading.dismish();
-                }
-
-                @Override
-                public void adLoadFailed(int i) {
-                    DialogLoading.dismish();
-                }
-            });
-        }
+        presenter.pressDisConnect();
     }
 
     private void startAnimation(int view, int animation, boolean show) {
@@ -284,8 +273,8 @@ public class VpnFragment extends Fragment implements IVpnView {
             } else {
                 Element.setVisibility(View.GONE);
             }
-            Animation anim = AnimationUtils.loadAnimation(getContext(), animation);
-            Element.startAnimation(anim);
+//            Animation anim = AnimationUtils.loadAnimation(getContext(), animation);
+//            Element.startAnimation(anim);
         }
     }
 
@@ -295,8 +284,8 @@ public class VpnFragment extends Fragment implements IVpnView {
         switch (i) {
             case 0: {
                 if (Config.isFastConnect && Config.currentCountry != null) {
-                    imgFlag.setImageResource(R.drawable.ic_flag_fast);
-                    imgFlagConnected.setImageResource(R.drawable.ic_flag_fast);
+                    imgFlag.setImageResource(R.mipmap.ic_flag_fast);
+                    imgFlagConnected.setImageResource(R.mipmap.ic_flag_fast);
                     txtCountry.setText("Fast Connect");
                     txtConnectedCountry.setText("Fast Connect");
                 }
@@ -310,8 +299,8 @@ public class VpnFragment extends Fragment implements IVpnView {
             }
             case 1: {
                 if (Config.isFastConnect) {
-                    imgFlag.setImageResource(R.drawable.ic_flag_fast);
-                    imgFlagConnected.setImageResource(R.drawable.ic_flag_fast);
+                    imgFlag.setImageResource(R.mipmap.ic_flag_fast);
+                    imgFlagConnected.setImageResource(R.mipmap.ic_flag_fast);
                     txtCountry.setText("Fast Connect");
                     txtConnectedCountry.setText("Fast Connect");
                 }
@@ -354,7 +343,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     private void connectToVpn() {
-//        if (Ads.getRandom()) {
+//        if (Common.Ads.getRandom()) {
 //            DialogLoading.showDialog(getContext());
 //            Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
 //                @Override
@@ -370,7 +359,7 @@ public class VpnFragment extends Fragment implements IVpnView {
 //                }
 //            });
 //        } else {
-            preseter.pressLineConnect();
+        presenter.pressLineConnect();
 //        }
     }
 
@@ -385,26 +374,26 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     private void pressSwitchCountry() {
-        preseter.pressLineCountry();
+        presenter.pressLineCountry();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        preseter.onActivityResult(requestCode, resultCode, data);
+        presenter.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        preseter.onResume();
+        presenter.onResume();
     }
 
     @Override
     public void updateCountry(Country country) {
         if (Config.isFastConnect || country == null) {
-            imgFlag.setImageResource(R.drawable.ic_flag_fast);
-            imgFlagConnected.setImageResource(R.drawable.ic_flag_fast);
+            imgFlag.setImageResource(R.mipmap.ic_flag_fast);
+            imgFlagConnected.setImageResource(R.mipmap.ic_flag_fast);
             txtCountry.setText("Fast Connect");
             txtConnectedCountry.setText("Fast Connect");
         } else {

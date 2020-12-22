@@ -17,7 +17,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="15dp"
-            android:src="@drawable/ic_back_ios" />
+            android:src="@mipmap/ic_back_ios" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,13 +50,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/main" />
+                    android:src="@mipmap/ic_speed_test_clock" />
 
                 <ImageView
                     android:id="@+id/imgBar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/bar" />
+                    android:src="@mipmap/ic_speed_test_clock_1" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_download" />
+                        android:src="@mipmap/ic_download" />
 
                     <TextView
                         android:id="@+id/txtDownload"
@@ -115,7 +115,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_speed" />
+                        android:src="@mipmap/ic_speed" />
 
                     <TextView
                         android:id="@+id/txtPing"
@@ -138,7 +138,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_upload" />
+                        android:src="@mipmap/ic_upload" />
 
                     <TextView
                         android:id="@+id/txtUpload"

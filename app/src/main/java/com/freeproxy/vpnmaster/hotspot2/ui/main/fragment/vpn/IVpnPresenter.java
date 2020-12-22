@@ -22,4 +22,6 @@ public interface IVpnPresenter<V extends IVpnView> extends MVPPresenter<V> {
     void intentToApp(String s);
 
     void pressDisConnect();
+
+    void initAds();
 }

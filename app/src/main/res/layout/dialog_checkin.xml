@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_checkin_2" />
+            android:src="@mipmap/ic_checkin_2" />
     </LinearLayout>
 
     <LinearLayout
@@ -49,7 +49,7 @@
                 android:id="@+id/imgDay1"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/day_check" />
+                android:src="@mipmap/ic_day_check" />
 
             <TextView
                 style="@style/text_daily_style"
@@ -67,7 +67,7 @@
                 android:id="@+id/imgDay2"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/day2" />
+                android:src="@mipmap/ic_day2" />
 
             <TextView
                 style="@style/text_daily_style"
@@ -85,7 +85,7 @@
                 android:id="@+id/imgDay3"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/day3" />
+                android:src="@mipmap/ic_day3" />
 
             <TextView
                 style="@style/text_daily_style"
@@ -103,7 +103,7 @@
                 android:id="@+id/imgDay4"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/day4" />
+                android:src="@mipmap/ic_day4" />
 
             <TextView
                 style="@style/text_daily_style"
@@ -121,7 +121,7 @@
                 android:id="@+id/imgDay5"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/day5" />
+                android:src="@mipmap/ic_day5" />
 
             <TextView
                 style="@style/text_daily_style"
@@ -139,7 +139,7 @@
                 android:id="@+id/imgDay6"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/day6" />
+                android:src="@mipmap/ic_day6" />
 
             <TextView
                 style="@style/text_daily_style"
@@ -157,7 +157,7 @@
                 android:id="@+id/imgDay7"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/day7" />
+                android:src="@mipmap/ic_day7" />
 
             <TextView
                 style="@style/text_daily_style"

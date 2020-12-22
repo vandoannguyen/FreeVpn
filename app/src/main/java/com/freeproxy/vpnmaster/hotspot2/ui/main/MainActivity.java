@@ -23,7 +23,6 @@ import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.more.MoreFragment;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.point.PointFragment;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.vpn.VpnFragment;
 import com.freeproxy.vpnmaster.hotspot2.utils.SharedPrefsUtils;
-import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -51,7 +50,6 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Ads.getInstance(this).initAds();
         ButterKnife.bind(this);
         presenter = new MainPresenter<>(this);
         presenter.onAttact(this);

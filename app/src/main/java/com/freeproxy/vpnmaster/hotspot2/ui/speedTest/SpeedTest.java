@@ -17,11 +17,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.freeproxy.vpnmaster.hotspot2.R;
+import com.freeproxy.vpnmaster.hotspot2.common.Config;
 import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogLoading;
 import com.freeproxy.vpnmaster.hotspot2.ui.speedTest.test.HttpDownloadTest;
 import com.freeproxy.vpnmaster.hotspot2.ui.speedTest.test.HttpUploadTest;
 import com.freeproxy.vpnmaster.hotspot2.ui.speedTest.test.PingTest;
-import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
+import com.oneadx.android.oneads.AdInterstitial;
+import com.oneadx.android.oneads.AdListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -64,6 +66,7 @@ public class SpeedTest extends AppCompatActivity {
     RotateAnimation rotate;
     @BindView(R.id.frmAdsSpeedTest)
     FrameLayout frmAdsSpeedTest;
+    private AdInterstitial inter;
 
     @Override
     public void onResume() {
@@ -88,6 +91,8 @@ public class SpeedTest extends AppCompatActivity {
     }
 
     private void initAds() {
+        inter = new AdInterstitial(this);
+        inter.load();
     }
 
     @OnClick({R.id.btnBack, R.id.btnTest})
@@ -97,18 +102,11 @@ public class SpeedTest extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.btnTest:
-                if (Ads.getRandom()) {
+                if (Config.getRandom()) {
                     DialogLoading.showDialog(this);
-                    Ads.getInstance(this).inter(new Ads.CallBackInter() {
+                    inter.show(new AdListener() {
                         @Override
-                        public void adClose() {
-
-                            DialogLoading.dismish();
-                            startTest();
-                        }
-
-                        @Override
-                        public void adLoadFailed(int i) {
+                        public void onAdClosed() {
                             DialogLoading.dismish();
                             startTest();
                         }

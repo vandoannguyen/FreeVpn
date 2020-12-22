@@ -1,11 +1,11 @@
 package com.freeproxy.vpnmaster.hotspot2.common;
 
-import com.freeproxy.vpnmaster.hotspot2.data.api.model.Auth;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Country;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Server;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.User;
 
 import java.util.List;
+import java.util.Random;
 
 public class Config {
     public static String FileUsername;
@@ -23,5 +23,9 @@ public class Config {
     static String PREF_USAGE = "daily_usage";
     public static String StringCountDown;
     public static long LongDataUsage;
+    public static int percentInter = 100;
 
+    public static boolean getRandom() {
+        return new Random().nextInt(100) < Config.percentInter;
+    }
 }

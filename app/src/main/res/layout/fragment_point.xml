@@ -98,7 +98,7 @@
                             android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_coin" />
+                            android:src="@mipmap/ic_coin" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -151,7 +151,7 @@
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_multimedia" />
+                        android:src="@mipmap/ic_multimedia" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -205,7 +205,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_checkin" />
+                        android:src="@mipmap/ic_checkin" />
 
                     <TextView
                         android:layout_width="match_parent"

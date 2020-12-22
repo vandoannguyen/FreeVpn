@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.moreapp.MoreAppConfig;
 import com.freeproxy.vpnmaster.hotspot2.BuildConfig;
 import com.freeproxy.vpnmaster.hotspot2.base.BasePresenter;
 import com.freeproxy.vpnmaster.hotspot2.common.Config;
@@ -18,22 +17,22 @@ import com.freeproxy.vpnmaster.hotspot2.data.CallBack;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Country;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Server;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.User;
+import com.freeproxy.vpnmaster.hotspot2.ui.AdInterstitialNativeCustom;
 import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogCallBack;
 import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogRequireRemove;
 import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogUpdate;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.MainActivity;
 import com.freeproxy.vpnmaster.hotspot2.utils.Common;
 import com.freeproxy.vpnmaster.hotspot2.utils.SharedPrefsUtils;
-import com.freeproxy.vpnmaster.hotspot2.utils.ads.Ads;
 import com.google.gson.Gson;
+import com.oneadx.android.oneads.AdInterstitial;
+import com.oneadx.android.oneads.AdListener;
+import com.oneadx.android.oneads.OneAds;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -45,10 +44,35 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
             isGetCoinSuccess = false,
             isLoadAdsSuccess = false;
     String checkAppData = "";
-
+    private boolean isInitAdsSuccess = false;
 
     public LoadDataPresenter(AppCompatActivity activity) {
         this.activity = activity;
+    }
+
+    AdInterstitial adInterstitial;
+
+    @Override
+    public void initAds() {
+        OneAds.init(activity, new AdInterstitialNativeCustom(), new OneAds.OneAdsListener() {
+            @Override
+            public void onSuccess() {
+                adInterstitial = new AdInterstitial(activity);
+                adInterstitial.showSplashAd(new AdListener() {
+                    @Override
+                    public void onAdClosed() {
+                        isInitAdsSuccess = true;
+                        intentToMain();
+                    }
+                });
+            }
+
+            @Override
+            public void onError() {
+                isInitAdsSuccess = true;
+                intentToMain();
+            }
+        });
     }
 
     @Override
@@ -56,64 +80,80 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
         view.setStatus("Login app ...");
         String data = SharedPrefsUtils.getInstance(activity).getString("login");
 //        Log.e(TAG, "login: " + data);
-        if (data.isEmpty()) {
-            String mail = getRanDomText() + "@mail.com";
-            String pass = getRanDomText();
-            SharedPrefsUtils.getInstance(activity).putString("login", mail + "-" + pass);
-            AppDataHelper.getInstance().postCreateAcc(mail, pass, new CallBack<String>() {
-                @Override
-                public void onSuccess(String data) {
-                    super.onSuccess(data);
-                    AppDataHelper.getInstance().postLogin(mail, pass, new CallBack<String>() {
-                        @Override
-                        public void onSuccess(String data) {
-                            super.onSuccess(data);
-                            try {
-                                JSONObject dt = new JSONObject(data);
-                                Config.tokenApp = dt.getString("token");
-                                Config.user = new Gson().fromJson(dt.getString("user"), User.class);
-                                getData();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(activity, "Login failed !!!", Toast.LENGTH_SHORT).show();
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        activity.finish();
-                                    }
-                                }, 3000);
-                            }
-
-                        }
-                    });
-                }
-            });
-        } else {
-            String mail = data.split("-")[0];
-            String pass = data.split("-")[1];
-            Log.e(TAG, "login: " + mail + " " + pass);
-            AppDataHelper.getInstance().postLogin(mail, pass, new CallBack<String>() {
-                @Override
-                public void onSuccess(String data) {
-                    super.onSuccess(data);
-                    try {
-                        JSONObject dt = new JSONObject(data);
-                        Config.tokenApp = dt.getString("token");
-                        Config.user = new Gson().fromJson(dt.getString("user"), User.class);
-                        getData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(activity, "Login failed !!!", Toast.LENGTH_SHORT).show();
-                        new Handler().postDelayed(new Runnable() {
+        long now = Calendar.getInstance().getTimeInMillis();
+        String tokenData = SharedPrefsUtils.getInstance(activity).getString("token");
+        String lastTestLogin = "0";
+        String token = "";
+        String user = SharedPrefsUtils.getInstance(activity).getString("user");
+        if (!tokenData.isEmpty()) {
+            lastTestLogin = tokenData.split(" ")[1];
+            token = tokenData.split(" ")[0];
+        }
+        if (tokenData.isEmpty() || user.isEmpty() || token.isEmpty() || (now - Long.parseLong(lastTestLogin)) > 24 * 60 * 60 * 1000) {
+            if (data.isEmpty()) {
+                String mail = getRanDomText() + "@mail.com";
+                String pass = getRanDomText();
+                SharedPrefsUtils.getInstance(activity).putString("login", mail + "-" + pass);
+                AppDataHelper.getInstance().postCreateAcc(mail, pass, new CallBack<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        super.onSuccess(data);
+                        AppDataHelper.getInstance().postLogin(mail, pass, new CallBack<String>() {
                             @Override
-                            public void run() {
-                                activity.finish();
+                            public void onSuccess(String data) {
+                                super.onSuccess(data);
+                                try {
+                                    JSONObject dt = new JSONObject(data);
+                                    Config.tokenApp = dt.getString("token");
+                                    Config.user = new Gson().fromJson(dt.getString("user"), User.class);
+                                    SharedPrefsUtils.getInstance(activity).putString("token", Config.tokenApp + " " + now);
+                                    SharedPrefsUtils.getInstance(activity).putString("user", dt.getString("user"));
+                                    getData();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(activity, "Login failed !!!", Toast.LENGTH_SHORT).show();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            activity.finish();
+                                        }
+                                    }, 3000);
+                                }
                             }
-                        }, 3000);
+                        });
                     }
+                });
+            } else {
+                String mail = data.split("-")[0];
+                String pass = data.split("-")[1];
+                Log.e(TAG, "login: " + mail + " " + pass);
+                AppDataHelper.getInstance().postLogin(mail, pass, new CallBack<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        super.onSuccess(data);
+                        try {
+                            JSONObject dt = new JSONObject(data);
+                            Config.tokenApp = dt.getString("token");
+                            Config.user = new Gson().fromJson(dt.getString("user"), User.class);
+                            getData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(activity, "Login failed !!!", Toast.LENGTH_SHORT).show();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    activity.finish();
+                                }
+                            }, 3000);
+                        }
 
-                }
-            });
+                    }
+                });
+            }
+        } else {
+            Config.user = new Gson().fromJson(user, User.class);
+            Config.tokenApp = token;
+            getData();
         }
     }
 
@@ -156,7 +196,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     }
 
     private void intentToMain() {
-        if (isGetCoinSuccess && isLoadAdsSuccess && isLoadCountrySuccess ) {
+        if (isGetCoinSuccess && isLoadAdsSuccess && isLoadCountrySuccess && isInitAdsSuccess) {
             Config.isDataLoaded = true;
             if (checkAppData.isEmpty()) {
                 intentMain();
@@ -260,101 +300,18 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
         });
     }
 
-    public void getAds() {
+    public void getConfigAds() {
         AppDataHelper.getInstance().getAdsConfig(new CallBack<JSONObject>() {
             @Override
             public void onSuccess(JSONObject s) {
                 super.onSuccess(s);
                 try {
-                    String banner = "";
-                    String interstitial = "";
-                    String nativeAds = "";
-                    String rewar_id_admob = "";
-                    String bannerFan = "";
-                    String interstitialFan = "";
-                    String nativeAdsFan = "";
-                    boolean isShowInter = false;
-                    boolean isShowBanner = false;
-                    boolean isLoadFailed = false;
-                    boolean isShowNative = false;
-                    boolean isAdmob = false, isAdmobRewad = false;
                     int percents = 0;
-                    int free_time_connect = 15;
 
                     if (s != null) {
                         JSONObject adObject = s.getJSONObject("configs");
-                        boolean isConstanceAdmob = adObject.getBoolean("isConstanceAdmob");
-                        String admobData = SharedPrefsUtils.getInstance(activity).getString("constAdmob");
-                        if (isConstanceAdmob && !admobData.isEmpty()) {
-                            AdsMordel model = AdsMordel.fromJson(admobData);
-                            banner = model.banner;
-                            interstitial = model.inter;
-                            nativeAds = model.nativeAds;
-                            Log.e(TAG, "onPostExecute: get constanceAdmob");
-                        } else {
-                            JSONArray arr = adObject.getJSONArray("list");
-                            ArrayList<AdsMordel> models = new ArrayList<>();
-                            for (int i = 0; i < arr.length(); i++) {
-                                models.add(AdsMordel.fromJson(arr.getString(i)));
-
-                            }
-                            Collections.sort(models, new Comparator<AdsMordel>() {
-                                @Override
-                                public int compare(AdsMordel mordel, AdsMordel t1) {
-                                    return (t1.percent - mordel.percent);
-                                }
-                            });
-                            int ran = new Random().nextInt(100);
-                            AdsMordel model;
-                            if (ran < models.get(0).percent) {
-                                model = models.get(0);
-                                banner = model.banner;
-                                interstitial = model.inter;
-                                nativeAds = model.nativeAds;
-                                rewar_id_admob = model.rewared;
-                            } else {
-                                model = models.get(new Random(models.size() - 1).nextInt() + 1);
-                                banner = model.banner;
-                                interstitial = model.inter;
-                                nativeAds = model.nativeAds;
-                                rewar_id_admob = model.rewared;
-                            }
-                            if (isConstanceAdmob) {
-                                SharedPrefsUtils.getInstance(activity).putString("constAdmob", AdsMordel.toJson(model));
-                            }
-                            String more_app = adObject.getString("more_app");
-                            MoreAppConfig.setMoreAppConfigs(more_app);
-                        }
-                        percents = adObject.getInt("percents_inter");
-                        bannerFan = adObject.getString("ad_banner_fan_id");
-                        interstitialFan = adObject.getString("ad_inter_fan_id");
-                        nativeAdsFan = adObject.getString("ad_native_fan_id");
-                        isShowInter = adObject.getBoolean("is_show_inter");
-                        isShowBanner = adObject.getBoolean("is_show_banner");
-                        isShowNative = adObject.getBoolean("is_show_native");
-                        isLoadFailed = adObject.getBoolean("is_load_fail");
-                        isAdmob = adObject.getBoolean("isAdmob");
-                        isAdmobRewad = adObject.getBoolean("isAdmobRewad");
-                        checkAppData = adObject.getString("checkApp");
-                    }
-                    Ads.is_show_inter = isShowInter;
-                    Ads.is_show_banner = isShowBanner;
-                    Ads.is_load_failed = isLoadFailed;
-                    Ads.is_show_admob = isAdmob;
-                    Ads.is_show_admob_rewad = isAdmobRewad;
-//                    Ads.is_show_admob = true;
-                    Ads.percents = percents;
-                    if (!com.freeproxy.vpnmaster.hotspot2.utils.Config.isDebug) {
-                        Ads.rewar_id_admob = rewar_id_admob;
-                        Ads.banner_id_admob = banner;
-                        Ads.inter_id_admob = interstitial;
-                        Ads.native_id_admob = nativeAds;
-                        Ads.banner_id_fan = bannerFan;
-                        Ads.inter_id_fan = interstitialFan;
-                        Ads.native_id_fan = nativeAdsFan;
                     }
                     isLoadAdsSuccess = true;
-
                     intentToMain();
                 } catch (
                         Exception e) {

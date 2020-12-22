@@ -270,7 +270,7 @@
                             android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_manual" />
+                            android:src="@mipmap/ic_manual" />
 
                         <TextView
                             style="@style/text_more_fragment_card"

@@ -22,7 +22,7 @@ import de.blinkt.openvpn.VpnProfile;
 //! Openvpn Config FIle Parser, probably not 100% accurate but close enough
 // And remember, this is valid :)
 // --<foo>
-// bar
+// ic_speed_test_clock_1
 // </foo>
 public class ConfigParser {
     public static final String CONVERTED_PROFILE = "converted Profile";

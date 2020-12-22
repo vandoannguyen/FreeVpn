@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
     <ImageView
         android:layout_margin="10dp"
-        app:srcCompat="@drawable/qa"
+        app:srcCompat="@mipmap/ic_qa"
         android:layout_width="30dp"
         android:layout_height="30dp"/>
     <TextView
