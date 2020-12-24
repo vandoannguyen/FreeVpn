@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
-import com.example.ratedialog.RatingDialog;
 import com.freeproxy.vpnmaster.hotspot2.R;
 import com.freeproxy.vpnmaster.hotspot2.base.BaseActivity;
 import com.freeproxy.vpnmaster.hotspot2.data.AppDataHelper;
@@ -24,6 +22,7 @@ import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.point.PointFragment;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.vpn.VpnFragment;
 import com.freeproxy.vpnmaster.hotspot2.utils.SharedPrefsUtils;
 import com.google.android.material.tabs.TabLayout;
+import com.oneadx.android.ratedialog.RatingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -172,9 +171,8 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
 
     @Override
     public void onSubmit(float rating) {
-        rateApp(this);
         if (rating > 3) {
-//            rateApp(this);
+            rateApp(this);
             SharedPrefsUtils.getInstance(this).putInt("rate", 5);
         }
     }

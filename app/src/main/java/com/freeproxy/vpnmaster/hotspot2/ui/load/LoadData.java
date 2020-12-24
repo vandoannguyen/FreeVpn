@@ -24,8 +24,8 @@ import butterknife.ButterKnife;
 public class LoadData extends AppCompatActivity implements ILoadDataView {
     private static final int REQUEST_OVERLAY_PERMISSION = 2;
     ILoadPresenter<ILoadDataView> presenter;
-    @BindView(R.id.txtStatus)
-    TextView txtStatus;
+    @BindView(R.id.txtVersion)
+    TextView txtVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +34,9 @@ public class LoadData extends AppCompatActivity implements ILoadDataView {
         ButterKnife.bind(this);
         presenter = new LoadDataPresenter<>(this);
         presenter.onAttact(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            if (!Settings.canDrawOverlays(this)) {
-                showDialogSetting();
-            } else {
-                init();
-            }
+        txtVersion.setText(BuildConfig.VERSION_NAME);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Settings.canDrawOverlays(this)) {
+            showDialogSetting();
         } else {
             init();
         }
@@ -51,7 +48,6 @@ public class LoadData extends AppCompatActivity implements ILoadDataView {
             @Override
             public void onClickOk() {
                 super.onClickOk();
-
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
                 startActivityForResult(intent, REQUEST_OVERLAY_PERMISSION);
             }
@@ -112,6 +108,6 @@ public class LoadData extends AppCompatActivity implements ILoadDataView {
 
     @Override
     public void setStatus(String mess) {
-        txtStatus.setText(mess);
+//        txtStatus.setText(mess);
     }
 }

@@ -25,6 +25,8 @@ import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogPoint;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.FragmentCallback;
 import com.freeproxy.vpnmaster.hotspot2.ui.speedTest.SpeedTest;
 import com.freeproxy.vpnmaster.hotspot2.ui.switchRegion.SwitchRegion;
+import com.oneadx.android.oneads.AdSize;
+import com.oneadx.android.oneads.adbanner.AdBanner;
 import com.oneadx.android.oneads.adnative.AdNative;
 
 import butterknife.BindView;
@@ -95,6 +97,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     private IVpnPresenter<IVpnView> presenter;
     FragmentCallback callback;
     private AdNative adNative;
+    private AdBanner adBanner;
 
     public VpnFragment() {
         // Required empty public constructor
@@ -144,7 +147,19 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     private void initAds() {
-        adNative = new AdNative(getActivity(), frameAds, null);
+        adNative = new AdNative(getActivity(), frameAds, new AdNative.AdNativeListener() {
+            @Override
+            public void onAdLoaded() {
+
+            }
+
+            @Override
+            public void onError() {
+                adBanner = new AdBanner(getActivity(), frameAds, null);
+                adBanner.setAdSize(AdSize.BIG_BANNER);
+                adBanner.load();
+            }
+        });
         adNative.load();
         presenter.initAds();
     }
@@ -152,6 +167,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     @Override
     public void onDestroy() {
         adNative.destroy();
+        if (adBanner != null) adBanner.destroy();
         if (presenter != null)
             presenter.onDetact();
         super.onDestroy();
@@ -317,12 +333,6 @@ public class VpnFragment extends Fragment implements IVpnView {
                         Glide.with(getContext()).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlag);
                         Glide.with(getContext()).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlagConnected);
                     }
-//                    txtCountry.setText(Config.currentCountry != null ? Config.currentCountry.getName() : "");
-//                    txtConnectedCountry.setText(Config.currentCountry != null ? Config.currentCountry.getName() : "");
-//                    if (Config.currentCountry != null) {
-//                        Glide.with(getContext()).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlag);
-//                        Glide.with(getContext()).load("https://www.countryflags.io/" + Config.currentCountry.getCode() + "/flat/64.png").into(imgFlagConnected);
-//                    }
                 }
                 txtStatusConnect.setText("Connected");
                 startAnimation(R.id.linearConnected, R.anim.fade_in_1000, true);
@@ -343,24 +353,7 @@ public class VpnFragment extends Fragment implements IVpnView {
     }
 
     private void connectToVpn() {
-//        if (Common.Ads.getRandom()) {
-//            DialogLoading.showDialog(getContext());
-//            Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
-//                @Override
-//                public void adClose() {
-//                    preseter.pressLineConnect();
-//                    DialogLoading.dismish();
-//                }
-//
-//                @Override
-//                public void adLoadFailed(int i) {
-//                    preseter.pressLineConnect();
-//                    DialogLoading.dismish();
-//                }
-//            });
-//        } else {
         presenter.pressLineConnect();
-//        }
     }
 
     @Override

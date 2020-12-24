@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-
-import com.example.moreapp.MoreAppConfig;
-import com.example.moreapp.MoreAppUtil;
 import com.freeproxy.vpnmaster.hotspot2.BuildConfig;
 import com.freeproxy.vpnmaster.hotspot2.R;
 import com.freeproxy.vpnmaster.hotspot2.ui.faq.FAQActivity;
@@ -73,9 +70,9 @@ public class MoreFragment extends Fragment {
         frmAdsMore.setVisibility(View.GONE);
 //        Ads.getInstance(getActivity()).banner(frmAdsMore, Ads.AdsSize.MEDIUM);
         txtVersion.setText(BuildConfig.VERSION_NAME);
-        if (MoreAppConfig.getMoreAppConfigs() == null || MoreAppConfig.getMoreAppConfigs().isEmpty()) {
-            cardMoreApp.setVisibility(View.GONE);
-        }
+//        if (MoreAppConfig.getMoreAppConfigs() == null || MoreAppConfig.getMoreAppConfigs().isEmpty()) {
+//            cardMoreApp.setVisibility(View.GONE);
+//        }
         return view;
     }
 
@@ -103,15 +100,15 @@ public class MoreFragment extends Fragment {
                 break;
             }
             case R.id.cardMoreApp: {
-                if (MoreAppConfig.getMoreAppConfigs() != null && !MoreAppConfig.getMoreAppConfigs().isEmpty()) {
-                    MoreAppUtil moreAppUtil = new MoreAppUtil(getContext(), new MoreAppUtil.OnClickInstall() {
-                        @Override
-                        public void onClick(String packageName) {
-
-                        }
-                    });
-                    moreAppUtil.show();
-                }
+//                if (MoreAppConfig.getMoreAppConfigs() != null && !MoreAppConfig.getMoreAppConfigs().isEmpty()) {
+//                    MoreAppUtil moreAppUtil = new MoreAppUtil(getContext(), new MoreAppUtil.OnClickInstall() {
+//                        @Override
+//                        public void onClick(String packageName) {
+//
+//                        }
+//                    });
+//                    moreAppUtil.show();
+//                }
                 break;
             }
         }

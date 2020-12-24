@@ -1,4 +1,3 @@
 include ':library'
-include ':ratedialog'
 include ':app'
 rootProject.name = "init_app_vpn_native"

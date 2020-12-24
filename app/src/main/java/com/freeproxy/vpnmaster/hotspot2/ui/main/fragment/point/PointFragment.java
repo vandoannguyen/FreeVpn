@@ -494,19 +494,6 @@ public class PointFragment extends Fragment {
                             Toast.makeText(getActivity(), "+500 Success", Toast.LENGTH_SHORT).show();
                         }
                     });
-//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
-//                        @Override
-//                        public void adClose() {
-//                            Common.totalPoint += 500;
-//                            callback.setPoint(Common.totalPoint);
-//                            Toast.makeText(getActivity(), "+500 Success", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        @Override
-//                        public void adLoadFailed(int i) {
-//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
                 } else if (checkin == 4 && Common.days != today.monthDay) {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
@@ -520,19 +507,6 @@ public class PointFragment extends Fragment {
                             Toast.makeText(getActivity(), "+600 Success", Toast.LENGTH_SHORT).show();
                         }
                     });
-//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
-//                        @Override
-//                        public void adClose() {
-//                            Common.totalPoint += 600;
-//                            callback.setPoint(Common.totalPoint);
-//                            Toast.makeText(getActivity(), "+600 Success", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        @Override
-//                        public void adLoadFailed(int i) {
-//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
                 } else if (checkin == 5 && Common.days != today.monthDay) {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
@@ -546,19 +520,6 @@ public class PointFragment extends Fragment {
                             Toast.makeText(getActivity(), "+900 Success", Toast.LENGTH_SHORT).show();
                         }
                     });
-//                    Ads.getInstance(getActivity()).inter(new Ads.CallBackInter() {
-//                        @Override
-//                        public void adClose() {
-//                            Common.totalPoint += 900;
-//                            callback.setPoint(Common.totalPoint);
-//                            Toast.makeText(getActivity(), "+900 Success", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        @Override
-//                        public void adLoadFailed(int i) {
-//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
                 } else if (checkin == 6 && Common.days != today.monthDay) {
                     SharedPrefsUtils.getInstance(view.getContext()).putInt("days", today.monthDay);
                     //
@@ -597,6 +558,7 @@ public class PointFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lineTapCoin:
+
                 if (Common.checktap == 0) {
                     isRandomingPoint = true;
                     numberPicker1.setValue(0);
@@ -684,27 +646,6 @@ public class PointFragment extends Fragment {
                             Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
                         }
                     });
-//                    Ads.getInstance(getActivity()).rewared(new Ads.CallBackRewared() {
-//                        @Override
-//                        public void adClose() {
-//                            CountDownTwo();
-//                            progressDialog.dismiss();
-//                        }
-//
-//                        @Override
-//                        public void adLoadFailed(int i) {
-//                            progressDialog.dismiss();
-//                            Toast.makeText(getActivity(), "Load ads failed", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        @Override
-//                        public void adRewared() {
-//                            Common.totalPoint += rdCoin;
-//                            callback.setPoint(Common.totalPoint);
-//                            progressDialog.dismiss();
-//                            Toast.makeText(getActivity(), "+" + rdCoin + " Success", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
                     lastWatchedVideo = now;
                 } else {
                     Toast.makeText(getContext(), "Wait for 1 minute", Toast.LENGTH_SHORT).show();
