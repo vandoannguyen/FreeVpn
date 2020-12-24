@@ -22,7 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoadData extends AppCompatActivity implements ILoadDataView {
-    private static final int REQUEST_OVERLAY_PERMISSION = 2;
     ILoadPresenter<ILoadDataView> presenter;
     @BindView(R.id.txtVersion)
     TextView txtVersion;
@@ -35,47 +34,11 @@ public class LoadData extends AppCompatActivity implements ILoadDataView {
         presenter = new LoadDataPresenter<>(this);
         presenter.onAttact(this);
         txtVersion.setText(BuildConfig.VERSION_NAME);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Settings.canDrawOverlays(this)) {
-            showDialogSetting();
-        } else {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Settings.canDrawOverlays(this)) {
+//            showDialogSetting();
+//        } else {
             init();
-        }
-    }
-
-    private void showDialogSetting() {
-        DialogRequirePermission dialog = new DialogRequirePermission(this);
-        dialog.setCallBack(new DialogCallBack() {
-            @Override
-            public void onClickOk() {
-                super.onClickOk();
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, REQUEST_OVERLAY_PERMISSION);
-            }
-
-            @Override
-            public void onClickNo() {
-                super.onClickNo();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                    }
-                }, 3000);
-            }
-        });
-        dialog.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_OVERLAY_PERMISSION) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (Settings.canDrawOverlays(LoadData.this)) {
-                    init();
-                }
-            }
-        }
+//        }
     }
 
     private void init() {

@@ -1,6 +1,7 @@
 package com.freeproxy.vpnmaster.hotspot2;
 
 import com.androidnetworking.AndroidNetworking;
+import com.facebook.ads.AudienceNetworkAds;
 import com.flurry.android.FlurryAgent;
 import com.ss.android.UgcTrillNetwork;
 
@@ -10,6 +11,7 @@ public class MyApplication extends App {
     @Override
     public void onCreate() {
         super.onCreate();
+        AudienceNetworkAds.initialize(this);
         AndroidNetworking.initialize(getApplicationContext());
         new FlurryAgent.Builder()
                 .withLogEnabled(true)

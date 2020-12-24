@@ -3,18 +3,24 @@ package com.freeproxy.vpnmaster.hotspot2.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+
 import com.freeproxy.vpnmaster.hotspot2.R;
 import com.freeproxy.vpnmaster.hotspot2.base.BaseActivity;
 import com.freeproxy.vpnmaster.hotspot2.data.AppDataHelper;
+import com.freeproxy.vpnmaster.hotspot2.dialog.DialogCallBack;
+import com.freeproxy.vpnmaster.hotspot2.dialog.DialogRequirePermission;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.adapter.ViewPagerAdapter;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.FragmentCallback;
 import com.freeproxy.vpnmaster.hotspot2.ui.main.fragment.more.MoreFragment;
@@ -32,6 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements IMainActivity, RatingDialog.RatingDialogInterFace {
+    private static final int REQUEST_OVERLAY_PERMISSION = 2;
     private String TAG = "MainActivity";
     MainPresenter<IMainActivity> presenter;
     @BindView(R.id.lineCoinMain)
@@ -55,7 +62,46 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
         presenter.getExample();
         initViewPager();
         initTabLayout();
-        rateAuto();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            showDialogSetting();
+        } else {
+            rateAuto();
+        }
+    }
+
+    private void showDialogSetting() {
+        DialogRequirePermission dialog = new DialogRequirePermission(this);
+        dialog.setCallBack(new DialogCallBack() {
+            @Override
+            public void onClickOk() {
+                super.onClickOk();
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, REQUEST_OVERLAY_PERMISSION);
+            }
+
+            @Override
+            public void onClickNo() {
+                super.onClickNo();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 1000);
+            }
+        });
+        dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_OVERLAY_PERMISSION) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Settings.canDrawOverlays(MainActivity.this)) {
+                }
+            }
+        }
     }
 
     @Override
