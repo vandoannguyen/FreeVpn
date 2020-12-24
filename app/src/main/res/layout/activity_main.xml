@@ -11,16 +11,11 @@
         android:background="@color/color_main"
         android:padding="5dp">
 
-        <TextView
-            android:fontFamily="@font/bold"
+        <ImageView
+            android:layout_gravity="bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:text="@string/app_name_title"
-            android:textColor="@android:color/white"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:src="@drawable/logo_main" />
 
         <View
             android:layout_width="match_parent"
@@ -34,10 +29,10 @@
             android:layout_marginRight="5dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_coin_1" />
+                android:src="@drawable/ic_coin_1" />
 
             <TextView
                 android:fontFamily="@font/light"

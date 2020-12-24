@@ -60,12 +60,10 @@ public class PointFragment extends Fragment {
     com.shawnlin.numberpicker.NumberPicker numberPicker2;
     @BindView(R.id.numberPick3)
     com.shawnlin.numberpicker.NumberPicker numberPicker3;
-    @BindView(R.id.lineTapCoin)
-    LinearLayout lineTapCoin;
-    @BindView(R.id.lineWatchVideo)
-    LinearLayout lineWatchVideo;
-    @BindView(R.id.lineCheckin)
-    LinearLayout lineCheckin;
+    @BindView(R.id.relativeWatchVideo)
+    RelativeLayout relativeWatchVideo;
+    @BindView(R.id.relativeCheckin)
+    RelativeLayout relativeCheckin;
     @BindView(R.id.lineInvite)
     LinearLayout lineInvite;
     @BindView(R.id.lineCodes)
@@ -554,10 +552,10 @@ public class PointFragment extends Fragment {
         });
     }
 
-    @OnClick({R.id.lineTapCoin, R.id.lineWatchVideo, R.id.lineCheckin, R.id.lineInvite, R.id.lineCodes, R.id.numberPick1, R.id.numberPick2, R.id.numberPick3})
+    @OnClick({R.id.relativeTapCoin, R.id.relativeWatchVideo, R.id.relativeCheckin, R.id.lineInvite, R.id.lineCodes, R.id.numberPick1, R.id.numberPick2, R.id.numberPick3})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.lineTapCoin:
+            case R.id.relativeTapCoin:
 
                 if (Common.checktap == 0) {
                     isRandomingPoint = true;
@@ -607,7 +605,7 @@ public class PointFragment extends Fragment {
 //                Log.e(TAG, "onViewClicked:  " + ran);
 //                testNumberPicker.smoothScrollToWithRandomNumber(30);
                 break;
-            case R.id.lineWatchVideo:
+            case R.id.relativeWatchVideo:
                 long now = Calendar.getInstance().getTimeInMillis();
                 if ((now - lastWatchedVideo) > 60000) {
                     progressDialog.show();
@@ -652,7 +650,7 @@ public class PointFragment extends Fragment {
                 }
 
                 break;
-            case R.id.lineCheckin:
+            case R.id.relativeCheckin:
                 showDialogCheckin();
                 break;
             case R.id.lineInvite:
