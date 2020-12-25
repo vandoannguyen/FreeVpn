@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-//        applicationId "com.freeproxy.vpnmaster.hotspot"
+//        applicationId "com.securevpn.free.vpnmaster"
         applicationId "com.oneadx.libadsinapp"
         minSdkVersion 19
         targetSdkVersion 30
@@ -68,7 +68,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
 //    libCty
-    implementation "com.tiktok:audience-network-sdk:5.4.1"
+    implementation 'com.facebook:oneadx-audience-network-sdk:5.3.1'
     implementation 'com.google.android.gms:play-services-ads:19.6.0'
     implementation 'com.facebook.android:audience-network-sdk:5.+'
     implementation 'com.oneadx:network-sdk:1.0.3'

@@ -1,22 +1,16 @@
 package com.freeproxy.vpnmaster.hotspot2.ui.load;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.freeproxy.vpnmaster.hotspot2.BuildConfig;
 import com.freeproxy.vpnmaster.hotspot2.R;
 import com.freeproxy.vpnmaster.hotspot2.common.Config;
-import com.freeproxy.vpnmaster.hotspot2.dialog.DialogCallBack;
-import com.freeproxy.vpnmaster.hotspot2.dialog.DialogRequirePermission;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +19,8 @@ public class LoadData extends AppCompatActivity implements ILoadDataView {
     ILoadPresenter<ILoadDataView> presenter;
     @BindView(R.id.txtVersion)
     TextView txtVersion;
+    @BindView(R.id.imgLoading)
+    ImageView imgLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +30,8 @@ public class LoadData extends AppCompatActivity implements ILoadDataView {
         presenter = new LoadDataPresenter<>(this);
         presenter.onAttact(this);
         txtVersion.setText(BuildConfig.VERSION_NAME);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Settings.canDrawOverlays(this)) {
-//            showDialogSetting();
-//        } else {
-            init();
-//        }
+        init();
+        Glide.with(this).asGif().load(R.raw.loading_gift).into(imgLoading);
     }
 
     private void init() {

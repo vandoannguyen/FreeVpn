@@ -308,17 +308,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_marginTop="10dp"
-                            android:background="@drawable/custum_background_button"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:fontFamily="@font/semi_bold"
+                                android:fontFamily="@font/bold"
                                 android:text="Tab to Disconnect"
-                                android:textColor="@color/color_main"
-                                android:textSize="18sp"
+                                android:textColor="@color/colorRed"
+                                android:textSize="20dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -329,15 +328,15 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="50dp">
+                android:layout_marginRight="20dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_centerInParent="true"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    app:cardBackgroundColor="#B7E5EB"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    app:cardBackgroundColor="@color/button_primary2"
                     app:cardCornerRadius="10dp">
 
                     <LinearLayout
@@ -369,7 +368,7 @@
 
                 <RelativeLayout
                     android:layout_width="90dp"
-                    android:layout_height="70dp"
+                    android:layout_height="65dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
@@ -383,20 +382,37 @@
                         android:layout_centerInParent="true"
                         android:fontFamily="@font/bold"
                         android:gravity="center"
-                        android:textStyle="bold"
                         android:text="+\n1000"
                         android:textAlignment="center"
                         android:textColor="#FCD385"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </RelativeLayout>
 
             <FrameLayout
                 android:id="@+id/frameAds"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:visibility="visible" />
+                android:visibility="visible">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFC107"
+                    android:padding="3dp"
+                    android:text="Ad" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+                </RelativeLayout>
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/linearConnected"
@@ -425,7 +441,7 @@
                             android:layout_marginLeft="10dp"
                             android:fontFamily="@font/medium"
                             android:text="Quick Launch"
-                            android:textColor="#000000"
+                            android:textColor="@color/color_main"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -595,31 +611,37 @@
                             </RelativeLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
-
-                    <!--                    <View-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="match_parent"-->
-                    <!--                        android:layout_weight="1"></View>-->
-
-                    <androidx.cardview.widget.CardView
+                    <RelativeLayout
+                        android:id="@+id/relativeGetSpeedTest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        app:cardBackgroundColor="@android:color/white"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="4dp">
+                        android:layout_margin="15dp">
 
-                        <LinearLayout
-                            android:id="@+id/lineGetSpeedTest"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="10dp">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="4dp"
+                            app:cardBackgroundColor="@android:color/white"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="1dp">
 
                             <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center"
                                 android:src="@drawable/ic_speed_2" />
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_centerInParent="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="60dp"
+                            android:background="@drawable/custum_background_button_primary"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -628,34 +650,31 @@
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/medium"
                                 android:text="Speed test"
-                                android:textColor="@color/color_main"
-                                android:textSize="16sp"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="22sp"
                                 android:textStyle="bold" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1" />
-
-                            <RelativeLayout
-                                android:layout_width="80dp"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center"
-                                android:layout_marginRight="10dp"
-                                android:background="@drawable/custom_button_more">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:fontFamily="@font/medium"
-                                    android:text="Start"
-                                    android:textColor="@color/color_main"
-                                    android:textSize="15dp"
-                                    android:textStyle="bold" />
-                            </RelativeLayout>
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+
+                        <RelativeLayout
+                            android:layout_width="90dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:background="@drawable/custom_button_more">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/medium"
+                                android:text="Start"
+                                android:textColor="@color/color_main"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
                 </LinearLayout>
 
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -30,18 +31,18 @@ public class MoreFragment extends Fragment {
     private String TAG = "MoreFragment";
     @BindView(R.id.frmAdsMore)
     FrameLayout frmAdsMore;
-    @BindView(R.id.lineSpeedTestMore)
-    LinearLayout lineSpeedTestMore;
+    @BindView(R.id.relativeSpeedTestMore)
+    RelativeLayout relativeSpeedTestMore;
     @BindView(R.id.txtVersion)
     TextView txtVersion;
     @BindView(R.id.lineProxy)
     LinearLayout lineProxy;
     @BindView(R.id.lineLike)
-    LinearLayout lineLike;
+    RelativeLayout lineLike;
     @BindView(R.id.lineSuggestion)
-    LinearLayout lineSuggestion;
+    RelativeLayout lineSuggestion;
     @BindView(R.id.lineUser)
-    LinearLayout lineUser;
+    RelativeLayout lineUser;
     FragmentCallback callback;
 
 
@@ -76,7 +77,7 @@ public class MoreFragment extends Fragment {
         return view;
     }
 
-    @OnClick({R.id.lineProxy, R.id.lineLike, R.id.lineSuggestion, R.id.lineUser, R.id.lineSpeedTestMore,R.id.cardMoreApp})
+    @OnClick({R.id.lineProxy, R.id.lineLike, R.id.lineSuggestion, R.id.lineUser, R.id.relativeSpeedTestMore,R.id.cardMoreApp})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lineProxy:
@@ -95,7 +96,7 @@ public class MoreFragment extends Fragment {
                 Intent intentFAQ = new Intent(getActivity(), FAQActivity.class);
                 startActivity(intentFAQ);
                 break;
-            case R.id.lineSpeedTestMore: {
+            case R.id.relativeSpeedTestMore: {
                 startActivity(new Intent(getActivity(), SpeedTest.class));
                 break;
             }

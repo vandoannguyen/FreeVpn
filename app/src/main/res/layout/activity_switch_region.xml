@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<!--    android:background="#FCD736"-->
+    <!--    android:background="#FCD736"-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -24,9 +24,9 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="Switch Region"
-            android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/icRefreshRegion"
@@ -35,7 +35,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:padding="10dp"
-            android:src="@drawable/ic_reffresh"/>
+            android:src="@drawable/ic_reffresh" />
     </LinearLayout>
 
     <RelativeLayout
@@ -55,33 +55,33 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/custom_background_item_server">
 
-<!--                <ImageView-->
-<!--                    android:layout_width="50dp"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginLeft="10dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:src="@drawable/ic_flag_fast" />-->
+                <!--                <ImageView-->
+                <!--                    android:layout_width="50dp"-->
+                <!--                    android:layout_height="40dp"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:scaleType="fitCenter"-->
+                <!--                    android:src="@drawable/ic_flag_fast" />-->
 
                 <TextView
-                    android:fontFamily="@font/semi_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/bold"
                     android:text="Fast Connect"
-                    android:textStyle="bold"
                     android:textColor="@android:color/holo_red_light"
-                    android:textSize="28sp" />
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:padding="10dp"
                     android:layout_width="49dp"
                     android:layout_height="49dp"
                     android:layout_gravity="center"
+                    android:padding="10dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/ic_tick" />
+                    android:src="@drawable/ic_tick" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -100,15 +100,28 @@
                 tools:itemCount="10"
                 tools:listitem="@layout/item_server" />
 
-            <RelativeLayout
+            <FrameLayout
+                android:id="@+id/frmAdsSwitch"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
-                <FrameLayout
-                    android:id="@+id/frmAdsSwitch"
-                    android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
+                    android:background="#FFC107"
+                    android:padding="3dp"
+                    android:text="Ad" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+                </RelativeLayout>
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout

@@ -14,7 +14,6 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name_title"
         android:largeHeap="true"
@@ -26,8 +25,7 @@
         <activity android:name=".ui.speedTest.SpeedTest" />
         <activity android:name=".ui.switchRegion.SwitchRegion" />
         <activity android:name=".ui.point.PointsDesActivity" />
-        <activity android:name=".ui.proxy.ProxySettingActivity" />
-        <!--        <activity android:name=".ui.invite.InviteFriendActivity" />-->
+        <activity android:name=".ui.proxy.ProxySettingActivity" /> <!-- <activity android:name=".ui.invite.InviteFriendActivity" /> -->
         <activity android:name=".ui.enterCode.EnterCodesActivity" />
         <activity android:name=".ui.feedBack.FeedbackActivity" />
         <activity android:name=".ui.faq.FAQActivity" />
@@ -35,8 +33,7 @@
             android:name=".ui.AdInterstitialNativeCustom"
             android:theme="@style/OneADS.NoActionBar" />
         <activity android:name=".ui.main.MainActivity" />
-        <activity
-            android:name=".ui.load.LoadData">
+        <activity android:name=".ui.load.LoadData">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,6 +44,7 @@
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
+
         <activity
             android:name="de.blinkt.openvpn.LaunchVPN"
             android:excludeFromRecents="true"

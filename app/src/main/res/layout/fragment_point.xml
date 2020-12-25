@@ -14,78 +14,103 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                app:cardCornerRadius="6dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    app:cardCornerRadius="6dp">
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="170dp"
-                        android:background="@drawable/custom_background_point">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true" />
-
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="170dp"
-                            android:layout_margin="10dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:background="@drawable/custom_background_point">
 
-                            <com.shawnlin.numberpicker.NumberPicker
-                                android:id="@+id/numberPick1"
-                                android:layout_width="70dp"
-                                android:layout_height="wrap_content"
-                                android:contextClickable="false"
-                                android:dividerPadding="0dp"
-                                app:np_dividerColor="@android:color/transparent"
-                                app:np_itemSpacing="-16dp"
-                                app:np_selectedTextAlign="selectedTextAlignCenter"
-                                app:np_selectedTextColor="@android:color/black"
-                                app:np_selectedTextSize="50sp"
-                                app:np_textSize="25dp" />
+                            <LinearLayout
+                                android:id="@+id/linea1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="170dp"
+                                android:layout_centerInParent="true"
+                                android:layout_margin="10dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
-                            <com.shawnlin.numberpicker.NumberPicker
-                                android:id="@+id/numberPick2"
-                                android:layout_width="70dp"
-                                android:layout_height="wrap_content"
-                                android:contextClickable="false"
-                                android:dividerPadding="0dp"
-                                app:np_dividerColor="@android:color/transparent"
-                                app:np_itemSpacing="-16dp"
-                                app:np_selectedTextAlign="selectedTextAlignCenter"
-                                app:np_selectedTextColor="@android:color/black"
-                                app:np_selectedTextSize="50sp"
-                                app:np_textSize="25dp" />
+                                <com.shawnlin.numberpicker.NumberPicker
+                                    android:id="@+id/numberPick1"
+                                    android:layout_width="60dp"
+                                    android:layout_height="wrap_content"
+                                    android:contextClickable="false"
+                                    android:dividerPadding="0dp"
+                                    app:np_dividerColor="@android:color/transparent"
+                                    app:np_itemSpacing="-19dp"
+                                    app:np_selectedTextAlign="selectedTextAlignCenter"
+                                    app:np_selectedTextColor="@color/colorRed"
+                                    app:np_selectedTextSize="45sp"
+                                    app:np_textColor="@android:color/transparent"
+                                    app:np_textSize="25dp" />
 
-                            <com.shawnlin.numberpicker.NumberPicker
-                                android:id="@+id/numberPick3"
-                                android:layout_width="70dp"
-                                android:layout_height="wrap_content"
-                                android:contextClickable="false"
-                                android:dividerPadding="0dp"
-                                app:np_dividerColor="@android:color/transparent"
-                                app:np_itemSpacing="-16dp"
-                                app:np_selectedTextAlign="selectedTextAlignCenter"
-                                app:np_selectedTextColor="@android:color/black"
-                                app:np_selectedTextSize="50sp"
-                                app:np_textSize="25dp" />
-                        </LinearLayout>
-                    </RelativeLayout>
+                                <com.shawnlin.numberpicker.NumberPicker
+                                    android:id="@+id/numberPick2"
+                                    android:layout_width="60dp"
+                                    android:layout_height="wrap_content"
+                                    android:contextClickable="false"
+                                    android:dividerPadding="0dp"
+                                    app:np_dividerColor="@android:color/transparent"
+                                    app:np_itemSpacing="-19dp"
+                                    app:np_selectedTextAlign="selectedTextAlignCenter"
+                                    app:np_selectedTextColor="@color/colorRed"
+                                    app:np_selectedTextSize="45dp"
+                                    app:np_textColor="@android:color/transparent"
+                                    app:np_textSize="25dp" />
 
+                                <com.shawnlin.numberpicker.NumberPicker
+                                    android:id="@+id/numberPick3"
+                                    android:layout_width="60dp"
+                                    android:layout_height="wrap_content"
+                                    android:contextClickable="false"
+                                    android:dividerPadding="0dp"
+                                    app:np_dividerColor="@android:color/transparent"
+                                    app:np_itemSpacing="-19dp"
+                                    app:np_selectedTextAlign="selectedTextAlignCenter"
+                                    app:np_selectedTextColor="@color/colorRed"
+                                    app:np_selectedTextSize="45dp"
+                                    app:np_textColor="@android:color/transparent"
+                                    app:np_textSize="25dp" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/imageView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="160dp"
+                                android:layout_centerInParent="true"
+                                android:elevation="3dp"
+                                android:src="@mipmap/background_random"
+                                android:scaleType="fitXY"/>
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:id="@+id/linearRandom"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:orientation="vertical">
 
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relativeTapCoin"
@@ -98,7 +123,7 @@
                     android:layout_height="55dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="25dp"
                     app:cardCornerRadius="26dp"
                     app:cardElevation="2dp">
 
@@ -114,28 +139,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="45dp"
-                    android:layout_marginRight="45dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginRight="45dp"
                     android:layout_marginBottom="15dp"
+                    android:gravity="center"
                     android:background="@drawable/custom_button_title_point"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:gravity="center"
                         android:layout_weight="1">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
                             android:fontFamily="@font/medium"
                             android:text="Tap to Get Points"
                             android:textColor="@color/colorWhite"
-                            android:textSize="18sp"
+                            android:textSize="20dp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
@@ -154,11 +179,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="+100~990"
                         android:fontFamily="@font/bold"
+                        android:text="+100~990"
                         android:textColor="#FCD385" />
                 </RelativeLayout>
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/relativeWatchVideo"
                 android:layout_width="match_parent"
@@ -170,7 +196,7 @@
                     android:layout_height="55dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="25dp"
                     app:cardCornerRadius="26dp"
                     app:cardElevation="2dp">
 
@@ -186,14 +212,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="45dp"
-                    android:layout_marginRight="45dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginRight="45dp"
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/custom_button_title_point"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp">
 
                     <LinearLayout
+                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -202,12 +229,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
                             android:fontFamily="@font/medium"
                             android:text="Watch Video"
                             android:textColor="@color/colorWhite"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
@@ -226,11 +251,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="+100~990"
                         android:fontFamily="@font/bold"
+                        android:text="+100~990"
                         android:textColor="#FCD385" />
                 </RelativeLayout>
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/relativeCheckin"
                 android:layout_width="match_parent"
@@ -242,7 +268,7 @@
                     android:layout_height="55dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="25dp"
                     app:cardCornerRadius="26dp"
                     app:cardElevation="2dp">
 
@@ -258,14 +284,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="45dp"
-                    android:layout_marginRight="45dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginRight="45dp"
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/custom_button_title_point"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp">
 
                     <LinearLayout
+                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -274,18 +301,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
                             android:fontFamily="@font/medium"
                             android:text="Check-in"
                             android:textColor="@color/colorWhite"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:id="@+id/relWatchVideo"
                     android:layout_width="90dp"
                     android:layout_height="45dp"
                     android:layout_alignParentRight="true"
@@ -294,12 +318,11 @@
                     android:background="@drawable/custom_button_point">
 
                     <TextView
-                        android:id="@+id/txtWatchVideo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="+100~990"
                         android:fontFamily="@font/bold"
+                        android:text="+100~990"
                         android:textColor="#FCD385" />
                 </RelativeLayout>
             </RelativeLayout>

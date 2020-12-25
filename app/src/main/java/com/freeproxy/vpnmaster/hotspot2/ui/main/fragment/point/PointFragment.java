@@ -187,13 +187,13 @@ public class PointFragment extends Fragment {
                 long str = millisUntilFinished / 1000;
                 String TimeFinished = String.valueOf(str);
                 txtTapCoin.setText(TimeFinished + "s");
-                relTapCoin.setBackgroundColor(getResources().getColor(R.color.text_gray));
+                relTapCoin.setBackgroundResource(R.drawable.custom_button_point_counting);
             }
 
             public void onFinish() {
                 Common.checktap = 0;
                 txtTapCoin.setText("+100~990");
-                relTapCoin.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                relTapCoin.setBackgroundResource(R.drawable.custom_button_point);
                 Log.e(TAG, "onFinish: " + Common.checktap);
 
             }
@@ -207,12 +207,12 @@ public class PointFragment extends Fragment {
                 long str = millisUntilFinished / 1000;
                 String TimeFinished = String.valueOf(str);
                 txtWatchVideo.setText(TimeFinished + "s");
-                relWatchVideo.setBackgroundColor(getResources().getColor(R.color.text_gray));
+                relWatchVideo.setBackgroundResource(R.drawable.custom_button_point_counting);
             }
 
             public void onFinish() {
                 txtWatchVideo.setText("+100~990");
-                relWatchVideo.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                relWatchVideo.setBackgroundResource(R.drawable.custom_button_point);
             }
         };
         CountTwo.start();

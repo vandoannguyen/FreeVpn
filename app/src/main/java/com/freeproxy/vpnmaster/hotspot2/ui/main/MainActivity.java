@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
         presenter.getExample();
         initViewPager();
         initTabLayout();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Settings.canDrawOverlays(this)) {
             showDialogSetting();
         } else {
             rateAuto();
@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity implements IMainActivity, RatingD
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_OVERLAY_PERMISSION) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 if (Settings.canDrawOverlays(MainActivity.this)) {
                 }
             }

@@ -20,4 +20,5 @@
     <color name="color_numpicker">#F4D8A2</color>
     <color name="color_more">#FFC455</color>
     <color name="color_back_fragment">#FFFFFF</color>
+    <color name="button_primary2">#B7E5EB</color>
 </resources>

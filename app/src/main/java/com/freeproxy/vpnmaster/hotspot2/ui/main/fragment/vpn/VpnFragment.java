@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,8 +54,8 @@ public class VpnFragment extends Fragment implements IVpnView {
     LinearLayout lineGetCoin;
     @BindView(R.id.lineGetServer)
     LinearLayout lineGetServer;
-    @BindView(R.id.lineGetSpeedTest)
-    LinearLayout lineGetSpeedTest;
+    @BindView(R.id.relativeGetSpeedTest)
+    RelativeLayout relativeGetSpeedTest;
     @BindView(R.id.linearConnected)
     LinearLayout linearConnected;
     @BindView(R.id.imgConnect)
@@ -207,7 +208,7 @@ public class VpnFragment extends Fragment implements IVpnView {
         return false;
     }
 
-    @OnClick({R.id.imgConnect, R.id.quickFacebook, R.id.quickGoogle, R.id.quickGmail, R.id.lineSwitchCountry, R.id.lineDisconnect, R.id.lineGetCoin, R.id.lineGetServer, R.id.lineGetSpeedTest})
+    @OnClick({R.id.imgConnect, R.id.quickFacebook, R.id.quickGoogle, R.id.quickGmail, R.id.lineSwitchCountry, R.id.lineDisconnect, R.id.lineGetCoin, R.id.lineGetServer, R.id.relativeGetSpeedTest})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imgConnect: {
@@ -229,7 +230,7 @@ public class VpnFragment extends Fragment implements IVpnView {
                 intentToOther(SwitchRegion.class, SWITCH_REQUEST_CODE);
             }
             break;
-            case R.id.lineGetSpeedTest: {
+            case R.id.relativeGetSpeedTest: {
                 intentToOther(SpeedTest.class);
                 break;
             }
