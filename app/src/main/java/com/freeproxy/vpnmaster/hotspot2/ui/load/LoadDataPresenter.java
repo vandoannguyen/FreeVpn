@@ -310,7 +310,9 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
 
                     if (s != null) {
                         JSONObject adObject = s.getJSONObject("configs");
+                        percents = adObject.getInt("percents_inter");
                     }
+                    Config.percentInter = percents;
                     isLoadAdsSuccess = true;
                     intentToMain();
                 } catch (

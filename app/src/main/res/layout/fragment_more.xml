@@ -219,7 +219,7 @@
                             android:layout_gravity="center|left"
                             android:layout_marginLeft="35dp"
                             android:fontFamily="@font/medium"
-                            android:text="Like Rich VPN"
+                            android:text="Like Secure VPN"
                             android:textColor="@color/colorWhite"
                             android:textSize="22sp"
                             android:textStyle="bold" />

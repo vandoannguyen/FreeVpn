@@ -43,7 +43,7 @@
                 android:textSize="16sp"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:text="1. Invite friends to install Rich VPN"
+                android:text="1. Invite friends to install Secure VPN"
                 android:layout_width="wrap_content"
                 android:layout_margin="10dp"
                 android:textStyle="italic"

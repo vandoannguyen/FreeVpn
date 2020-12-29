@@ -30,7 +30,8 @@ public class ApiHepler implements IApiHelper {
 
     @Override
     public void getAdsConfig(CallBack<JSONObject> callBack) {
-        AndroidNetworking.get("https://api.oneadx.com/configs/5fb3e1a6d1c04c042b151378")
+        AndroidNetworking.get("https://api.oneadx.com/configs/5f9f78e4d1c04c042b15136f")
+//        AndroidNetworking.get("https://api.oneadx.com/configs/5fb3e1a6d1c04c042b151378")
                 .setPriority(Priority.LOW)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
