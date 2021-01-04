@@ -5,8 +5,8 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "com.securevpn.free.vpnmaster"
-//        applicationId "com.oneadx.libadsinapp"
+//        applicationId "com.securevpn.free.vpnmaster"
+        applicationId "com.oneadx.libadsinapp"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 5
@@ -68,9 +68,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
 //    libCty
+    // Add cai nay
     implementation 'com.google.android.gms:play-services-ads:19.6.0'
     implementation 'com.facebook.android:audience-network-sdk:5.+'
-    implementation 'com.unity3d:network-sdk:6.0.4' // lib ngoai
-    implementation 'com.oneadx:oneads-sdk:0.0.35' // lib trong
-    implementation 'com.yolo:audience-network-sdk:1.0.0'
+    implementation 'com.unity3d:network-sdk:6.0.5' // lib ngoai
+    implementation 'com.oneadx:oneads-sdk:0.0.37' // lib trong
+    implementation 'com.yolo:audience-network-sdk:1.0.1'
 }

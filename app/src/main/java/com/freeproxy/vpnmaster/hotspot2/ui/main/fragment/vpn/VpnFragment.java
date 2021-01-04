@@ -156,7 +156,17 @@ public class VpnFragment extends Fragment implements IVpnView {
 
             @Override
             public void onError() {
-                adBanner = new AdBanner(getActivity(), frameAds, null);
+                adBanner = new AdBanner(getActivity(), frameAds, new AdBanner.AdBannerListener() {
+                    @Override
+                    public void onAdLoaded() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        frameAds.setVisibility(View.INVISIBLE);
+                    }
+                });
                 adBanner.setAdSize(AdSize.BIG_BANNER);
                 adBanner.load();
             }

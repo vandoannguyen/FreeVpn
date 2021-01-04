@@ -8,6 +8,4 @@ public class Config {
     public static boolean isDebug = true;
     static String PREF_USAGE = "daily_usage";
     public static String StringCountDown;
-
-
 }

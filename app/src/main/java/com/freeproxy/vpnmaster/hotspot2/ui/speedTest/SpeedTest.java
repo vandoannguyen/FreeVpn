@@ -17,7 +17,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.freeproxy.vpnmaster.hotspot2.R;
-import com.freeproxy.vpnmaster.hotspot2.common.Config;
 import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogLoading;
 import com.freeproxy.vpnmaster.hotspot2.ui.speedTest.test.HttpDownloadTest;
 import com.freeproxy.vpnmaster.hotspot2.ui.speedTest.test.HttpUploadTest;
@@ -95,6 +94,12 @@ public class SpeedTest extends AppCompatActivity {
         inter.load();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        inter.destroy();
+    }
+
     @OnClick({R.id.btnBack, R.id.btnTest})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -102,18 +107,14 @@ public class SpeedTest extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.btnTest:
-                if (Config.getRandom()) {
-                    DialogLoading.showDialog(this);
-                    inter.show(new AdListener() {
-                        @Override
-                        public void onAdClosed() {
-                            DialogLoading.dismish();
-                            startTest();
-                        }
-                    });
-                } else {
-                    startTest();
-                }
+                DialogLoading.showDialog(this);
+                inter.show(new AdListener() {
+                    @Override
+                    public void onAdClosed() {
+                        DialogLoading.dismish();
+                        startTest();
+                    }
+                });
                 break;
         }
     }

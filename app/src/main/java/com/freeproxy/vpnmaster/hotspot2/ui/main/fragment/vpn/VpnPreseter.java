@@ -23,14 +23,12 @@ import com.freeproxy.vpnmaster.hotspot2.base.BasePresenter;
 import com.freeproxy.vpnmaster.hotspot2.common.Config;
 import com.freeproxy.vpnmaster.hotspot2.data.AppDataHelper;
 import com.freeproxy.vpnmaster.hotspot2.data.CallBack;
-import com.freeproxy.vpnmaster.hotspot2.data.IAppDataHelper;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Country;
 import com.freeproxy.vpnmaster.hotspot2.data.api.model.Server;
 import com.freeproxy.vpnmaster.hotspot2.ui.dialog.DialogLoading;
 import com.freeproxy.vpnmaster.hotspot2.ui.switchRegion.SwitchRegion;
 import com.freeproxy.vpnmaster.hotspot2.utils.Common;
 import com.freeproxy.vpnmaster.hotspot2.utils.EncryptData;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;
 import com.oneadx.android.oneads.AdInterstitial;
 import com.oneadx.android.oneads.AdListener;
@@ -65,7 +63,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
     IOpenVPNServiceInternal mService;
     CountDownTimer ConnectionTimer;
     boolean EnableConnectButton = true;
-//    String FileID = "NULL", City = "NULL", Image = "NULL";
+    //    String FileID = "NULL", City = "NULL", Image = "NULL";
 //    InterstitialAd interstitialAd, interstitialAdConnect;
 //    private Class classIntentScreen = null;
     private AdInterstitial inter;
@@ -355,18 +353,14 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
             setConnectionStatus(0);
             view.showDialogPoint();
         } else {
-
-            if (Config.getRandom()) {
-                view.showLoading();
-                inter.show(new AdListener() {
-                    @Override
-                    public void onAdClosed() {
-                        connect();
-                        view.hideLoading();
-                    }
-                });
-            } else
-                connect();
+            view.showLoading();
+            inter.show(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    connect();
+                    view.hideLoading();
+                }
+            });
         }
 
     }
@@ -509,15 +503,13 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
     public void pressDisConnect() {
         stop_vpn();
         App.isStart = false;
-        if (Config.getRandom()) {
-            DialogLoading.showDialog(activity);
-            inter.show(new AdListener() {
-                @Override
-                public void onAdClosed() {
-                    DialogLoading.dismish();
-                }
-            });
-        }
+        DialogLoading.showDialog(activity);
+        inter.show(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                DialogLoading.dismish();
+            }
+        });
     }
 
     @Override
@@ -538,6 +530,7 @@ public class VpnPreseter<V extends IVpnView> extends BasePresenter<V> implements
         File = En.decrypt(Config.currentServer.getVpnConfig());
         Log.e(TAG, "configDataServer: " + File);
     }
+
     private void startAnimationLoading() {
     }
 

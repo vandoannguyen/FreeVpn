@@ -39,7 +39,6 @@ public class LoadData extends AppCompatActivity implements ILoadDataView {
             presenter.intentMain();
         } else {
             presenter.login();
-            presenter.getConfigAds();
             presenter.getCoin();
             presenter.getQuickLaunch();
             presenter.initAds();

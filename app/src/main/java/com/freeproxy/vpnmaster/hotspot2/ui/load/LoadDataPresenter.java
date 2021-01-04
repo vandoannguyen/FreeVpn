@@ -41,8 +41,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     AppCompatActivity activity;
     boolean isLoadCountrySuccess = false,
             isLoadDataFastConnectSuccess = false,
-            isGetCoinSuccess = false,
-            isLoadAdsSuccess = false;
+            isGetCoinSuccess = false;
     String checkAppData = "";
     private boolean isInitAdsSuccess = false;
 
@@ -196,7 +195,7 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
     }
 
     private void intentToMain() {
-        if (isGetCoinSuccess && isLoadAdsSuccess && isLoadCountrySuccess && isInitAdsSuccess) {
+        if (isGetCoinSuccess && isLoadCountrySuccess && isInitAdsSuccess) {
             Config.isDataLoaded = true;
             if (checkAppData.isEmpty()) {
                 intentMain();
@@ -298,83 +297,6 @@ public class LoadDataPresenter<V extends ILoadDataView> extends BasePresenter<V>
 
             }
         });
-    }
-
-    public void getConfigAds() {
-        AppDataHelper.getInstance().getAdsConfig(new CallBack<JSONObject>() {
-            @Override
-            public void onSuccess(JSONObject s) {
-                super.onSuccess(s);
-                try {
-                    int percents = 0;
-
-                    if (s != null) {
-                        JSONObject adObject = s.getJSONObject("configs");
-                        percents = adObject.getInt("percents_inter");
-                    }
-                    Config.percentInter = percents;
-                    isLoadAdsSuccess = true;
-                    intentToMain();
-                } catch (
-                        Exception e) {
-                    Log.e("TAG", "onPostExecute: " + e);
-                    isLoadAdsSuccess = false;
-                    Toast.makeText(activity, "Load data failed!", Toast.LENGTH_SHORT).show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            activity.finish();
-                        }
-                    }, 3000);
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    static class AdsMordel {
-        private String rewared;
-
-        public AdsMordel(String banner, String inter, String nativeAds, String rewared, int percent) {
-            this.banner = banner;
-            this.inter = inter;
-            this.nativeAds = nativeAds;
-            this.percent = percent;
-            this.rewared = rewared;
-        }
-
-        String banner, inter, nativeAds;
-        int percent;
-
-        public static String toJson(AdsMordel mordel) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("ad_banner_id", mordel.banner);
-                jsonObject.put("ad_inter_id", mordel.inter);
-                jsonObject.put("ad_native_id", mordel.nativeAds);
-                jsonObject.put("rewar_id_admob", mordel.rewared);
-                jsonObject.put("percents", mordel.percent);
-                return jsonObject.toString();
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        public static AdsMordel fromJson(String json) {
-            try {
-                JSONObject jsonObject = new JSONObject(json);
-                return new AdsMordel(jsonObject.getString("ad_banner_id"),
-                        jsonObject.getString("ad_inter_id"),
-                        jsonObject.getString("ad_native_id"),
-                        jsonObject.getString("rewar_id_admob"),
-                        jsonObject.getInt("percents"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return null;
-            }
-
-        }
     }
 
     @Override

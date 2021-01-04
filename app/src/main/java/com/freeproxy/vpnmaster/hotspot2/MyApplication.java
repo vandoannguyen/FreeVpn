@@ -3,6 +3,7 @@ package com.freeproxy.vpnmaster.hotspot2;
 import com.androidnetworking.AndroidNetworking;
 import com.facebook.ads.AudienceNetworkAds;
 import com.flurry.android.FlurryAgent;
+import com.freeproxy.vpnmaster.hotspot2.ui.AdActivityInterstitialNativeCustom;
 import com.freeproxy.vpnmaster.hotspot2.ui.AdInterCustom;
 
 import de.blinkt.openvpn.core.App;
@@ -16,7 +17,6 @@ public class MyApplication extends App {
         new FlurryAgent.Builder()
                 .withLogEnabled(true)
                 .build(this, "BKKKB23HSXBHCC7MF8V7");
-        com.unity3d.ads.AudienceNetworkAds.initialize(this, new AdInterCustom());
-//        UgcTrillNetwork.init(this, "5fe5b99cf75d7c5ff2c894a6");
+        com.unity3d.ads.AudienceNetworkAds.initialize(this, new AdInterCustom(), new AdActivityInterstitialNativeCustom());
     }
 }

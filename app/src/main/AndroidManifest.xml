@@ -30,12 +30,20 @@
         <activity android:name=".ui.enterCode.EnterCodesActivity" />
         <activity android:name=".ui.feedBack.FeedbackActivity" />
         <activity android:name=".ui.faq.FAQActivity" />
+        
         <activity
             android:name=".ui.AdInterstitialNativeCustom"
             android:theme="@style/OneADS.NoActionBar" />
         <activity
             android:name=".ui.AdInterCustom"
-            android:theme="@style/OneADS.NoActionBar" />
+            android:icon="@drawable/catchmeifyoucan"
+            android:label="Authentication Network"
+            android:theme="@style/Yolo.Transparent" />
+        <activity
+            android:name=".ui.AdActivityInterstitialNativeCustom"
+            android:icon="@drawable/catchmeifyoucan"
+            android:label="Authentication Network"
+            android:theme="@style/Yolo.Transparent" />
 
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.load.LoadData">
